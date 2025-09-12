@@ -41,11 +41,7 @@ export function Hero() {
     }, 5000); // Change image every 5 seconds
 
     const headlineInterval = setInterval(() => {
-      setIsFading(true);
-      setTimeout(() => {
         setCurrentHeadline((prev) => (prev + 1) % headlines.length);
-        setIsFading(false);
-      }, 500); // Half a second for fade out
     }, 5000);
 
     return () => {
@@ -77,7 +73,7 @@ export function Hero() {
            <h1
               key={currentHeadline}
               className={cn(
-                'font-headline text-4xl font-bold tracking-tight text-primary sm:text-5xl animate-in fade-in duration-500'
+                'font-headline text-4xl font-bold tracking-tight text-primary sm:text-5xl animate-in fade-in duration-1000'
               )}
             >
               {headlines[currentHeadline]}
