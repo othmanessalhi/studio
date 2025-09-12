@@ -9,8 +9,8 @@
     },
     {
       "id": "about-jaouad",
-      "description": "Professional portrait of Jaouad Afella.",
-      "imageUrl": "https://storage.googleapis.com/project-os-frontend/images/dakhla-real-estate/9d9546d1-e633-4f51-a189-e18987b1c31d.png",
+      "description": "Professional portrait of Jaouad Afella in his office.",
+      "imageUrl": "https://storage.googleapis.com/project-os-frontend/images/dakhla-real-estate/13444498-80f4-41d3-a55d-85261a868a5c.jpeg",
       "imageHint": "male portrait"
     },
     {
@@ -87,4 +87,3 @@
     }
   ]
 }
-
