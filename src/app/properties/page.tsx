@@ -1,9 +1,15 @@
 
+'use client';
+
 import { PropertyList } from "@/components/properties/PropertyList";
 import type { Metadata } from 'next';
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { useEffect, useRef, useState } from "react";
+import { cn } from "@/lib/utils";
 
+// Note: Metadata is usually not used in client components, but we can keep it for now as Next.js might handle it.
+// For a pure client component, you might move this to a parent layout or page if needed for SEO.
 export const metadata: Metadata = {
   title: 'Land for Sale in Dakhla | Dakhla Land Elite',
   description: 'Browse exclusive listings of land for sale in Dakhla, Morocco. Filter by price, size, and location to find your perfect investment property with Jaouad Afella Properties.',
@@ -12,9 +18,19 @@ export const metadata: Metadata = {
 const propertiesHeroImage = PlaceHolderImages.find(p => p.id === 'properties-hero');
 
 export default function PropertiesPage() {
+  const [isHeroVisible, setHeroVisible] = useState(false);
+  const heroRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    // We can set it to true directly to trigger animation on load,
+    // or use an observer if we want to trigger on scroll into view (less common for a hero).
+    // For a hero, animating on load is usually desired.
+    setHeroVisible(true); 
+  }, []);
+
   return (
     <>
-      <section className="relative flex h-[50vh] min-h-[400px] items-center justify-center text-center">
+      <section ref={heroRef} className="relative flex h-[50vh] min-h-[400px] items-center justify-center text-center overflow-hidden">
          {propertiesHeroImage && (
             <Image
                 src={propertiesHeroImage.imageUrl}
@@ -27,10 +43,10 @@ export default function PropertiesPage() {
          )}
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 container mx-auto text-primary-foreground">
-          <h1 className="font-headline text-4xl font-bold tracking-tight text-primary md:text-5xl">
+          <h1 className={cn("font-headline text-4xl font-bold tracking-tight text-primary md:text-5xl transition-all duration-1000", isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
             Available Land Plots
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-background/90 md:text-xl">
+          <p className={cn("mx-auto mt-4 max-w-2xl text-lg text-background/90 md:text-xl transition-all duration-1000 delay-300", isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
             Explore our curated selection of premium land in Dakhla. Each plot represents a unique opportunity for growth and prosperity in this dynamic region.
           </p>
         </div>
