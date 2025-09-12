@@ -14,7 +14,7 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { runInvestmentAnalysis } from '@/lib/actions';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Loader, Sparkles, AlertCircle, TrendingUp, Shield, BarChart2 } from 'lucide-react';
 import { ScrollArea } from '../ui/scroll-area';
@@ -44,7 +44,7 @@ function SubmitButton() {
 }
 
 export function InvestmentAnalysisTool({ open, onOpenChange }: InvestmentAnalysisToolProps) {
-  const [state, formAction] = useActionState(runInvestmentAnalysis, {});
+  const [state, formAction, isPending] = useActionState(runInvestmentAnalysis, {});
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
 
