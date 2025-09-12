@@ -17,37 +17,37 @@
       "id": "property-1",
       "description": "Vast, flat plot of land in Dakhla under a clear blue sky, suitable for large-scale projects.",
       "imageUrl": "https://picsum.photos/seed/101/600/400",
-      "imageHint": "vast desert"
+      "imageHint": "vast land"
     },
     {
       "id": "property-2",
-      "description": "A stunning coastal plot with direct access to a sandy beach.",
+      "description": "A stunning luxury villa with a pool with direct access to a sandy beach.",
       "imageUrl": "https://picsum.photos/seed/102/600/400",
-      "imageHint": "beachfront property"
+      "imageHint": "luxury villa"
     },
     {
       "id": "property-3",
       "description": "A large plot of land located in a developing industrial zone with infrastructure.",
       "imageUrl": "https://picsum.photos/seed/103/600/400",
-      "imageHint": "industrial zone"
+      "imageHint": "industrial land"
     },
     {
       "id": "property-4",
-      "description": "A serene and secluded plot of land in the quiet desert.",
+      "description": "A serene and secluded modern house in the quiet desert.",
       "imageUrl": "https://picsum.photos/seed/104/600/400",
-      "imageHint": "desert retreat"
+      "imageHint": "desert house"
     },
     {
       "id": "property-5",
-      "description": "A plot of land with a beautiful view over the Dakhla lagoon.",
+      "description": "A beautiful house with a view over the Dakhla lagoon.",
       "imageUrl": "https://picsum.photos/seed/105/600/400",
-      "imageHint": "lagoon view"
+      "imageHint": "house lagoon"
     },
     {
       "id": "property-6",
-      "description": "A plot of land on a corner in a developing urban area, ideal for commercial use.",
+      "description": "A plot of land on a corner in a developing urban area, ideal for a modern apartment building.",
       "imageUrl": "https://picsum.photos/seed/106/600/400",
-      "imageHint": "city street"
+      "imageHint": "modern apartment"
     },
     {
       "id": "dakhla-investment",
@@ -87,3 +87,4 @@
     }
   ]
 }
+

@@ -12,17 +12,13 @@ import { Logo } from '../shared/Logo';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 
-interface MobileNavProps {
-  isScrolled: boolean;
-}
-
-export function MobileNav({ isScrolled }: MobileNavProps) {
+export function MobileNav() {
   const pathname = usePathname();
   return (
     <Sheet>
       <SheetTrigger asChild>
         <Button variant="ghost" size="icon">
-          <Menu className={cn(isScrolled || pathname !== '/' ? 'text-foreground' : 'text-background')} />
+          <Menu className="text-foreground" />
           <span className="sr-only">Toggle navigation menu</span>
         </Button>
       </SheetTrigger>

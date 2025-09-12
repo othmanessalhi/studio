@@ -20,12 +20,14 @@ export function Header() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+  
+  const isHomePage = pathname === '/';
 
   return (
     <header
       className={cn(
         'sticky top-0 z-50 w-full transition-all duration-300',
-        isScrolled ? 'bg-background/80 shadow-md backdrop-blur-sm' : 'bg-transparent'
+        isScrolled || isHomePage ? 'bg-background/80 shadow-md backdrop-blur-sm' : 'bg-background'
       )}
     >
       <div className="container mx-auto flex h-20 items-center justify-between">
@@ -37,7 +39,7 @@ export function Header() {
               href={link.href}
               className={cn(
                 'font-headline text-sm font-medium transition-colors hover:text-primary',
-                pathname === link.href ? 'text-primary' : isScrolled || pathname !== '/' ? 'text-foreground' : 'text-background'
+                pathname === link.href ? 'text-primary' : 'text-foreground'
               )}
             >
               {link.label}
@@ -50,7 +52,7 @@ export function Header() {
           </Button>
         </div>
         <div className="md:hidden">
-          <MobileNav isScrolled={isScrolled} />
+          <MobileNav />
         </div>
       </div>
     </header>
