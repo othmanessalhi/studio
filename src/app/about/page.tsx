@@ -1,25 +1,34 @@
+
+'use client';
+
 import Image from 'next/image';
 import { CheckCircle, Award, Target } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import type { Metadata } from 'next';
+import { useState, useEffect, useRef } from 'react';
+import { cn } from '@/lib/utils';
 
-export const metadata: Metadata = {
-  title: 'About Jaouad Afella | Dakhla Land Elite',
-  description: 'Learn about Jaouad Afella, the leading real estate expert for land investment in Dakhla, Morocco. Discover our mission, values, and commitment to client success.',
-};
 
 const aboutImage = PlaceHolderImages.find(p => p.id === 'about-jaouad');
 const investmentImage = PlaceHolderImages.find(p => p.id === 'dakhla-investment');
 
 export default function AboutPage() {
+  const [isHeroVisible, setHeroVisible] = useState(false);
+  const heroRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setHeroVisible(true), 100); 
+    return () => clearTimeout(timer);
+  }, []);
+  
   return (
     <>
-      <section className="bg-card">
+      <section ref={heroRef} className="bg-card">
         <div className="container mx-auto pt-12 text-center">
-          <h1 className="font-headline text-4xl font-bold tracking-tight text-primary md:text-5xl">
+          <h1 className={cn("font-headline text-4xl font-bold tracking-tight text-primary md:text-5xl transition-all duration-1000", isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
             The Visionary Behind Dakhla's Premier Land Agency
           </h1>
-          <p className="mx-auto mt-4 max-w-3xl text-lg text-muted-foreground">
+          <p className={cn("mx-auto mt-4 max-w-3xl text-lg text-muted-foreground transition-all duration-1000 delay-300", isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
             A legacy of trust, a future of prosperity.
           </p>
         </div>

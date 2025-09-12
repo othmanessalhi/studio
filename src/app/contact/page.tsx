@@ -1,3 +1,6 @@
+
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -5,11 +8,8 @@ import { ContactForm } from '@/components/contact/ContactForm';
 import { Button } from '@/components/ui/button';
 import { Mail, Phone } from 'lucide-react';
 import type { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Contact Us | Dakhla Land Elite',
-  description: 'Get in touch with Jaouad Afella Properties to discuss your land investment goals in Dakhla. Contact us via form, phone, or visit our office.',
-};
+import { useState, useEffect, useRef } from 'react';
+import { cn } from '@/lib/utils';
 
 
 const mapImage = PlaceHolderImages.find(p => p.id === 'contact-map');
@@ -19,14 +19,22 @@ const WhatsAppIcon = () => (
 )
 
 export default function ContactPage() {
+    const [isHeroVisible, setHeroVisible] = useState(false);
+    const heroRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setHeroVisible(true), 100); 
+        return () => clearTimeout(timer);
+    }, []);
+
   return (
     <>
-      <section className="bg-card">
+      <section ref={heroRef} className="bg-card">
         <div className="container mx-auto text-center">
-          <h1 className="font-headline text-4xl font-bold tracking-tight text-primary md:text-5xl">
+          <h1 className={cn("font-headline text-4xl font-bold tracking-tight text-primary md:text-5xl transition-all duration-1000", isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
             Connect With Us
           </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground">
+          <p className={cn("mx-auto mt-4 max-w-2xl text-lg text-muted-foreground transition-all duration-1000 delay-300", isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
             Your journey towards a landmark investment in Dakhla begins here. Reach out to our team for personalized consultations and property inquiries.
           </p>
         </div>

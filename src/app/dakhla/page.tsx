@@ -1,3 +1,6 @@
+
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
@@ -5,11 +8,9 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { InvestmentCharts } from '@/components/dakhla/InvestmentCharts';
 import type { Metadata } from 'next';
 import { ArrowRight, Anchor, Wind, Sun, Waves } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { cn } from '@/lib/utils';
 
-export const metadata: Metadata = {
-  title: 'Why Invest in Dakhla | Dakhla Land Elite',
-  description: 'Discover the compelling reasons to invest in Dakhla, Morocco. Learn about the economic boom, strategic projects, and tourism growth that make Dakhla a top choice for land investment.',
-};
 
 const portImage = PlaceHolderImages.find(p => p.id === 'dakhla-port');
 const tourismImage = PlaceHolderImages.find(p => p.id === 'dakhla-tourism');
@@ -17,14 +18,22 @@ const energyImage = PlaceHolderImages.find(p => p.id === 'dakhla-energy');
 
 
 export default function WhyDakhlaPage() {
+    const [isHeroVisible, setHeroVisible] = useState(false);
+    const heroRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const timer = setTimeout(() => setHeroVisible(true), 100); 
+        return () => clearTimeout(timer);
+    }, []);
+
   return (
     <>
-      <section className="bg-card">
+      <section ref={heroRef} className="bg-card">
         <div className="container mx-auto text-center">
-          <h1 className="font-headline text-4xl font-bold tracking-tight text-primary md:text-5xl">
+          <h1 className={cn("font-headline text-4xl font-bold tracking-tight text-primary md:text-5xl transition-all duration-1000", isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
             Dakhla: The Atlantic's Rising Star
           </h1>
-          <p className="mx-auto mt-4 max-w-3xl text-lg text-muted-foreground">
+          <p className={cn("mx-auto mt-4 max-w-3xl text-lg text-muted-foreground transition-all duration-1000 delay-300", isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
             More than just a pristine landscape, Dakhla is a region undergoing a profound transformation. Strategic vision and massive investment are unlocking its potential as a global hub for trade, tourism, and sustainable energy.
           </p>
         </div>
