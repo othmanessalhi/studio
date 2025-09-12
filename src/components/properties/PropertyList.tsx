@@ -1,13 +1,16 @@
 
+
 'use client';
 
 import { useState, useMemo } from 'react';
-import { MOCK_PROPERTIES, Property } from '@/lib/constants';
+import { MOCK_PROPERTIES_EN, MOCK_PROPERTIES_AR, Property } from '@/lib/constants';
 import { PropertyCard } from './PropertyCard';
 import { PropertyFilters } from './PropertyFilters';
 import { Button } from '../ui/button';
 import { BrainCircuit } from 'lucide-react';
 import { InvestmentAnalysisTool } from './InvestmentAnalysisTool';
+import { useTranslation } from '@/hooks/use-translation';
+
 
 export type Filters = {
   location: string;
@@ -16,6 +19,9 @@ export type Filters = {
 };
 
 export function PropertyList() {
+  const { t, language } = useTranslation();
+  const MOCK_PROPERTIES = language === 'ar' ? MOCK_PROPERTIES_AR : MOCK_PROPERTIES_EN;
+
   const [filters, setFilters] = useState<Filters>({
     location: 'all',
     price: 'all',
@@ -28,7 +34,7 @@ export function PropertyList() {
       const { location, price, size } = filters;
 
       // Location filter
-      if (location !== 'all' && property.location !== location) {
+      if (location !== 'all' && property.locationKey !== location) {
         return false;
       }
 
@@ -50,7 +56,7 @@ export function PropertyList() {
 
       return true;
     });
-  }, [filters]);
+  }, [filters, MOCK_PROPERTIES]);
 
   return (
     <div>
@@ -58,7 +64,7 @@ export function PropertyList() {
         <PropertyFilters filters={filters} setFilters={setFilters} />
         <Button onClick={() => setAnalysisOpen(true)} className="w-full md:w-auto">
           <BrainCircuit className="mr-2" />
-          AI Investment Analysis
+          {t('ai_investment_analysis')}
         </Button>
       </div>
       
@@ -70,8 +76,8 @@ export function PropertyList() {
         </div>
       ) : (
         <div className="py-16 text-center text-muted-foreground">
-          <p className="text-lg">No properties match the current filters.</p>
-          <p>Try adjusting your search criteria.</p>
+          <p className="text-lg">{t('no_properties_match')}</p>
+          <p>{t('try_adjusting_search')}</p>
         </div>
       )}
 
@@ -79,3 +85,4 @@ export function PropertyList() {
     </div>
   );
 }
+

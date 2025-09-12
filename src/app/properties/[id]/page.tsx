@@ -1,26 +1,21 @@
-import { MOCK_PROPERTIES, Property } from '@/lib/constants';
+
+'use client';
+import { MOCK_PROPERTIES_EN, MOCK_PROPERTIES_AR, Property } from '@/lib/constants';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { ArrowLeft, CheckCircle, Maximize, MapPin } from 'lucide-react';
+import { ArrowLeft, CheckCircle, Maximize, MapPin, ArrowRight } from 'lucide-react';
+import { useTranslation } from '@/hooks/use-translation';
 
-export async function generateStaticParams() {
-  return MOCK_PROPERTIES.map((property) => ({
-    id: property.id,
-  }));
-}
 
-function getProperty(id: string): Property | undefined {
-  return MOCK_PROPERTIES.find((p) => p.id === id);
-}
+export default function PropertyDetailsPage({ params }: { params: { id: string } }) {
+  const { t, language } = useTranslation();
+  
+  const MOCK_PROPERTIES = language === 'ar' ? MOCK_PROPERTIES_AR : MOCK_PROPERTIES_EN;
+  const property = MOCK_PROPERTIES.find((p) => p.id === params.id);
+  const arrowIcon = language === 'ar' ? <ArrowRight /> : <ArrowLeft />;
 
-interface PageProps {
-  params: { id: string };
-}
-
-export default function PropertyDetailsPage({ params }: PageProps) {
-  const property = getProperty(params.id);
 
   if (!property) {
     notFound();
@@ -34,8 +29,8 @@ export default function PropertyDetailsPage({ params }: PageProps) {
         <div className="container mx-auto">
           <Button asChild variant="outline" className="mb-8">
             <Link href="/properties">
-              <ArrowLeft className="mr-2 h-4 w-4" />
-              Back to Properties
+              {arrowIcon}
+              {t('back_to_properties')}
             </Link>
           </Button>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
@@ -63,12 +58,12 @@ export default function PropertyDetailsPage({ params }: PageProps) {
                 </div>
                 <div className="flex items-center gap-2">
                   <Maximize className="h-5 w-5 text-primary" />
-                  <span className="font-medium">{property.size.toLocaleString()} sqm</span>
+                  <span className="font-medium">{property.size.toLocaleString()} {t('sqm')}</span>
                 </div>
               </div>
               <p className="text-lg text-muted-foreground">{property.description}</p>
               <Button asChild size="lg">
-                <Link href="/contact">Inquire Now</Link>
+                <Link href="/contact">{t('inquire_now')}</Link>
               </Button>
             </div>
           </div>
@@ -78,7 +73,7 @@ export default function PropertyDetailsPage({ params }: PageProps) {
       <section>
         <div className="container mx-auto grid grid-cols-1 gap-16 md:grid-cols-2">
           <div>
-            <h2 className="font-headline text-3xl font-bold">Key Features</h2>
+            <h2 className="font-headline text-3xl font-bold">{t('key_features')}</h2>
             <ul className="mt-6 space-y-4">
               {property.features.map((feature, index) => (
                 <li key={index} className="flex items-center gap-3 text-lg">
@@ -89,7 +84,7 @@ export default function PropertyDetailsPage({ params }: PageProps) {
             </ul>
           </div>
           <div>
-            <h2 className="font-headline text-3xl font-bold">Property Location</h2>
+            <h2 className="font-headline text-3xl font-bold">{t('property_location')}</h2>
             <div className="mt-6 h-[400px] w-full overflow-hidden rounded-lg shadow-xl">
               <iframe
                 width="100%"
@@ -106,4 +101,15 @@ export default function PropertyDetailsPage({ params }: PageProps) {
       </section>
     </>
   );
+}
+
+// We need to tell Next.js about all possible property IDs for both languages
+export async function generateStaticParams() {
+    const enIds = MOCK_PROPERTIES_EN.map((property) => ({ id: property.id }));
+    const arIds = MOCK_PROPERTIES_AR.map((property) => ({ id: property.id }));
+    // Combine and remove duplicates
+    const allIds = [...enIds, ...arIds].filter(
+        (v, i, a) => a.findIndex((t) => t.id === v.id) === i
+    );
+    return allIds;
 }

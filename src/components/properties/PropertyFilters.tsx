@@ -1,3 +1,4 @@
+
 'use client';
 
 import {
@@ -8,6 +9,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Filters } from './PropertyList';
+import { useTranslation } from '@/hooks/use-translation';
 
 interface PropertyFiltersProps {
   filters: Filters;
@@ -15,6 +17,8 @@ interface PropertyFiltersProps {
 }
 
 export function PropertyFilters({ filters, setFilters }: PropertyFiltersProps) {
+  const { t } = useTranslation();
+
   const handleFilterChange = (filterName: keyof Filters, value: string) => {
     setFilters({ ...filters, [filterName]: value });
   };
@@ -26,14 +30,14 @@ export function PropertyFilters({ filters, setFilters }: PropertyFiltersProps) {
         onValueChange={(value) => handleFilterChange('location', value)}
       >
         <SelectTrigger className="w-full md:w-[180px]">
-          <SelectValue placeholder="Location" />
+          <SelectValue placeholder={t('location')} />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">All Locations</SelectItem>
-          <SelectItem value="Coastal">Coastal</SelectItem>
-          <SelectItem value="Inland">Inland</SelectItem>
-          <SelectItem value="Urban">Urban</SelectItem>
-          <SelectItem value="Industrial">Industrial</SelectItem>
+          <SelectItem value="all">{t('all_locations')}</SelectItem>
+          <SelectItem value="Coastal">{t('location_coastal')}</SelectItem>
+          <SelectItem value="Inland">{t('location_inland')}</SelectItem>
+          <SelectItem value="Urban">{t('location_urban')}</SelectItem>
+          <SelectItem value="Industrial">{t('location_industrial')}</SelectItem>
         </SelectContent>
       </Select>
       <Select
@@ -41,10 +45,10 @@ export function PropertyFilters({ filters, setFilters }: PropertyFiltersProps) {
         onValueChange={(value) => handleFilterChange('price', value)}
       >
         <SelectTrigger className="w-full md:w-[180px]">
-          <SelectValue placeholder="Price" />
+          <SelectValue placeholder={t('price')} />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">Any Price</SelectItem>
+          <SelectItem value="all">{t('any_price')}</SelectItem>
           <SelectItem value="0-200000">$0 - $200,000</SelectItem>
           <SelectItem value="200001-400000">$200,001 - $400,000</SelectItem>
           <SelectItem value="400001-9999999">$400,001+</SelectItem>
@@ -55,13 +59,13 @@ export function PropertyFilters({ filters, setFilters }: PropertyFiltersProps) {
         onValueChange={(value) => handleFilterChange('size', value)}
       >
         <SelectTrigger className="w-full md:w-[180px]">
-          <SelectValue placeholder="Size (sqm)" />
+          <SelectValue placeholder={`${t('size')} (${t('sqm')})`} />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="all">Any Size</SelectItem>
-          <SelectItem value="0-5000">0 - 5,000 sqm</SelectItem>
-          <SelectItem value="5001-10000">5,001 - 10,000 sqm</SelectItem>
-          <SelectItem value="10001-999999">10,001+ sqm</SelectItem>
+          <SelectItem value="all">{t('any_size')}</SelectItem>
+          <SelectItem value="0-5000">0 - 5,000 {t('sqm')}</SelectItem>
+          <SelectItem value="5001-10000">5,001 - 10,000 {t('sqm')}</SelectItem>
+          <SelectItem value="10001-999999">10,001+ {t('sqm')}</SelectItem>
         </SelectContent>
       </Select>
     </div>

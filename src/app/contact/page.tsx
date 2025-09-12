@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import Image from 'next/image';
@@ -9,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Mail, Phone } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/use-translation';
 
 
 const mapImage = PlaceHolderImages.find(p => p.id === 'contact-map');
@@ -21,6 +23,7 @@ const WhatsAppIcon = () => (
 export default function ContactPage() {
     const [isHeroVisible, setHeroVisible] = useState(false);
     const heroRef = useRef<HTMLDivElement>(null);
+    const { t } = useTranslation();
 
     useEffect(() => {
         const timer = setTimeout(() => setHeroVisible(true), 100); 
@@ -43,10 +46,10 @@ export default function ContactPage() {
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 container mx-auto text-primary-foreground">
           <h1 className={cn("font-headline text-4xl font-bold tracking-tight text-primary md:text-5xl transition-all duration-1000", isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
-            Connect With Us
+            {t('contact_hero_title')}
           </h1>
           <p className={cn("mx-auto mt-4 max-w-2xl text-lg text-background/90 md:text-xl transition-all duration-1000 delay-300", isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
-            Your journey towards a landmark investment in Dakhla begins here. Reach out to our team for personalized consultations and property inquiries.
+            {t('contact_hero_p')}
           </p>
         </div>
       </section>
@@ -54,13 +57,13 @@ export default function ContactPage() {
       <section>
         <div className="container mx-auto grid grid-cols-1 gap-16 md:grid-cols-2">
           <div className="space-y-8">
-            <h2 className="font-headline text-3xl font-bold">Send a Message</h2>
+            <h2 className="font-headline text-3xl font-bold">{t('send_a_message')}</h2>
             <ContactForm />
           </div>
           <div className="space-y-8">
-             <h2 className="font-headline text-3xl font-bold">Contact Information</h2>
+             <h2 className="font-headline text-3xl font-bold">{t('contact_info')}</h2>
              <div className="space-y-4 text-lg">
-                <p className="text-muted-foreground">We are available to answer your questions and guide you through every step of the investment process.</p>
+                <p className="text-muted-foreground">{t('contact_info_p')}</p>
                 <div className="flex items-center gap-4">
                     <Phone className="h-6 w-6 text-primary" />
                     <span>+212 5 28 89 77 00</span>
@@ -70,13 +73,13 @@ export default function ContactPage() {
                     <span>contact@dakhla-land-elite.com</span>
                 </div>
                 <p className="text-muted-foreground">
-                    Office: Avenue Al-Walaa, Dakhla, Morocco
+                    {t('contact_office_address')}
                 </p>
              </div>
              <Button asChild size="lg" className="bg-[#25D366] hover:bg-[#128C7E] text-white gap-2">
                 <Link href="https://wa.me/212528897700" target="_blank" rel="noopener noreferrer">
                     <WhatsAppIcon />
-                    Message on WhatsApp
+                    {t('message_on_whatsapp')}
                 </Link>
              </Button>
 
@@ -96,3 +99,4 @@ export default function ContactPage() {
     </>
   );
 }
+

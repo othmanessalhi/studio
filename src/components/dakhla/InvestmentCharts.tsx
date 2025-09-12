@@ -1,3 +1,4 @@
+
 'use client';
 
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
@@ -10,34 +11,38 @@ import {
 } from '@/components/ui/chart';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { ChartConfig } from '../ui/chart';
-
-const chartData = [
-  { sector: 'Tourism', current: 120, projected: 450, fill: 'var(--color-tourism)' },
-  { sector: 'Logistics', current: 80, projected: 600, fill: 'var(--color-logistics)' },
-  { sector: 'Energy', current: 150, projected: 700, fill: 'var(--color-energy)' },
-  { sector: 'Aquaculture', current: 200, projected: 550, fill: 'var(--color-aquaculture)' },
-];
-
-const chartConfig = {
-  current: {
-    label: 'Current Investment (Millions USD)',
-    color: 'hsl(var(--secondary-foreground))',
-  },
-  projected: {
-    label: 'Projected Investment (Millions USD)',
-    color: 'hsl(var(--primary))',
-  },
-} satisfies ChartConfig;
+import { useTranslation } from '@/hooks/use-translation';
 
 export function InvestmentCharts() {
+  const { t } = useTranslation();
+
+  const chartData = [
+    { sector: t('chart_sector_tourism'), current: 120, projected: 450, fill: 'var(--color-tourism)' },
+    { sector: t('chart_sector_logistics'), current: 80, projected: 600, fill: 'var(--color-logistics)' },
+    { sector: t('chart_sector_energy'), current: 150, projected: 700, fill: 'var(--color-energy)' },
+    { sector: t('chart_sector_aquaculture'), current: 200, projected: 550, fill: 'var(--color-aquaculture)' },
+  ];
+
+  const chartConfig = {
+    current: {
+      label: t('chart_legend_current'),
+      color: 'hsl(var(--secondary-foreground))',
+    },
+    projected: {
+      label: t('chart_legend_projected'),
+      color: 'hsl(var(--primary))',
+    },
+  } satisfies ChartConfig;
+
+
   return (
     <Card className='border-none shadow-none'>
       <CardHeader>
         <CardTitle className="text-center font-headline text-2xl">
-          Investment Growth by Sector (2024-2030)
+          {t('chart_title')}
         </CardTitle>
         <CardDescription className="text-center">
-          Projected public and private investment illustrating Dakhla's diverse economic expansion.
+          {t('chart_desc')}
         </CardDescription>
       </CardHeader>
       <CardContent>

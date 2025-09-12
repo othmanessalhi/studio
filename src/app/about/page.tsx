@@ -1,11 +1,13 @@
 
+
 'use client';
 
 import Image from 'next/image';
-import { CheckCircle, Award, Target } from 'lucide-react';
+import { CheckCircle, Award, Target, ArrowLeft } from 'lucide-react';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/use-translation';
 
 
 const aboutImage = PlaceHolderImages.find(p => p.id === 'about-jaouad');
@@ -15,6 +17,7 @@ const aboutHeroImage = PlaceHolderImages.find(p => p.id === 'about-hero');
 export default function AboutPage() {
   const [isHeroVisible, setHeroVisible] = useState(false);
   const heroRef = useRef<HTMLDivElement>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const timer = setTimeout(() => setHeroVisible(true), 100); 
@@ -37,10 +40,10 @@ export default function AboutPage() {
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 container mx-auto text-primary-foreground">
            <h1 className={cn("font-headline text-4xl font-bold tracking-tight text-primary md:text-5xl transition-all duration-1000", isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
-            The Visionary Behind Dakhla's Premier Land Agency
+            {t('about_hero_title')}
           </h1>
           <p className={cn("mx-auto mt-4 max-w-3xl text-lg text-background/90 md:text-xl transition-all duration-1000 delay-300", isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
-            A legacy of trust, a future of prosperity.
+            {t('about_hero_p')}
           </p>
         </div>
       </section>
@@ -48,15 +51,15 @@ export default function AboutPage() {
       <section>
         <div className="container mx-auto grid grid-cols-1 items-center gap-16 md:grid-cols-2">
           <div className="space-y-6">
-            <h2 className="font-headline text-3xl font-bold">About Jaouad Afella</h2>
+            <h2 className="font-headline text-3xl font-bold">{t('about_jaouad_title')}</h2>
             <p className="text-lg text-muted-foreground">
-              Jaouad Afella is more than a real estate agent; he is a cornerstone of the Dakhla property market. With a career spanning over two decades, he has meticulously cultivated a reputation for integrity, foresight, and an unwavering commitment to his clients' success.
+              {t('about_jaouad_p1')}
             </p>
             <p>
-              Born and raised in Morocco, Jaouad possesses an intrinsic understanding of the cultural and economic landscapes that shape the nation's real estate trends. He was among the first to recognize Dakhla's nascent potential, dedicating his focus to the region long before it captured the international spotlight. This pioneering spirit has granted him an unparalleled network and a portfolio of the most exclusive land opportunities available.
+              {t('about_jaouad_p2')}
             </p>
             <p>
-              His philosophy is simple: to facilitate investments that are not only profitable but also contribute positively to the sustainable development of the Dakhla region.
+              {t('about_jaouad_p3')}
             </p>
           </div>
           <div className="overflow-hidden rounded-lg shadow-2xl">
@@ -76,23 +79,23 @@ export default function AboutPage() {
         <div className="container mx-auto grid grid-cols-1 gap-12 md:grid-cols-3">
           <div className="flex flex-col items-center text-center">
             <Target className="h-12 w-12 text-primary" />
-            <h3 className="mt-4 font-headline text-2xl font-semibold">Our Mission</h3>
+            <h3 className="mt-4 font-headline text-2xl font-semibold">{t('our_mission_title')}</h3>
             <p className="mt-2 text-muted-foreground">
-              To be the most trusted and sought-after real estate partner for land investment in Dakhla, providing our clients with secure, high-return opportunities through expert guidance and unmatched market access.
+              {t('our_mission_p')}
             </p>
           </div>
           <div className="flex flex-col items-center text-center">
             <Award className="h-12 w-12 text-primary" />
-            <h3 className="mt-4 font-headline text-2xl font-semibold">Our Credibility</h3>
+            <h3 className="mt-4 font-headline text-2xl font-semibold">{t('our_credibility_title')}</h3>
             <p className="mt-2 text-muted-foreground">
-              Built on a foundation of successful transactions and satisfied investors, our credibility is our greatest asset. We operate with complete transparency and a deep-seated ethical code.
+              {t('our_credibility_p')}
             </p>
           </div>
           <div className="flex flex-col items-center text-center">
             <CheckCircle className="h-12 w-12 text-primary" />
-            <h3 className="mt-4 font-headline text-2xl font-semibold">Our Values</h3>
+            <h3 className="mt-4 font-headline text-2xl font-semibold">{t('our_values_title')}</h3>
             <p className="mt-2 text-muted-foreground">
-              Integrity, Excellence, and Partnership. We believe in building long-term relationships and ensuring every client feels confident and valued throughout their investment journey.
+              {t('our_values_p')}
             </p>
           </div>
         </div>
@@ -109,8 +112,8 @@ export default function AboutPage() {
             />
             <div className="absolute inset-0 bg-primary/80 flex items-center justify-center">
                 <div className="text-center text-primary-foreground p-4">
-                    <h2 className="font-headline text-3xl font-bold md:text-4xl">Invest with Confidence</h2>
-                    <p className="mt-2 text-lg max-w-2xl mx-auto">Join a growing list of investors who have trusted Jaouad Afella to navigate the promising landscape of Dakhla's real estate market.</p>
+                    <h2 className="font-headline text-3xl font-bold md:text-4xl">{t('invest_with_confidence_title')}</h2>
+                    <p className="mt-2 text-lg max-w-2xl mx-auto">{t('invest_with_confidence_p')}</p>
                 </div>
             </div>
         </div>
@@ -118,3 +121,4 @@ export default function AboutPage() {
     </>
   );
 }
+

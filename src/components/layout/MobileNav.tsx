@@ -1,3 +1,4 @@
+
 import { Menu } from 'lucide-react';
 import Link from 'next/link';
 import {
@@ -7,13 +8,13 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 import { Button } from '../ui/button';
-import { NAV_LINKS } from '@/lib/constants';
 import { Logo } from '../shared/Logo';
 import { usePathname } from 'next/navigation';
-import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/use-translation';
 
 export function MobileNav() {
   const pathname = usePathname();
+  const { t, navLinks, setLanguage, language } = useTranslation();
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -27,7 +28,7 @@ export function MobileNav() {
           <Logo />
         </SheetHeader>
         <div className="mt-8 flex flex-col gap-4">
-          {NAV_LINKS.map((link) => (
+          {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -38,8 +39,12 @@ export function MobileNav() {
             </Link>
           ))}
           <Button asChild className="mt-4">
-            <Link href="/contact">Contact Us</Link>
+            <Link href="/contact">{t('contactUs')}</Link>
           </Button>
+          <div className="mt-4 flex justify-center gap-4">
+            <Button variant={language === 'en' ? 'default' : 'outline'} onClick={() => setLanguage('en')}>English</Button>
+            <Button variant={language === 'ar' ? 'default' : 'outline'} onClick={() => setLanguage('ar')}>العربية</Button>
+          </div>
         </div>
       </SheetContent>
     </Sheet>

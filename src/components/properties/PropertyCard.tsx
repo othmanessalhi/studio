@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import Image from 'next/image';
@@ -13,9 +14,11 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import { Button } from '../ui/button';
-import { ArrowRight, Maximize, MapPin } from 'lucide-react';
+import { ArrowRight, Maximize, MapPin, ArrowLeft } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { cn } from '@/lib/utils';
+import { useTranslation } from '@/hooks/use-translation';
+
 
 interface PropertyCardProps {
   property: Property;
@@ -25,6 +28,9 @@ interface PropertyCardProps {
 export function PropertyCard({ property, index }: PropertyCardProps) {
     const [isVisible, setIsVisible] = useState(false);
     const cardRef = useRef<HTMLDivElement>(null);
+    const { t, language } = useTranslation();
+    const arrowIcon = language === 'ar' ? <ArrowLeft /> : <ArrowRight />;
+
 
     useEffect(() => {
         const observer = new IntersectionObserver(
@@ -78,7 +84,7 @@ export function PropertyCard({ property, index }: PropertyCardProps) {
                 </div>
                 <div className='flex items-center gap-2'>
                     <Maximize className="h-4 w-4 text-primary" />
-                    <span>{property.size.toLocaleString()} sqm</span>
+                    <span>{property.size.toLocaleString()} {t('sqm')}</span>
                 </div>
                 </div>
                 <p className="mt-4 font-headline text-3xl font-semibold text-foreground">
@@ -88,7 +94,7 @@ export function PropertyCard({ property, index }: PropertyCardProps) {
             </div>
             <CardFooter className="p-6 pt-0">
                 <Button tabIndex={-1} className="w-full">
-                    View Details <ArrowRight />
+                    {t('view_details')} {arrowIcon}
                 </Button>
             </CardFooter>
         </Link>

@@ -1,4 +1,5 @@
 
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -7,7 +8,8 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ArrowLeft } from 'lucide-react';
+import { useTranslation } from '@/hooks/use-translation';
 
 const heroImages = [
   PlaceHolderImages.find(p => p.id === 'hero-dakhla-1'),
@@ -16,18 +18,19 @@ const heroImages = [
 ].filter(Boolean);
 
 
-const headlines = [
-  'Discover Your Golden Opportunity.',
-  'Invest in the Future of Dakhla.',
-  'Own a Piece of Paradise.',
-];
-
 export function Hero() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentHeadline, setCurrentHeadline] = useState(0);
   const [isFading, setIsFading] = useState(false);
   const [isHeroVisible, setHeroVisible] = useState(false);
 
+  const { t, language } = useTranslation();
+  const arrowIcon = language === 'ar' ? <ArrowLeft /> : <ArrowRight />;
+  const headlines = [
+    t('headline1'),
+    t('headline2'),
+    t('headline3'),
+  ];
 
   useEffect(() => {
     const heroTimer = setTimeout(() => setHeroVisible(true), 100);
@@ -49,7 +52,7 @@ export function Hero() {
       clearInterval(imageInterval);
       clearInterval(headlineInterval);
     };
-  }, []);
+  }, [headlines]);
 
   return (
     <section className="relative flex h-[80vh] min-h-[600px] w-full items-center justify-center text-center text-white md:h-screen">
@@ -85,12 +88,12 @@ export function Hero() {
             isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           )}
         >
-          Jaouad Afella Properties is your exclusive gateway to acquiring premium land in Dakhla, Morocco — a region poised for exponential growth.
+          {t('hero_p')}
         </p>
         <div className={cn("transition-all duration-1000 delay-500", isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
           <Button asChild size="lg" variant="default">
             <Link href="/properties">
-              Discover Lands <ArrowRight />
+              {t('discover_lands')} {arrowIcon}
             </Link>
           </Button>
         </div>
@@ -98,3 +101,4 @@ export function Hero() {
     </section>
   );
 }
+

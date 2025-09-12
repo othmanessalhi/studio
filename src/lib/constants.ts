@@ -1,6 +1,6 @@
-import { PlaceHolderImages } from "./placeholder-images";
 
-export const NAV_LINKS = [
+import { PlaceHolderImages } from "./placeholder-images";
+export const NAV_LINKS_EN = [
   { href: '/', label: 'Home' },
   { href: '/properties', label: 'Properties' },
   { href: '/dakhla', label: 'Why Dakhla' },
@@ -8,13 +8,22 @@ export const NAV_LINKS = [
   { href: '/contact', label: 'Contact' },
 ];
 
-export const MOCK_PROPERTIES = [
+export const NAV_LINKS_AR = [
+  { href: '/', label: 'الرئيسية' },
+  { href: '/properties', label: 'العقارات' },
+  { href: '/dakhla', label: 'لماذا الداخلة؟' },
+  { href: '/about', label: 'من نحن' },
+  { href: '/contact', label: 'اتصل بنا' },
+];
+
+export const MOCK_PROPERTIES_EN = [
   {
     id: 'p1',
     title: 'Oceanfront Oasis',
     price: 350000,
     size: 5000,
     location: 'Coastal',
+    locationKey: 'Coastal',
     description: 'A stunning plot with direct access to the beach, perfect for a luxury villa or a boutique hotel. Unobstructed views of the Atlantic. This premium location offers a unique blend of tranquility and accessibility, making it a prime investment for high-end residential or hospitality development.',
     image: PlaceHolderImages.find(p => p.id === 'property-2'),
     latitude: 23.706,
@@ -27,6 +36,7 @@ export const MOCK_PROPERTIES = [
     price: 180000,
     size: 10000,
     location: 'Inland',
+    locationKey: 'Inland',
     description: 'A vast expanse of flat land ideal for large-scale commercial or agricultural projects. Close to main transport routes, this plot is a strategic asset for ventures requiring space and logistical efficiency, such as large-scale farming, solar energy plants, or industrial parks.',
     image: PlaceHolderImages.find(p => p.id === 'property-1'),
     latitude: 23.75,
@@ -39,6 +49,7 @@ export const MOCK_PROPERTIES = [
     price: 275000,
     size: 4500,
     location: 'Coastal',
+    locationKey: 'Coastal',
     description: 'Overlooking the serene Dakhla lagoon, this plot is a haven for water sports enthusiasts and those seeking tranquility. It is an exceptional spot for a personal villa or a kitesurfing camp, capitalizing on Dakhla\'s reputation as a world-class destination.',
     image: PlaceHolderImages.find(p => p.id === 'property-5'),
     latitude: 23.79,
@@ -51,6 +62,7 @@ export const MOCK_PROPERTIES = [
     price: 220000,
     size: 20000,
     location: 'Industrial',
+    locationKey: 'Industrial',
     description: 'Located in the new industrial zone near the Dakhla Atlantic Port project, this plot is perfect for logistics, manufacturing, or warehousing. Its strategic position offers a significant advantage for businesses looking to tap into the new trade routes.',
     image: PlaceHolderImages.find(p => p.id === 'property-3'),
     latitude: 23.85,
@@ -63,6 +75,7 @@ export const MOCK_PROPERTIES = [
     price: 120000,
     size: 8000,
     location: 'Inland',
+    locationKey: 'Inland',
     description: 'A secluded and peaceful lot surrounded by unique desert landscapes. Ideal for a private retreat, a luxury desert camp, or an eco-tourism project focusing on stargazing and unique desert experiences. Away from the city buzz but accessible.',
     image: PlaceHolderImages.find(p => p.id === 'property-4'),
     latitude: 23.6,
@@ -75,6 +88,7 @@ export const MOCK_PROPERTIES = [
     price: 450000,
     size: 3000,
     location: 'Urban',
+    locationKey: 'Urban',
     description: 'A high-visibility plot at a major intersection in the growing urban center of Dakhla. Suitable for retail, a shopping center, or a mixed-use development, this location guarantees high footfall and commercial success.',
     image: PlaceHolderImages.find(p => p.id === 'property-6'),
     latitude: 23.71,
@@ -83,4 +97,86 @@ export const MOCK_PROPERTIES = [
   },
 ];
 
-export type Property = (typeof MOCK_PROPERTIES)[0];
+export const MOCK_PROPERTIES_AR = [
+  {
+    id: 'p1',
+    title: 'واحة على المحيط',
+    price: 350000,
+    size: 5000,
+    location: 'ساحلي',
+    locationKey: 'Coastal',
+    description: 'قطعة أرض مذهلة مع وصول مباشر إلى الشاطئ، مثالية لفيلا فاخرة أو فندق بوتيك. إطلالات مفتوحة على المحيط الأطلسي. يوفر هذا الموقع المتميز مزيجًا فريدًا من الهدوء وسهولة الوصول، مما يجعله استثمارًا رئيسيًا للتطوير السكني أو الضيافة الراقية.',
+    image: PlaceHolderImages.find(p => p.id === 'property-2'),
+    latitude: 23.706,
+    longitude: -15.93,
+    features: ['وصول مباشر للشاطئ', 'إطلالات على المحيط', 'موقع سياحي متميز', 'خدمات جاهزة'],
+  },
+  {
+    id: 'p2',
+    title: 'مساحة رجل الأعمال',
+    price: 180000,
+    size: 10000,
+    location: 'داخلي',
+    locationKey: 'Inland',
+    description: 'مساحة شاسعة من الأرض المسطحة مثالية للمشاريع التجارية أو الزراعية واسعة النطاق. بالقرب من طرق النقل الرئيسية، تعد هذه القطعة أحد الأصول الاستراتيجية للمشاريع التي تتطلب مساحة وكفاءة لوجستية، مثل الزراعة واسعة النطاق أو محطات الطاقة الشمسية أو المجمعات الصناعية.',
+    image: PlaceHolderImages.find(p => p.id === 'property-1'),
+    latitude: 23.75,
+    longitude: -15.8,
+    features: ['مساحة كبيرة', 'أرض مستوية', 'بالقرب من المحور اللوجستي', 'عائد استثماري مرتفع'],
+  },
+  {
+    id: 'p3',
+    title: 'قطعة بإطلالة على البحيرة',
+    price: 275000,
+    size: 4500,
+    location: 'ساحلي',
+    locationKey: 'Coastal',
+    description: 'تطل على بحيرة الداخلة الهادئة، هذه القطعة هي ملاذ لعشاق الرياضات المائية والباحثين عن الهدوء. إنها مكان استثنائي لفيلا شخصية أو مخيم لركوب الأمواج بالطائرة الورقية، مستفيدًا من سمعة الداخلة كوجهة عالمية المستوى.',
+    image: PlaceHolderImages.find(p => p.id === 'property-5'),
+    latitude: 23.79,
+    longitude: -15.90,
+    features: ['إطلالة على البحيرة', 'مركز لركوب الأمواج', 'إمكانات سياحية', 'بيئة هادئة'],
+  },
+  {
+    id: 'p4',
+    title: 'قطعة أرض صناعية استراتيجية',
+    price: 220000,
+    size: 20000,
+    location: 'صناعي',
+    locationKey: 'Industrial',
+    description: 'تقع في المنطقة الصناعية الجديدة بالقرب من مشروع ميناء الداخلة الأطلسي، هذه القطعة مثالية للخدمات اللوجستية أو التصنيع أو التخزين. يوفر موقعها الاستراتيجي ميزة كبيرة للشركات التي تتطلع إلى الاستفادة من طرق التجارة الجديدة.',
+    image: PlaceHolderImages.find(p => p.id === 'property-3'),
+    latitude: 23.85,
+    longitude: -15.75,
+    features: ['منطقة صناعية', 'بالقرب من الميناء', 'مساحة سطح كبيرة', 'بنية تحتية جاهزة'],
+  },
+  {
+    id: 'p5',
+    title: 'منتجع وردة الصحراء',
+    price: 120000,
+    size: 8000,
+    location: 'داخلي',
+    locationKey: 'Inland',
+    description: 'قطعة أرض منعزلة وهادئة تحيط بها مناظر طبيعية صحراوية فريدة. مثالية لمنتجع خاص أو مخيم صحراوي فاخر أو مشروع سياحة بيئية يركز على مراقبة النجوم والتجارب الصحراوية الفريدة. بعيدًا عن صخب المدينة ولكن يمكن الوصول إليه.',
+    image: PlaceHolderImages.find(p => p.id === 'property-4'),
+    latitude: 23.6,
+    longitude: -15.85,
+    features: ['منعزلة', 'جاهزة للسياحة البيئية', 'مناظر طبيعية فريدة', 'ليالي مرصعة بالنجوم'],
+  },
+  {
+    id: 'p6',
+    title: 'ركن تجاري متميز',
+    price: 450000,
+    size: 3000,
+    location: 'حضري',
+    locationKey: 'Urban',
+    description: 'قطعة أرض ذات واجهة بارزة عند تقاطع رئيسي في المركز الحضري المتنامي للداخلة. مناسبة للبيع بالتجزئة أو مركز تسوق أو مشروع متعدد الاستخدامات، يضمن هذا الموقع إقبالًا كبيرًا ونجاحًا تجاريًا.',
+    image: PlaceHolderImages.find(p => p.id === 'property-6'),
+    latitude: 23.71,
+    longitude: -15.945,
+    features: ['واجهة بارزة', 'مركز حضري', 'تصنيف تجاري', 'منطقة سريعة النمو'],
+  },
+];
+
+
+export type Property = (typeof MOCK_PROPERTIES_EN)[0];

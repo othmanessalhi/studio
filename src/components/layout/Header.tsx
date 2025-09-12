@@ -1,17 +1,19 @@
+
 'use client';
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { NAV_LINKS } from '@/lib/constants';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Logo } from '../shared/Logo';
 import { MobileNav } from './MobileNav';
 import { useEffect, useState } from 'react';
+import { useTranslation } from '@/hooks/use-translation';
 
 export function Header() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
+  const { t, navLinks } = useTranslation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,7 +35,7 @@ export function Header() {
       <div className="container mx-auto flex h-20 items-center justify-between">
         <Logo />
         <nav className="hidden items-center gap-6 md:flex">
-          {NAV_LINKS.map((link) => (
+          {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -48,7 +50,7 @@ export function Header() {
         </nav>
         <div className="hidden items-center gap-4 md:flex">
           <Button asChild>
-            <Link href="/contact">Contact Us</Link>
+            <Link href="/contact">{t('contactUs')}</Link>
           </Button>
         </div>
         <div className="md:hidden">

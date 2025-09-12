@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useForm } from 'react-hook-form';
@@ -15,17 +16,21 @@ import {
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowRight } from 'lucide-react';
-
-const formSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters.'),
-  email: z.string().email('Please enter a valid email address.'),
-  phone: z.string().optional(),
-  message: z.string().min(10, 'Message must be at least 10 characters.'),
-});
+import { ArrowRight, ArrowLeft } from 'lucide-react';
+import { useTranslation } from '@/hooks/use-translation';
 
 export function ContactForm() {
   const { toast } = useToast();
+  const { t, language } = useTranslation();
+  const arrowIcon = language === 'ar' ? <ArrowLeft /> : <ArrowRight />;
+
+  const formSchema = z.object({
+    name: z.string().min(2, t('form_error_name')),
+    email: z.string().email(t('form_error_email')),
+    phone: z.string().optional(),
+    message: z.string().min(10, t('form_error_message')),
+  });
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -36,11 +41,16 @@ export function ContactForm() {
     },
   });
 
+    // Update resolver when language changes
+  React.useEffect(() => {
+    form.trigger();
+  }, [t, form]);
+
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     console.log(values);
     toast({
-      title: 'Message Sent!',
-      description: "Thank you for your inquiry. We will get back to you shortly.",
+      title: t('toast_success_title'),
+      description: t('toast_success_p'),
     });
     form.reset();
   };
@@ -53,9 +63,9 @@ export function ContactForm() {
           name="name"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Full Name</FormLabel>
+              <FormLabel>{t('form_label_name')}</FormLabel>
               <FormControl>
-                <Input placeholder="John Doe" {...field} />
+                <Input placeholder={t('form_placeholder_name')} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -66,9 +76,9 @@ export function ContactForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email Address</FormLabel>
+              <FormLabel>{t('form_label_email')}</FormLabel>
               <FormControl>
-                <Input placeholder="john.doe@example.com" {...field} />
+                <Input placeholder={t('form_placeholder_email')} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -79,9 +89,9 @@ export function ContactForm() {
           name="phone"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Phone Number (Optional)</FormLabel>
+              <FormLabel>{t('form_label_phone')}</FormLabel>
               <FormControl>
-                <Input placeholder="+1 (555) 123-4567" {...field} />
+                <Input placeholder={t('form_placeholder_phone')} {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -92,10 +102,10 @@ export function ContactForm() {
           name="message"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Your Message</FormLabel>
+              <FormLabel>{t('form_label_message')}</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder="I'm interested in learning more about land opportunities in Dakhla..."
+                  placeholder={t('form_placeholder_message')}
                   className="min-h-[120px]"
                   {...field}
                 />
@@ -105,7 +115,7 @@ export function ContactForm() {
           )}
         />
         <Button type="submit" size="lg" className="w-full">
-          Send Inquiry <ArrowRight />
+          {t('send_inquiry')} {arrowIcon}
         </Button>
       </form>
     </Form>

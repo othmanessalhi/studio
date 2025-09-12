@@ -1,15 +1,13 @@
+
+'use client';
+
 import type { Metadata } from 'next';
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { Toaster } from '@/components/ui/toaster';
-
-export const metadata: Metadata = {
-  title: 'Dakhla Land Elite - Luxury Land Investments in Dakhla',
-  description: 'Jaouad Afella Properties specializes in premium land sales in Dakhla, Morocco. Discover exclusive investment opportunities in one of the world\'s fastest-growing regions.',
-  keywords: ['buy land in Dakhla', 'Dakhla real estate', 'Morocco land investment', 'Jaouad Afella Properties'],
-};
+import { LanguageProvider } from '@/context/LanguageContext';
 
 export default function RootLayout({
   children,
@@ -17,24 +15,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="!scroll-smooth">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Literata:opsz,wght@7..72,400;500;600&display=swap" rel="stylesheet" />
-      </head>
-      <body
-        className={cn(
-          'min-h-screen bg-background font-body text-foreground antialiased font-medium'
-        )}
-      >
-        <div className="relative flex min-h-dvh flex-col">
-          <Header />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </div>
-        <Toaster />
-      </body>
-    </html>
+    <LanguageProvider>
+        <html lang="en" className="!scroll-smooth">
+          <head>
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+            <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Literata:opsz,wght@7..72,400;500;600&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet" />
+          </head>
+          <body
+            className={cn(
+              'min-h-screen bg-background font-body text-foreground antialiased font-medium'
+            )}
+          >
+            <div className="relative flex min-h-dvh flex-col">
+              <Header />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </div>
+            <Toaster />
+          </body>
+        </html>
+    </LanguageProvider>
   );
 }
+
