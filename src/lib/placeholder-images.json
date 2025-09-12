@@ -68,6 +68,24 @@
       "imageHint": "coastal land"
     },
     {
+        "id": "dakhla-hero",
+        "description": "A dramatic and wide landscape of Dakhla's desert meeting the ocean.",
+        "imageUrl": "https://images.unsplash.com/photo-1542314831-068cd1dbb5ed?q=80&w=1200&h=800&fit=crop",
+        "imageHint": "dakhla landscape"
+    },
+    {
+        "id": "about-hero",
+        "description": "A modern, professional office setting with a view of the city.",
+        "imageUrl": "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&h=800&fit=crop",
+        "imageHint": "professional office"
+    },
+    {
+        "id": "contact-hero",
+        "description": "A close-up of a modern telephone and office supplies on a desk.",
+        "imageUrl": "https://images.unsplash.com/photo-1586769852836-bc069f19e1b6?q=80&w=1200&h=800&fit=crop",
+        "imageHint": "contact us"
+    },
+    {
       "id": "dakhla-investment",
       "description": "Infographic-style image showing the growth trajectory of Dakhla.",
       "imageUrl": "https://picsum.photos/seed/201/1200/600",
