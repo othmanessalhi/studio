@@ -2,18 +2,11 @@
 'use client';
 
 import { PropertyList } from "@/components/properties/PropertyList";
-import type { Metadata } from 'next';
 import Image from "next/image";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
-// Note: Metadata is usually not used in client components, but we can keep it for now as Next.js might handle it.
-// For a pure client component, you might move this to a parent layout or page if needed for SEO.
-export const metadata: Metadata = {
-  title: 'Land for Sale in Dakhla | Dakhla Land Elite',
-  description: 'Browse exclusive listings of land for sale in Dakhla, Morocco. Filter by price, size, and location to find your perfect investment property with Jaouad Afella Properties.',
-};
 
 const propertiesHeroImage = PlaceHolderImages.find(p => p.id === 'properties-hero');
 
@@ -25,7 +18,8 @@ export default function PropertiesPage() {
     // We can set it to true directly to trigger animation on load,
     // or use an observer if we want to trigger on scroll into view (less common for a hero).
     // For a hero, animating on load is usually desired.
-    setHeroVisible(true); 
+    const timer = setTimeout(() => setHeroVisible(true), 100); // Small delay to ensure transition is applied
+    return () => clearTimeout(timer);
   }, []);
 
   return (
