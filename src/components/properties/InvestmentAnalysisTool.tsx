@@ -24,6 +24,11 @@ interface InvestmentAnalysisToolProps {
   onOpenChange: (open: boolean) => void;
 }
 
+const initialState = {
+  data: undefined,
+  error: undefined,
+};
+
 function SubmitButton() {
   const { pending } = useFormStatus();
   return (
@@ -44,7 +49,7 @@ function SubmitButton() {
 }
 
 export function InvestmentAnalysisTool({ open, onOpenChange }: InvestmentAnalysisToolProps) {
-  const [state, formAction] = useActionState(runInvestmentAnalysis, {data: undefined, error: undefined});
+  const [state, formAction, isPending] = useActionState(runInvestmentAnalysis, initialState);
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -52,17 +57,24 @@ export function InvestmentAnalysisTool({ open, onOpenChange }: InvestmentAnalysi
     if (state?.error) {
       toast({
         variant: 'destructive',
-        title: 'Error',
-        description: 'Please check the form for errors.',
+        title: 'Analysis Failed',
+        description: state.error,
       });
     }
   }, [state, toast]);
 
+  useEffect(() => {
+    if (state.data) {
+        formRef.current?.reset();
+    }
+  }, [state.data])
+
   const handleOpenChange = (isOpen: boolean) => {
     if (!isOpen) {
       formRef.current?.reset();
-      state.data = undefined;
-      state.error = undefined;
+      // A bit of a hack to reset the action state.
+      // This can be improved if React exposes a dedicated API for it.
+      (initialState as any)._reset = Math.random();
     }
     onOpenChange(isOpen);
   }
@@ -101,7 +113,14 @@ export function InvestmentAnalysisTool({ open, onOpenChange }: InvestmentAnalysi
             <div className='rounded-lg border bg-background p-4'>
                 <ScrollArea className='h-[450px]'>
                 <div className='p-2 space-y-6'>
-                    {state.data ? (
+                    {isPending && !state.data && (
+                         <div className="flex flex-col items-center justify-center h-full text-center text-muted-foreground">
+                            <Loader className="h-16 w-16 mb-4 animate-spin"/>
+                            <h3 className="font-semibold">Analyzing...</h3>
+                            <p className="text-sm">Your AI-powered report is being generated.</p>
+                        </div>
+                    )}
+                    {state.data && !isPending && (
                         <>
                            <h3 className="font-headline text-xl font-semibold">Analysis Results</h3>
                             <div className="space-y-4">
@@ -123,18 +142,19 @@ export function InvestmentAnalysisTool({ open, onOpenChange }: InvestmentAnalysi
                                 </div>
                             </div>
                         </>
-                    ) : (
+                    )}
+                    {!isPending && !state.data && (
                         <div className="flex flex-col items-center justify-center h-full text-center text-muted-foreground">
                             <Sparkles className="h-16 w-16 mb-4"/>
                             <h3 className="font-semibold">Your AI-powered report will appear here.</h3>
                             <p className="text-sm">Please fill out the form to generate your analysis.</p>
                         </div>
                     )}
-                    {state.error && !state.data && (
+                    {state.error && !isPending && (
                         <div className="flex flex-col items-center justify-center h-full text-center text-destructive">
                             <AlertCircle className="h-16 w-16 mb-4"/>
                             <h3 className="font-semibold">Analysis Failed</h3>
-                            <p className="text-sm">Please check your inputs and try again.</p>
+                            <p className="text-sm">There was an error in the information provided. Please check the form and try again.</p>
                         </div>
                     )}
                 </div>

@@ -17,6 +17,7 @@ const formSchema = z.object({
 type AnalysisState = {
   data?: AnalyzeInvestmentPotentialOutput;
   error?: string;
+  _reset?: number; // Used to force reset state
 };
 
 export async function runInvestmentAnalysis(
@@ -31,9 +32,8 @@ export async function runInvestmentAnalysis(
   });
 
   if (!validatedFields.success) {
-    // Combine all error messages into a single string.
-    const errorMessage = Object.values(validatedFields.error.flatten().fieldErrors)
-      .flat()
+    const errorMessage = validatedFields.error.issues
+      .map((issue) => issue.message)
       .join(' ');
     return {
       error: errorMessage || 'Please check your inputs and try again.',
