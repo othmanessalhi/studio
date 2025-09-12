@@ -62,6 +62,12 @@
       "imageHint": "modern apartment"
     },
     {
+      "id": "properties-hero",
+      "description": "Aerial view of Dakhla's coastline showing plots of land near the ocean.",
+      "imageUrl": "https://images.unsplash.com/photo-1604014237800-1c9102c219da?q=80&w=1200&h=800&fit=crop",
+      "imageHint": "coastal land"
+    },
+    {
       "id": "dakhla-investment",
       "description": "Infographic-style image showing the growth trajectory of Dakhla.",
       "imageUrl": "https://picsum.photos/seed/201/1200/600",
