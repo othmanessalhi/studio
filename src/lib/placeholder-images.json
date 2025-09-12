@@ -1,3 +1,89 @@
+
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-dakhla",
+      "description": "Cinematic aerial view of Dakhla's coastline, showing the desert meeting the ocean.",
+      "imageUrl": "https://picsum.photos/seed/1/1920/1080",
+      "imageHint": "dakhla coastline"
+    },
+    {
+      "id": "about-jaouad",
+      "description": "Professional portrait of Jaouad Afella in a modern office with a view of Dakhla.",
+      "imageUrl": "https://picsum.photos/seed/2/600/700",
+      "imageHint": "male portrait"
+    },
+    {
+      "id": "property-1",
+      "description": "Vast, flat plot of land in Dakhla under a clear blue sky.",
+      "imageUrl": "https://picsum.photos/seed/101/600/400",
+      "imageHint": "desert land"
+    },
+    {
+      "id": "property-2",
+      "description": "Coastal land plot with a view of the Dakhla lagoon.",
+      "imageUrl": "https://picsum.photos/seed/102/600/400",
+      "imageHint": "coastal land"
+    },
+    {
+      "id": "property-3",
+      "description": "Land plot near a developing infrastructure project in Dakhla.",
+      "imageUrl": "https://picsum.photos/seed/103/600/400",
+      "imageHint": "desert plot"
+    },
+    {
+      "id": "property-4",
+      "description": "Large expanse of desert land suitable for agricultural development.",
+      "imageUrl": "https://picsum.photos/seed/104/600/400",
+      "imageHint": "flat land"
+    },
+    {
+      "id": "property-5",
+      "description": "Secluded plot of land with unique desert rock formations.",
+      "imageUrl": "https://picsum.photos/seed/105/600/400",
+      "imageHint": "desert landscape"
+    },
+    {
+      "id": "property-6",
+      "description": "Land plot with easy access to a main road.",
+      "imageUrl": "https://picsum.photos/seed/106/600/400",
+      "imageHint": "desert road"
+    },
+    {
+      "id": "dakhla-investment",
+      "description": "Infographic-style image showing the growth trajectory of Dakhla.",
+      "imageUrl": "https://picsum.photos/seed/201/1200/600",
+      "imageHint": "modern city"
+    },
+    {
+      "id": "dakhla-port",
+      "description": "Aerial view of a large port construction project.",
+      "imageUrl": "https://picsum.photos/seed/202/600/400",
+      "imageHint": "port construction"
+    },
+    {
+      "id": "dakhla-tourism",
+      "description": "Kitesurfers on the Dakhla lagoon at sunset.",
+      "imageUrl": "https://picsum.photos/seed/203/600/400",
+      "imageHint": "kitesurfing sunset"
+    },
+    {
+      "id": "dakhla-energy",
+      "description": "Wind turbines in the desert landscape of Dakhla.",
+      "imageUrl": "https://picsum.photos/seed/204/600/400",
+      "imageHint": "wind turbines"
+    },
+    {
+      "id": "contact-map",
+      "description": "A stylish, minimalist map showing the location of the Dakhla office.",
+      "imageUrl": "https://picsum.photos/seed/301/800/600",
+      "imageHint": "city map"
+    },
+    {
+        "id": "not-found",
+        "description": "An artistic image of a compass in the desert sand.",
+        "imageUrl": "https://picsum.photos/seed/404/800/600",
+        "imageHint": "desert compass"
+    }
+  ]
 }
