@@ -22,7 +22,7 @@ export function MobileNav() {
           <span className="sr-only">Toggle navigation menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="left">
+      <SheetContent side="right">
         <SheetHeader>
           <Logo />
         </SheetHeader>
