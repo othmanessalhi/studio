@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useState, useMemo } from 'react';
@@ -63,8 +64,8 @@ export function PropertyList() {
       
       {filteredProperties.length > 0 ? (
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {filteredProperties.map((property) => (
-            <PropertyCard key={property.id} property={property} />
+          {filteredProperties.map((property, index) => (
+            <PropertyCard key={property.id} property={property} index={index} />
           ))}
         </div>
       ) : (
