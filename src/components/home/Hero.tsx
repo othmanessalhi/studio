@@ -88,7 +88,7 @@ export function Hero() {
           Jaouad Afella Properties is your exclusive gateway to acquiring premium land in Dakhla, Morocco — a region poised for exponential growth.
         </p>
         <div className={cn("transition-all duration-1000 delay-500", isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
-          <Button asChild size="lg" variant="default" className="[text-shadow:1px_1px_2px_rgba(0,0,0,0.4)]">
+          <Button asChild size="lg" variant="default">
             <Link href="/properties">
               Discover Lands <ArrowRight />
             </Link>
