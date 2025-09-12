@@ -21,20 +21,15 @@ export default function Home() {
   const whyDakhlaCardsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const observerCallback = (
-      entries: IntersectionObserverEntry[],
-      setter: React.Dispatch<React.SetStateAction<boolean>>
-    ) => {
-      entries.forEach(entry => {
-        setter(entry.isIntersecting);
-      });
-    };
-
     const createObserver = (setter: React.Dispatch<React.SetStateAction<boolean>>) => {
-      return new IntersectionObserver(
-        entries => observerCallback(entries, setter),
-        { threshold: 0.1 }
-      );
+        return new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    setter(entry.isIntersecting);
+                });
+            },
+            { threshold: 0.1 }
+        );
     };
 
     const aboutObserver = createObserver(setAboutVisible);
@@ -42,25 +37,26 @@ export default function Home() {
     const whyDakhlaCardsObserver = createObserver(setWhyDakhlaCardsVisible);
 
     const refs = [
-      { ref: aboutRef, observer: aboutObserver },
-      { ref: whyDakhlaTitleRef, observer: whyDakhlaTitleObserver },
-      { ref: whyDakhlaCardsRef, observer: whyDakhlaCardsObserver },
+        { ref: aboutRef, observer: aboutObserver },
+        { ref: whyDakhlaTitleRef, observer: whyDakhlaTitleObserver },
+        { ref: whyDakhlaCardsRef, observer: whyDakhlaCardsObserver },
     ];
 
     refs.forEach(({ ref, observer }) => {
-      if (ref.current) {
-        observer.observe(ref.current);
-      }
+        if (ref.current) {
+            observer.observe(ref.current);
+        }
     });
 
     return () => {
-      refs.forEach(({ ref, observer }) => {
-        if (ref.current) {
-          observer.unobserve(ref.current);
-        }
-      });
+        refs.forEach(({ ref, observer }) => {
+            if (ref.current) {
+                observer.unobserve(ref.current);
+            }
+        });
     };
   }, []);
+
 
   return (
     <>
@@ -83,7 +79,7 @@ export default function Home() {
               </Link>
             </Button>
           </div>
-          <div className={cn("overflow-hidden rounded-lg shadow-xl transition-all duration-1000", isAboutVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
+          <div className={cn("overflow-hidden rounded-lg shadow-xl transition-all duration-1000", isAboutVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8')}>
              {aboutImage && <Image
               src={aboutImage.imageUrl}
               alt={aboutImage.description}
