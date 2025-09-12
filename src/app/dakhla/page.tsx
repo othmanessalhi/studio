@@ -15,7 +15,7 @@ const portImage = PlaceHolderImages.find(p => p.id === 'dakhla-port');
 const tourismImage = PlaceHolderImages.find(p => p.id === 'dakhla-tourism');
 const energyImage = PlaceHolderImages.find(p => p.id === 'dakhla-energy');
 const dakhlaHeroImage = {
-    imageUrl: "https://images.unsplash.com/photo-1542314831-068cd1dbb5ed?q=80&w=1200&h=800&fit=crop",
+    imageUrl: "https://drive.google.com/uc?export=view&id=1FBSl7zJwVBVcpQC8ynryf0gTR1Y4uumV",
     description: "A dramatic and wide landscape of Dakhla's desert meeting the ocean.",
     imageHint: "dakhla landscape",
     id: "dakhla-hero"
