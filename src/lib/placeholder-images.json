@@ -15,39 +15,39 @@
     },
     {
       "id": "property-1",
-      "description": "Vast, flat plot of land in Dakhla under a clear blue sky.",
+      "description": "Vast, flat plot of land in Dakhla under a clear blue sky, suitable for large-scale projects.",
       "imageUrl": "https://picsum.photos/seed/101/600/400",
-      "imageHint": "desert land"
+      "imageHint": "vast desert"
     },
     {
       "id": "property-2",
-      "description": "Coastal land plot with a view of the Dakhla lagoon.",
+      "description": "A stunning coastal plot with direct access to a sandy beach.",
       "imageUrl": "https://picsum.photos/seed/102/600/400",
-      "imageHint": "coastal land"
+      "imageHint": "beachfront property"
     },
     {
       "id": "property-3",
-      "description": "Land plot near a developing infrastructure project in Dakhla.",
+      "description": "A large plot of land located in a developing industrial zone with infrastructure.",
       "imageUrl": "https://picsum.photos/seed/103/600/400",
-      "imageHint": "desert plot"
+      "imageHint": "industrial zone"
     },
     {
       "id": "property-4",
-      "description": "Large expanse of desert land suitable for agricultural development.",
+      "description": "A serene and secluded plot of land in the quiet desert.",
       "imageUrl": "https://picsum.photos/seed/104/600/400",
-      "imageHint": "flat land"
+      "imageHint": "desert retreat"
     },
     {
       "id": "property-5",
-      "description": "Secluded plot of land with unique desert rock formations.",
+      "description": "A plot of land with a beautiful view over the Dakhla lagoon.",
       "imageUrl": "https://picsum.photos/seed/105/600/400",
-      "imageHint": "desert landscape"
+      "imageHint": "lagoon view"
     },
     {
       "id": "property-6",
-      "description": "Land plot with easy access to a main road.",
+      "description": "A plot of land on a corner in a developing urban area, ideal for commercial use.",
       "imageUrl": "https://picsum.photos/seed/106/600/400",
-      "imageHint": "desert road"
+      "imageHint": "city street"
     },
     {
       "id": "dakhla-investment",
