@@ -73,7 +73,7 @@ export function Hero() {
            <h1
               key={currentHeadline}
               className={cn(
-                'font-headline text-4xl font-bold tracking-tight text-primary sm:text-5xl animate-in fade-in duration-1000'
+                'font-headline text-4xl font-bold tracking-tight text-primary sm:text-5xl animate-in fade-in duration-1000 [text-shadow:2px_2px_4px_rgba(0,0,0,0.5)]'
               )}
             >
               {headlines[currentHeadline]}
@@ -81,14 +81,14 @@ export function Hero() {
         </div>
         <p
           className={cn(
-            "mx-auto max-w-2xl text-lg text-background/90 md:text-xl transition-all duration-1000 delay-300",
+            "mx-auto max-w-2xl text-lg text-background/90 md:text-xl transition-all duration-1000 delay-300 [text-shadow:1px_1px_2px_rgba(0,0,0,0.7)]",
             isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           )}
         >
           Jaouad Afella Properties is your exclusive gateway to acquiring premium land in Dakhla, Morocco — a region poised for exponential growth.
         </p>
         <div className={cn("transition-all duration-1000 delay-500", isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
-          <Button asChild size="lg" variant="default">
+          <Button asChild size="lg" variant="default" className="[text-shadow:1px_1px_2px_rgba(0,0,0,0.4)]">
             <Link href="/properties">
               Discover Lands <ArrowRight />
             </Link>
