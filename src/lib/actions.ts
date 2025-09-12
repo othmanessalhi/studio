@@ -31,8 +31,12 @@ export async function runInvestmentAnalysis(
   });
 
   if (!validatedFields.success) {
+    // Combine all error messages into a single string.
+    const errorMessage = Object.values(validatedFields.error.flatten().fieldErrors)
+      .flat()
+      .join(' ');
     return {
-      error: validatedFields.error.flatten().fieldErrors,
+      error: errorMessage || 'Please check your inputs and try again.',
     };
   }
 
