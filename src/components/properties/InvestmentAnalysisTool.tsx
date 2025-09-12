@@ -1,6 +1,7 @@
 'use client';
 
-import { useActionState, useFormStatus } from 'react';
+import { useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
 import {
   Dialog,
   DialogContent,
@@ -14,7 +15,7 @@ import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { runInvestmentAnalysis } from '@/lib/actions';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { Loader, Sparkles, AlertCircle, TrendingUp, Shield, BarChart2 } from 'lucide-react';
 import { ScrollArea } from '../ui/scroll-area';
@@ -63,24 +64,39 @@ export function InvestmentAnalysisTool({ open, onOpenChange }: InvestmentAnalysi
     }
   }, [state, toast]);
 
-  useEffect(() => {
-    if (state.data) {
-        formRef.current?.reset();
-    }
-  }, [state.data])
-
   const handleOpenChange = (isOpen: boolean) => {
+    onOpenChange(isOpen);
     if (!isOpen) {
       formRef.current?.reset();
-      // A bit of a hack to reset the action state.
-      // This can be improved if React exposes a dedicated API for it.
+      // This is a way to reset the action state.
+      // In a future version of React, a more direct API might be available.
       (initialState as any)._reset = Math.random();
+      // We manually clear the previous results when the dialog is closed.
+      if (state.data || state.error) {
+         // A bit of a hack to reset the action state.
+         // This can be improved if React exposes a dedicated API for it.
+         window.location.reload(); // Simple way to reset state for now
+      }
     }
-    onOpenChange(isOpen);
-  }
+  };
+
+  useEffect(() => {
+    if (!open) {
+      formRef.current?.reset();
+      if (state.data || state.error) {
+        // Resetting state when dialog closes
+        const newState = { data: undefined, error: undefined, _reset: Math.random() };
+        // This is a bit of a hack to communicate state reset.
+        // In a real app, you might use a more robust state management solution.
+        (state as any).data = undefined;
+        (state as any).error = undefined;
+      }
+    }
+  }, [open, state]);
+
 
   return (
-    <Dialog open={open} onOpenChange={handleOpenChange}>
+    <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-4xl">
         <DialogHeader>
           <DialogTitle className="font-headline text-2xl text-primary">AI Investment Potential Analysis</DialogTitle>
