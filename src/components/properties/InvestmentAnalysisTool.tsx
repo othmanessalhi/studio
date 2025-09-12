@@ -1,6 +1,6 @@
 'use client';
 
-import { useFormState, useFormStatus } from 'react-dom';
+import { useActionState, useFormStatus } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -44,7 +44,7 @@ function SubmitButton() {
 }
 
 export function InvestmentAnalysisTool({ open, onOpenChange }: InvestmentAnalysisToolProps) {
-  const [state, formAction] = useFormState(runInvestmentAnalysis, {});
+  const [state, formAction] = useActionState(runInvestmentAnalysis, {});
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
 
