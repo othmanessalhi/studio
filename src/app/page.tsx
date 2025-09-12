@@ -25,7 +25,9 @@ export default function Home() {
         return new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
-                    setter(entry.isIntersecting);
+                    if (entry.isIntersecting) {
+                        setter(true);
+                    }
                 });
             },
             { threshold: 0.1 }
