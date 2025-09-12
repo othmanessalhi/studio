@@ -41,7 +41,11 @@ export function Hero() {
     }, 5000); // Change image every 5 seconds
 
     const headlineInterval = setInterval(() => {
-      setCurrentHeadline((prev) => (prev + 1) % headlines.length);
+      setIsFading(true);
+      setTimeout(() => {
+        setCurrentHeadline((prev) => (prev + 1) % headlines.length);
+        setIsFading(false);
+      }, 500); // Half a second for fade out
     }, 5000);
 
     return () => {
@@ -69,10 +73,11 @@ export function Hero() {
       ))}
       <div className="absolute inset-0 bg-black/50" />
       <div className="relative z-10 max-w-4xl space-y-6 px-4">
-        <div className={cn('relative flex h-24 items-center justify-center transition-all duration-1000 md:h-20', isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
+        <div className={cn('flex h-24 items-center justify-center transition-all duration-1000 md:h-20', isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
            <h1
+              key={currentHeadline}
               className={cn(
-                'font-headline text-4xl font-bold tracking-tight text-primary transition-opacity duration-1000 ease-in-out sm:text-5xl'
+                'font-headline text-4xl font-bold tracking-tight text-primary sm:text-5xl animate-in fade-in duration-500'
               )}
             >
               {headlines[currentHeadline]}
