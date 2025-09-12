@@ -12,43 +12,62 @@ import { cn } from '@/lib/utils';
 const aboutImage = PlaceHolderImages.find(p => p.id === 'about-jaouad');
 
 export default function Home() {
-  const [isAboutSectionVisible, setIsAboutSectionVisible] = useState(false);
-  const aboutSectionRef = useRef<HTMLDivElement>(null);
+  const [isAboutVisible, setAboutVisible] = useState(false);
+  const [isWhyDakhlaTitleVisible, setWhyDakhlaTitleVisible] = useState(false);
+  const [isWhyDakhlaCardsVisible, setWhyDakhlaCardsVisible] = useState(false);
+
+  const aboutRef = useRef<HTMLDivElement>(null);
+  const whyDakhlaTitleRef = useRef<HTMLDivElement>(null);
+  const whyDakhlaCardsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            if (entry.target === aboutSectionRef.current) {
-              setIsAboutSectionVisible(true);
-            }
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      {
-        rootMargin: '0px 0px -100px 0px',
-      }
-    );
+    const observerCallback = (
+      entries: IntersectionObserverEntry[],
+      setter: React.Dispatch<React.SetStateAction<boolean>>
+    ) => {
+      entries.forEach(entry => {
+        setter(entry.isIntersecting);
+      });
+    };
 
-    if (aboutSectionRef.current) {
-      observer.observe(aboutSectionRef.current);
-    }
+    const createObserver = (setter: React.Dispatch<React.SetStateAction<boolean>>) => {
+      return new IntersectionObserver(
+        entries => observerCallback(entries, setter),
+        { threshold: 0.1 }
+      );
+    };
+
+    const aboutObserver = createObserver(setAboutVisible);
+    const whyDakhlaTitleObserver = createObserver(setWhyDakhlaTitleVisible);
+    const whyDakhlaCardsObserver = createObserver(setWhyDakhlaCardsVisible);
+
+    const refs = [
+      { ref: aboutRef, observer: aboutObserver },
+      { ref: whyDakhlaTitleRef, observer: whyDakhlaTitleObserver },
+      { ref: whyDakhlaCardsRef, observer: whyDakhlaCardsObserver },
+    ];
+
+    refs.forEach(({ ref, observer }) => {
+      if (ref.current) {
+        observer.observe(ref.current);
+      }
+    });
 
     return () => {
-      if (aboutSectionRef.current) {
-        observer.unobserve(aboutSectionRef.current);
-      }
+      refs.forEach(({ ref, observer }) => {
+        if (ref.current) {
+          observer.unobserve(ref.current);
+        }
+      });
     };
   }, []);
 
   return (
     <>
       <Hero />
-      <section ref={aboutSectionRef} className="bg-card">
+      <section ref={aboutRef} className="bg-card">
         <div className="container mx-auto grid grid-cols-1 items-center gap-12 md:grid-cols-2">
-          <div className={cn("space-y-6", isAboutSectionVisible ? 'animate-fade-in-up' : 'opacity-0')}>
+          <div className={cn("space-y-6", isAboutVisible ? 'animate-fade-in-up' : 'opacity-0')}>
             <h2 className="font-headline text-3xl font-bold tracking-tight text-primary md:text-4xl">
               Jaouad Afella: Your Guide to Dakhla's Golden Sands
             </h2>
@@ -64,7 +83,7 @@ export default function Home() {
               </Link>
             </Button>
           </div>
-          <div className={cn("overflow-hidden rounded-lg shadow-xl", isAboutSectionVisible ? 'animate-fade-in-up' : 'opacity-0')}>
+          <div className={cn("overflow-hidden rounded-lg shadow-xl", isAboutVisible ? 'animate-fade-in-up' : 'opacity-0')}>
              {aboutImage && <Image
               src={aboutImage.imageUrl}
               alt={aboutImage.description}
@@ -79,25 +98,27 @@ export default function Home() {
       
       <section>
         <div className="container mx-auto text-center">
-            <h2 className={cn("font-headline text-3xl font-bold tracking-tight text-primary md:text-4xl", isAboutSectionVisible ? 'animate-fade-in-up' : 'opacity-0')}>Why Dakhla? The Investment of a Lifetime</h2>
-            <p className={cn("mx-auto mt-4 max-w-3xl text-lg text-muted-foreground", isAboutSectionVisible ? 'animate-fade-in-up' : 'opacity-0')} style={{animationDelay: '0.2s'}}>
-              Dakhla is more than a destination; it's a future-forward hub for tourism, renewable energy, and aquaculture. With strategic government investment and a booming economy, the value of land is set on a dramatic upward trajectory.
-            </p>
-            <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
-              <div className={cn("rounded-lg border bg-card p-6 shadow-sm", isAboutSectionVisible ? 'animate-fade-in-up' : 'opacity-0')} style={{animationDelay: '0.4s'}}>
+            <div ref={whyDakhlaTitleRef} className={cn(isWhyDakhlaTitleVisible ? 'animate-fade-in-up' : 'opacity-0')}>
+              <h2 className="font-headline text-3xl font-bold tracking-tight text-primary md:text-4xl">Why Dakhla? The Investment of a Lifetime</h2>
+              <p className="mx-auto mt-4 max-w-3xl text-lg text-muted-foreground">
+                Dakhla is more than a destination; it's a future-forward hub for tourism, renewable energy, and aquaculture. With strategic government investment and a booming economy, the value of land is set on a dramatic upward trajectory.
+              </p>
+            </div>
+            <div ref={whyDakhlaCardsRef} className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
+              <div className={cn("rounded-lg border bg-card p-6 shadow-sm", isWhyDakhlaCardsVisible ? 'animate-fade-in-up' : 'opacity-0')} style={{animationDelay: '0.2s'}}>
                 <h3 className="font-headline text-xl font-semibold">Strategic Location</h3>
                 <p className="mt-2 text-muted-foreground">Positioned as a gateway between Europe and Africa, Dakhla is a pivotal center for international trade and logistics.</p>
               </div>
-              <div className={cn("rounded-lg border bg-card p-6 shadow-sm", isAboutSectionVisible ? 'animate-fade-in-up' : 'opacity-0')} style={{animationDelay: '0.6s'}}>
+              <div className={cn("rounded-lg border bg-card p-6 shadow-sm", isWhyDakhlaCardsVisible ? 'animate-fade-in-up' : 'opacity-0')} style={{animationDelay: '0.4s'}}>
                 <h3 className="font-headline text-xl font-semibold">Economic Boom</h3>
                 <p className="mt-2 text-muted-foreground">Massive infrastructure projects, including the Dakhla Atlantic Port, are fueling unprecedented economic growth.</p>
               </div>
-              <div className={cn("rounded-lg border bg-card p-6 shadow-sm", isAboutSectionVisible ? 'animate-fade-in-up' : 'opacity-0')} style={{animationDelay: '0.8s'}}>
+              <div className={cn("rounded-lg border bg-card p-6 shadow-sm", isWhyDakhlaCardsVisible ? 'animate-fade-in-up' : 'opacity-0')} style={{animationDelay: '0.6s'}}>
                 <h3 className="font-headline text-xl font-semibold">Tourism Hotspot</h3>
                 <p className="mt-2 text-muted-foreground">World-renowned for kitesurfing and its stunning natural beauty, Dakhla's tourism sector is expanding rapidly, driving demand for land.</p>
               </div>
             </div>
-            <div className={cn(isAboutSectionVisible ? 'animate-fade-in-up' : 'opacity-0')} style={{animationDelay: '1s'}}>
+            <div className={cn(isWhyDakhlaCardsVisible ? 'animate-fade-in-up' : 'opacity-0')} style={{animationDelay: '0.8s'}}>
               <Button asChild size="lg" className="mt-12">
                 <Link href="/dakhla">
                   Explore Dakhla's Potential <ArrowRight />
