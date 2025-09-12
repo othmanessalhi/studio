@@ -1,3 +1,4 @@
+
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -25,8 +26,12 @@ export function Hero() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [currentHeadline, setCurrentHeadline] = useState(0);
   const [isFading, setIsFading] = useState(false);
+  const [isHeroVisible, setHeroVisible] = useState(false);
+
 
   useEffect(() => {
+    const heroTimer = setTimeout(() => setHeroVisible(true), 100);
+
     const imageInterval = setInterval(() => {
       setIsFading(true);
       setTimeout(() => {
@@ -40,6 +45,7 @@ export function Hero() {
     }, 5000);
 
     return () => {
+      clearTimeout(heroTimer);
       clearInterval(imageInterval);
       clearInterval(headlineInterval);
     };
@@ -62,13 +68,13 @@ export function Hero() {
         />
       ))}
       <div className="absolute inset-0 bg-black/50" />
-      <div className="relative z-10 max-w-4xl space-y-4 px-4">
-        <div className='relative flex h-auto items-center justify-center md:h-36'>
+      <div className="relative z-10 max-w-4xl space-y-6 px-4">
+        <div className={cn('relative flex h-auto items-center justify-center md:h-20 transition-all duration-1000', isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
            {headlines.map((headline, index) => (
              <h1
               key={index}
               className={cn(
-                'absolute inset-0 font-headline text-4xl font-bold tracking-tight text-primary transition-opacity duration-1000 ease-in-out sm:text-5xl md:text-6xl',
+                'absolute inset-0 font-headline text-4xl font-bold tracking-tight text-primary transition-opacity duration-1000 ease-in-out sm:text-5xl md:text-5xl',
                 index === currentHeadline ? 'opacity-100' : 'opacity-0',
               )}
             >
@@ -77,11 +83,14 @@ export function Hero() {
            ))}
         </div>
         <p
-          className="mx-auto max-w-2xl text-lg text-background/90 md:text-xl"
+          className={cn(
+            "mx-auto max-w-2xl text-lg text-background/90 md:text-xl transition-all duration-1000 delay-300",
+            isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+          )}
         >
           Jaouad Afella Properties is your exclusive gateway to acquiring premium land in Dakhla, Morocco — a region poised for exponential growth.
         </p>
-        <div>
+        <div className={cn("transition-all duration-1000 delay-500", isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
           <Button asChild size="lg" variant="default">
             <Link href="/properties">
               Discover Lands <ArrowRight />
