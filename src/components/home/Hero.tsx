@@ -74,7 +74,7 @@ export function Hero() {
              <h1
               key={index}
               className={cn(
-                'absolute inset-0 font-headline text-4xl font-bold tracking-tight text-primary transition-opacity duration-1000 ease-in-out sm:text-5xl md:text-5xl',
+                'absolute inset-0 font-headline text-4xl font-bold tracking-tight text-primary transition-opacity duration-1000 ease-in-out sm:text-5xl',
                 index === currentHeadline ? 'opacity-100' : 'opacity-0',
               )}
             >
