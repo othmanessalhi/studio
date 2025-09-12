@@ -2,9 +2,9 @@ import { PlaceHolderImages } from "./placeholder-images";
 
 export const NAV_LINKS = [
   { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
   { href: '/properties', label: 'Properties' },
   { href: '/dakhla', label: 'Why Dakhla' },
+  { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
 ];
 
