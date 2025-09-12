@@ -18,7 +18,8 @@ interface PropertyCardProps {
 
 export function PropertyCard({ property }: PropertyCardProps) {
   return (
-    <Card className="flex h-full flex-col overflow-hidden transition-shadow duration-300 hover:shadow-xl">
+    <Card className="flex h-full flex-col overflow-hidden transition-shadow duration-300 hover:shadow-xl group">
+        <Link href={`/properties/${property.id}`} className='flex flex-col h-full'>
       <CardHeader className="p-0">
         <div className="relative h-60 w-full overflow-hidden">
           {property.image && (
@@ -34,7 +35,7 @@ export function PropertyCard({ property }: PropertyCardProps) {
       </CardHeader>
       <CardContent className="flex-grow p-6">
         <CardTitle className="font-headline text-2xl text-primary">{property.title}</CardTitle>
-        <CardDescription className="mt-2">{property.description}</CardDescription>
+        <CardDescription className="mt-2 line-clamp-2">{property.description}</CardDescription>
         <div className="mt-4 flex items-center justify-between text-sm text-muted-foreground">
             <div className='flex items-center gap-2'>
                 <MapPin className="h-4 w-4 text-primary" />
@@ -49,13 +50,16 @@ export function PropertyCard({ property }: PropertyCardProps) {
           ${property.price.toLocaleString()}
         </p>
       </CardContent>
-      <CardFooter className="p-6 pt-0">
-        <Button asChild className="w-full">
-          <Link href="/contact">
-            Inquire Now <ArrowRight />
-          </Link>
-        </Button>
+      <CardFooter className="p-6 pt-0 mt-auto">
+        <div className="w-full">
+            <Button asChild className="w-full">
+              <Link href={`/properties/${property.id}`}>
+                View Details <ArrowRight />
+              </Link>
+            </Button>
+        </div>
       </CardFooter>
+      </Link>
     </Card>
   );
 }
