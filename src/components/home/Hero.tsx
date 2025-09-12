@@ -69,18 +69,14 @@ export function Hero() {
       ))}
       <div className="absolute inset-0 bg-black/50" />
       <div className="relative z-10 max-w-4xl space-y-6 px-4">
-        <div className={cn('relative flex h-auto items-center justify-center md:h-20 transition-all duration-1000', isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
-           {headlines.map((headline, index) => (
-             <h1
-              key={index}
+        <div className={cn('relative flex h-24 items-center justify-center transition-all duration-1000 md:h-20', isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
+           <h1
               className={cn(
-                'absolute inset-0 font-headline text-4xl font-bold tracking-tight text-primary transition-opacity duration-1000 ease-in-out sm:text-5xl',
-                index === currentHeadline ? 'opacity-100' : 'opacity-0',
+                'font-headline text-4xl font-bold tracking-tight text-primary transition-opacity duration-1000 ease-in-out sm:text-5xl'
               )}
             >
-              {headline}
+              {headlines[currentHeadline]}
             </h1>
-           ))}
         </div>
         <p
           className={cn(
