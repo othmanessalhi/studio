@@ -63,12 +63,12 @@ export function Hero() {
       ))}
       <div className="absolute inset-0 bg-black/50" />
       <div className="relative z-10 max-w-4xl space-y-4 px-4">
-        <div className='relative flex h-24 items-center justify-center md:h-36'>
+        <div className='relative flex h-auto items-center justify-center md:h-36'>
            {headlines.map((headline, index) => (
              <h1
               key={index}
               className={cn(
-                'absolute inset-0 font-headline text-4xl font-bold tracking-tight text-primary transition-opacity duration-1000 ease-in-out sm:text-5xl md:text-6xl lg:text-7xl',
+                'absolute inset-0 font-headline text-4xl font-bold tracking-tight text-primary transition-opacity duration-1000 ease-in-out sm:text-5xl md:text-6xl',
                 index === currentHeadline ? 'opacity-100' : 'opacity-0',
               )}
             >
