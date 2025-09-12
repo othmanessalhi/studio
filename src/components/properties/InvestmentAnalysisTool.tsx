@@ -44,7 +44,7 @@ function SubmitButton() {
 }
 
 export function InvestmentAnalysisTool({ open, onOpenChange }: InvestmentAnalysisToolProps) {
-  const [state, formAction, isPending] = useActionState(runInvestmentAnalysis, {});
+  const [state, formAction] = useActionState(runInvestmentAnalysis, {data: undefined, error: undefined});
   const { toast } = useToast();
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -53,7 +53,7 @@ export function InvestmentAnalysisTool({ open, onOpenChange }: InvestmentAnalysi
       toast({
         variant: 'destructive',
         title: 'Error',
-        description: typeof state.error === 'string' ? state.error : 'Please check the form for errors.',
+        description: 'Please check the form for errors.',
       });
     }
   }, [state, toast]);
