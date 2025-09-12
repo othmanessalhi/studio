@@ -63,7 +63,7 @@ export function Hero() {
       ))}
       <div className="absolute inset-0 bg-black/50" />
       <div className="relative z-10 max-w-4xl space-y-8 px-4">
-        <div className='relative h-24'>
+        <div className='relative flex h-36 items-center justify-center md:h-48'>
            {headlines.map((headline, index) => (
              <h1
               key={index}
