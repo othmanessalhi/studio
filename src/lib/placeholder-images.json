@@ -28,37 +28,37 @@
     {
       "id": "property-1",
       "description": "Vast, flat plot of land in Dakhla under a clear blue sky, suitable for large-scale projects.",
-      "imageUrl": "https://picsum.photos/seed/101/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1519681393784-d120267933ba?q=80&w=600&h=400&fit=crop",
       "imageHint": "vast land"
     },
     {
       "id": "property-2",
       "description": "A stunning luxury villa with a pool with direct access to a sandy beach.",
-      "imageUrl": "https://picsum.photos/seed/102/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=600&h=400&fit=crop",
       "imageHint": "luxury villa"
     },
     {
       "id": "property-3",
       "description": "A large plot of land located in a developing industrial zone with infrastructure.",
-      "imageUrl": "https://picsum.photos/seed/103/600/400",
-      "imageHint": "industrial land"
+      "imageUrl": "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?q=80&w=600&h=400&fit=crop",
+      "imageHint": "modern house"
     },
     {
       "id": "property-4",
       "description": "A serene and secluded modern house in the quiet desert.",
-      "imageUrl": "https://picsum.photos/seed/104/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1484154218962-a197022b5858?q=80&w=600&h=400&fit=crop",
       "imageHint": "desert house"
     },
     {
       "id": "property-5",
       "description": "A beautiful house with a view over the Dakhla lagoon.",
-      "imageUrl": "https://picsum.photos/seed/105/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?q=80&w=600&h=400&fit=crop",
       "imageHint": "house lagoon"
     },
     {
       "id": "property-6",
       "description": "A plot of land on a corner in a developing urban area, ideal for a modern apartment building.",
-      "imageUrl": "https://picsum.photos/seed/106/600/400",
+      "imageUrl": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=600&h=400&fit=crop",
       "imageHint": "modern apartment"
     },
     {
