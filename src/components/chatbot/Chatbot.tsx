@@ -30,7 +30,7 @@ const WelcomeMessage = ({ onQuestionSelect }: { onQuestionSelect: (qna: QnA) => 
 
   return (
     <div className="space-y-3 p-4">
-      <p className="text-sm text-center">{language === 'ar' ? 'مرحباً! كيف يمكنني مساعدتك اليوم؟' : 'Hello! How can I help you today?'}</p>
+      <p className="text-sm text-center">{t('chatbot_welcome')}</p>
       <div className="space-y-2">
         {QA_DATA.map((qna) => (
           <Button
@@ -59,10 +59,14 @@ export function Chatbot() {
       { type: 'user', content: qna.question },
       { type: 'model', content: qna.answer },
     ];
-    if (qna.link) {
-        newHistory.push({ type: 'model', content: qna.link.text});
-    }
+
     setHistory(newHistory);
+
+    if (qna.link) {
+      setTimeout(() => {
+        setHistory(prevHistory => [...prevHistory, { type: 'model', content: qna.link!.text }]);
+      }, 1000);
+    }
   };
 
   const resetChat = () => {
@@ -142,13 +146,13 @@ export function Chatbot() {
           {/* Footer */}
           {isConversationStarted && (
              <footer className="p-4 border-t space-y-2 bg-card">
-                {currentQna?.link && (
+                {currentQna?.link && history.length > 2 && (
                     <Button asChild className="w-full">
                         <Link href={currentQna.link.href} onClick={() => setIsOpen(false)}>{currentQna.link.buttonText}</Link>
                     </Button>
                 )}
                 <Button variant="outline" onClick={resetChat} className="w-full">
-                    {language === 'ar' ? 'البدء من جديد' : 'Start Over'}
+                    {t('ask_another_question')}
                 </Button>
             </footer>
           )}
