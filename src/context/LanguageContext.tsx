@@ -52,9 +52,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
 
   return (
     <LanguageContext.Provider value={value}>
-        <div dir={language === 'ar' ? 'rtl' : 'ltr'}>
-            {children}
-        </div>
+        {children}
     </LanguageContext.Provider>
   );
 };
