@@ -36,8 +36,6 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     setIsLanguageSelected(true);
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = lang;
-     // Force a re-render to apply new direction styles
-    window.location.reload();
   };
 
   const value = {
