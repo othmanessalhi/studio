@@ -7,13 +7,14 @@ export function Logo() {
   const { t } = useTranslation();
   return (
     <Link href="/" className="flex items-center gap-2" aria-label="Immobilier Afella Jaouad Home">
-      <Image
-        src="https://drive.google.com/uc?export=view&id=1MvfV9CyfzHHJ8TxWXc89MIGVROBNw_UI"
-        alt="Immobilier Afella Jaouad Logo"
-        width={40}
-        height={40}
-        className="h-10 w-10"
-      />
+      <div className="relative h-10 w-10">
+        <Image
+          src="https://drive.google.com/uc?export=view&id=1MvfV9CyfzHHJ8TxWXc89MIGVROBNw_UI"
+          alt="Immobilier Afella Jaouad Logo"
+          fill
+          className="object-contain"
+        />
+      </div>
       <span className="font-headline text-xl font-bold tracking-tight text-primary">
         {t('logo')}
       </span>

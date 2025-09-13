@@ -3,7 +3,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
-import { LandPlot } from 'lucide-react';
+import { Logo } from './Logo';
 
 interface LanguageSelectorProps {
   onSelectLanguage: (language: 'en' | 'ar') => void;
@@ -14,13 +14,10 @@ export function LanguageSelector({ onSelectLanguage }: LanguageSelectorProps) {
     <Dialog open={true}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle className="flex items-center gap-2">
-             <LandPlot className="h-8 w-8 text-primary" />
-             <span className="font-headline text-xl font-bold tracking-tight text-primary">
-                Immobilier Afella Jaouad
-             </span>
+          <DialogTitle className="flex items-center justify-center">
+             <Logo />
           </DialogTitle>
-          <DialogDescription>
+          <DialogDescription className="text-center pt-2">
             Please select your preferred language. / يرجى اختيار لغتكم المفضلة
           </DialogDescription>
         </DialogHeader>
@@ -36,5 +33,3 @@ export function LanguageSelector({ onSelectLanguage }: LanguageSelectorProps) {
     </Dialog>
   );
 }
-
-    
