@@ -45,7 +45,7 @@ export function PropertyDetails({ propertyEN, propertyAR }: PropertyDetailsProps
         <div className="container mx-auto">
             <div className="mb-8">
               <Button asChild variant="outline">
-                <Link href="/properties">
+                <Link href="/properties#property-list">
                     {arrowIcon}
                     {t('back_to_properties')}
                 </Link>

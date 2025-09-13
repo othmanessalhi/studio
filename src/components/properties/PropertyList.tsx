@@ -70,7 +70,7 @@ export function PropertyList() {
   const arrowRight = language === 'ar' ? <ArrowLeft /> : <ArrowRight />;
 
   return (
-    <div>
+    <div id="property-list" className="scroll-mt-24">
       <div className="mb-8 flex justify-center">
         <FilterButton
           filters={filters}
