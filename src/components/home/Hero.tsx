@@ -55,7 +55,7 @@ export function Hero() {
   }, [headlines]);
 
   return (
-    <section className="relative flex h-[80vh] min-h-[600px] w-full items-center justify-center text-center text-white md:h-screen">
+    <section className="relative flex h-screen w-full items-center justify-center text-center text-white">
       {heroImages.map((image, index) => (
         image && <Image
           key={image.id}
@@ -101,4 +101,3 @@ export function Hero() {
     </section>
   );
 }
-

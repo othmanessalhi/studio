@@ -26,7 +26,7 @@ export default function AboutPage() {
   
   return (
     <>
-      <section ref={heroRef} className="relative flex h-[50vh] min-h-[400px] items-center justify-center text-center overflow-hidden">
+      <section ref={heroRef} className="relative flex h-screen items-center justify-center text-center overflow-hidden">
          {aboutHeroImage && (
             <Image
                 src={aboutHeroImage.imageUrl}
@@ -121,4 +121,3 @@ export default function AboutPage() {
     </>
   );
 }
-
