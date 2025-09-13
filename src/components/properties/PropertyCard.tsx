@@ -60,7 +60,7 @@ export function PropertyCard({ property, index }: PropertyCardProps) {
     <div ref={cardRef} className={cn("transition-all duration-700", isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8')} style={{ transitionDelay: `${index * 100}ms`}}>
         <Card className="flex h-full flex-col overflow-hidden transition-shadow duration-300 hover:shadow-xl group">
         <Link href={`/properties/${property.id}`} className="flex flex-col h-full">
-            <div className="flex-grow">
+            <div className="flex-grow flex flex-col">
             <CardHeader className="p-0">
                 <div className="relative h-60 w-full overflow-hidden">
                 {property.image && (
@@ -74,7 +74,7 @@ export function PropertyCard({ property, index }: PropertyCardProps) {
                 )}
                 </div>
             </CardHeader>
-            <CardContent className="p-6">
+            <CardContent className="p-6 flex-grow">
                 <CardTitle className="font-headline text-2xl text-primary">{property.title}</CardTitle>
                 <CardDescription className="mt-2 line-clamp-2">{property.description}</CardDescription>
                 <div className="mt-4 flex items-center justify-between text-sm text-muted-foreground">
