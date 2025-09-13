@@ -9,6 +9,8 @@ import { FilterButton, type Filters } from './FilterButton';
 import { useTranslation } from '@/hooks/use-translation';
 import { Button } from '../ui/button';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+import { cn } from '@/lib/utils';
 
 const initialFilters: Filters = {
   location: 'all',
@@ -66,6 +68,7 @@ export function PropertyList() {
   );
 
   const handlePageChange = (newPage: number) => {
+    if (newPage < 1 || newPage > totalPages) return;
     setCurrentPage(newPage);
     const listTop = document.getElementById('property-list-top');
     if (listTop) {
@@ -76,6 +79,9 @@ export function PropertyList() {
 
   const arrowLeft = language === 'ar' ? <ArrowRight /> : <ArrowLeft />;
   const arrowRight = language === 'ar' ? <ArrowLeft /> : <ArrowRight />;
+  
+  const isPrevDisabled = currentPage === 1;
+  const isNextDisabled = currentPage === totalPages;
 
   return (
     <div id="property-list" className='scroll-mt-24'>
@@ -103,15 +109,25 @@ export function PropertyList() {
 
       {totalPages > 1 && (
         <div className="mt-12 flex items-center justify-center gap-4">
-           <Button variant="outline" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
-            {arrowLeft} {t('pagination_previous')}
-          </Button>
+           <Button 
+                variant="outline" 
+                onClick={() => handlePageChange(currentPage - 1)} 
+                disabled={currentPage === 1}
+                aria-disabled={currentPage === 1}
+            >
+                {arrowLeft} {t('pagination_previous')}
+            </Button>
 
           <span className="text-sm font-medium">
             {t('pagination_page', { currentPage: Math.max(1, currentPage), totalPages })}
           </span>
 
-          <Button variant="outline" onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+          <Button 
+            variant="outline" 
+            onClick={() => handlePageChange(currentPage + 1)} 
+            disabled={currentPage === totalPages}
+            aria-disabled={currentPage === totalPages}
+          >
             {t('pagination_next')} {arrowRight}
           </Button>
         </div>
