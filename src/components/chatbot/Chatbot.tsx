@@ -1,6 +1,7 @@
 'use client';
 
-import { chatbot, ChatMessage } from '@/ai/flows/chatbot';
+import { chatbot } from '@/ai/flows/chatbot';
+import type { ChatMessage } from '@/ai/flows/chatbot-types';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
