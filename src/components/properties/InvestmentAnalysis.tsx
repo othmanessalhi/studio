@@ -54,6 +54,9 @@ export function InvestmentAnalysis({ property }: InvestmentAnalysisProps) {
   const handleDownload = () => {
     if (!analysisResult) return;
 
+    // Add Byte Order Mark (BOM) for UTF-8 to ensure Arabic characters display correctly
+    const bom = '\uFEFF';
+
     const content = `
 Investment Analysis for: ${property.title}
 ==================================================
@@ -64,10 +67,10 @@ ${analysisResult.appreciationProjection}
 
 Detailed Analysis:
 --------------------
-${analysisResult.analysis.replace(/\*\*/g, '')}
+${analysisResult.analysis.replace(/###\s/g, '').replace(/\*\*/g, '')}
     `;
 
-    const blob = new Blob([content.trim()], { type: 'text/plain;charset=utf-8' });
+    const blob = new Blob([bom + content.trim()], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
@@ -129,7 +132,7 @@ ${analysisResult.analysis.replace(/\*\*/g, '')}
                 <div dir="auto" className="prose prose-stone dark:prose-invert max-w-none prose-headings:text-foreground prose-h3:font-headline prose-h3:text-foreground prose-strong:text-primary prose-headings:mb-2 prose-p:my-1 prose-ul:my-2">
                     <ReactMarkdown>{analysisResult.analysis}</ReactMarkdown>
                 </div>
-
+                
                 <Button onClick={handleDownload} variant="outline" className="mt-6 gap-2">
                     <Download className="h-4 w-4" />
                     {t('download_analysis')}
