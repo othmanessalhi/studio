@@ -9,6 +9,7 @@ import { FilterButton, type Filters } from './FilterButton';
 import { useTranslation } from '@/hooks/use-translation';
 import { Button } from '../ui/button';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
 
 
 const initialFilters: Filters = {
@@ -66,28 +67,12 @@ export function PropertyList() {
     currentPage * PROPERTIES_PER_PAGE
   );
 
-  const handlePageChange = (newPage: number) => {
-    setCurrentPage(newPage);
-    const listElement = document.getElementById('property-list');
-    if (listElement) {
-        // The fixed header height is 80px (h-20)
-        const headerOffset = 80; 
-        const elementPosition = listElement.getBoundingClientRect().top;
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-        window.scrollTo({
-            top: offsetPosition,
-            behavior: 'smooth'
-        });
-    }
-  };
-
   const arrowLeft = language === 'ar' ? <ArrowRight /> : <ArrowLeft />;
   const arrowRight = language === 'ar' ? <ArrowLeft /> : <ArrowRight />;
 
   return (
-    <div id="property-list">
-      <div className="mb-8 flex justify-center">
+    <div id="property-list" className='scroll-mt-24'>
+      <div className="mb-8 flex justify-center" id="property-list-top">
         <FilterButton
           filters={filters}
           setFilters={setFilters}
@@ -111,22 +96,20 @@ export function PropertyList() {
 
       {totalPages > 1 && (
         <div className="mt-12 flex items-center justify-center gap-4">
-          <Button
-            onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
-            disabled={currentPage === 1}
-            variant="outline"
-          >
-            {arrowLeft} {t('pagination_previous')}
+           <Button asChild variant="outline" disabled={currentPage === 1}>
+            <Link href="#property-list-top" onClick={() => setCurrentPage(currentPage - 1)} scroll={true}>
+                {arrowLeft} {t('pagination_previous')}
+            </Link>
           </Button>
+
           <span className="text-sm font-medium">
             {t('pagination_page', { currentPage, totalPages })}
           </span>
-          <Button
-            onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages))}
-            disabled={currentPage === totalPages}
-            variant="outline"
-          >
-            {t('pagination_next')} {arrowRight}
+
+          <Button asChild variant="outline" disabled={currentPage === totalPages}>
+            <Link href="#property-list-top" onClick={() => setCurrentPage(currentPage + 1)} scroll={true}>
+                {t('pagination_next')} {arrowRight}
+            </Link>
           </Button>
         </div>
       )}
