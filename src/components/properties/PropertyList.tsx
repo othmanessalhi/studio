@@ -15,15 +15,17 @@ export type Filters = {
   size: string;
 };
 
+const initialFilters: Filters = {
+    location: 'all',
+    price: 'all',
+    size: 'all',
+};
+
 export function PropertyList() {
   const { t, language } = useTranslation();
   const MOCK_PROPERTIES = language === 'ar' ? MOCK_PROPERTIES_AR : MOCK_PROPERTIES_EN;
 
-  const [filters, setFilters] = useState<Filters>({
-    location: 'all',
-    price: 'all',
-    size: 'all',
-  });
+  const [filters, setFilters] = useState<Filters>(initialFilters);
 
   const filteredProperties = useMemo(() => {
     return MOCK_PROPERTIES.filter((property: Property) => {
@@ -53,11 +55,15 @@ export function PropertyList() {
       return true;
     });
   }, [filters, MOCK_PROPERTIES]);
+  
+  const resetFilters = () => {
+    setFilters(initialFilters);
+  };
 
   return (
     <div>
       <div className="mb-8 flex flex-col items-center justify-between gap-4 md:flex-row">
-        <PropertyFilters filters={filters} setFilters={setFilters} />
+        <PropertyFilters filters={filters} setFilters={setFilters} resetFilters={resetFilters} />
       </div>
       
       {filteredProperties.length > 0 ? (
