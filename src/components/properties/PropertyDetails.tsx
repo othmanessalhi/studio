@@ -9,6 +9,7 @@ import { ArrowLeft, CheckCircle, Maximize, MapPin, ArrowRight } from 'lucide-rea
 import { useTranslation } from '@/hooks/use-translation';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 interface PropertyDetailsProps {
     propertyEN?: Property;
@@ -85,32 +86,40 @@ export function PropertyDetails({ propertyEN, propertyAR }: PropertyDetailsProps
       </section>
 
       <section>
-        <div className="container mx-auto grid grid-cols-1 gap-16 md:grid-cols-2">
-          <div>
-            <h2 className="font-headline text-3xl font-bold">{t('key_features')}</h2>
-            <ul className="mt-6 space-y-4">
-              {property.features.map((feature, index) => (
-                <li key={index} className={cn('flex items-center gap-3 text-lg transition-all duration-500', isMounted ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4')} style={{ transitionDelay: `${200 + index * 100}ms`}}>
-                  <CheckCircle className="h-6 w-6 text-primary" />
-                  <span>{feature}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h2 className="font-headline text-3xl font-bold">{t('property_location')}</h2>
-            <div className="mt-6 h-[400px] w-full overflow-hidden rounded-lg shadow-xl">
-              <iframe
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                loading="lazy"
-                allowFullScreen
-                referrerPolicy="no-referrer-when-downgrade"
-                src={`https://maps.google.com/maps?q=${property.latitude},${property.longitude}&z=14&output=embed`}
-              ></iframe>
-            </div>
-          </div>
+        <div className="container mx-auto grid grid-cols-1 gap-8 md:grid-cols-2">
+          <Card className="h-full">
+            <CardHeader>
+                <CardTitle className="font-headline text-3xl font-bold">{t('key_features')}</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <ul className="space-y-4">
+                {property.features.map((feature, index) => (
+                    <li key={index} className={cn('flex items-center gap-3 text-lg transition-all duration-500', isMounted ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4')} style={{ transitionDelay: `${200 + index * 100}ms`}}>
+                    <CheckCircle className="h-6 w-6 text-primary" />
+                    <span>{feature}</span>
+                    </li>
+                ))}
+                </ul>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardHeader>
+                <CardTitle className="font-headline text-3xl font-bold">{t('property_location')}</CardTitle>
+            </CardHeader>
+            <CardContent>
+                <div className="h-[400px] w-full overflow-hidden rounded-lg shadow-xl">
+                <iframe
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    loading="lazy"
+                    allowFullScreen
+                    referrerPolicy="no-referrer-when-downgrade"
+                    src={`https://maps.google.com/maps?q=${property.latitude},${property.longitude}&z=14&output=embed`}
+                ></iframe>
+                </div>
+            </CardContent>
+          </Card>
         </div>
       </section>
     </>
