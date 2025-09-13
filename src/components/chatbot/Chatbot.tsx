@@ -1,3 +1,4 @@
+
 'use client';
 
 import { chatbot } from '@/ai/flows/chatbot';
@@ -17,16 +18,29 @@ export function Chatbot() {
   const [isPending, startTransition] = useTransition();
   const scrollAreaRef = useRef<HTMLDivElement>(null);
 
+  useEffect(() => {
+    // On initial load, set a welcome message from the model instead of calling the AI.
+    if (history.length === 0) {
+      setHistory([
+        {
+          role: 'model',
+          content: "Hello! I'm the Dakhla Land Assistant. How can I help you find the perfect property today?",
+        },
+      ]);
+    }
+  }, []); // Runs only once on mount
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!message.trim() || isPending) return;
 
     const newMessage: ChatMessage = { role: 'user', content: message };
-    setHistory(prev => [...prev, newMessage]);
+    const newHistory = [...history, newMessage];
+    setHistory(newHistory);
     setMessage('');
 
     startTransition(async () => {
-      const response = await chatbot({ history, message });
+      const response = await chatbot({ history: newHistory.slice(0, -1), message });
       const modelMessage: ChatMessage = { role: 'model', content: response };
       setHistory(prev => [...prev, modelMessage]);
     });
@@ -103,7 +117,7 @@ export function Chatbot() {
               placeholder="Type your message..."
               disabled={isPending}
             />
-            <Button type="submit" size="icon" disabled={isPending}>
+            <Button type="submit" size="icon" disabled={isPending || !message.trim()}>
               <Send className="h-5 w-5" />
               <span className="sr-only">Send</span>
             </Button>
