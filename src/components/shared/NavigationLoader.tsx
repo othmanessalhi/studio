@@ -23,7 +23,13 @@ export function NavigationLoader() {
     const handleLinkClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const anchor = target.closest('a');
-      if (anchor && anchor.href && anchor.target !== '_blank') {
+      
+      // Ignore clicks on links with data-no-loader, or links that open in a new tab
+      if (anchor && (anchor.hasAttribute('data-no-loader') || anchor.target === '_blank')) {
+        return;
+      }
+
+      if (anchor && anchor.href) {
         const currentUrl = new URL(window.location.href);
         const targetUrl = new URL(anchor.href);
         if (currentUrl.origin === targetUrl.origin && currentUrl.pathname !== targetUrl.pathname) {

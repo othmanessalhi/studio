@@ -73,6 +73,7 @@ ${analysisResult.analysis.replace(/###\s?/g, '').replace(/\*\*/g, '')}
     const link = document.createElement('a');
     link.href = url;
     link.download = `investment-analysis-${property.id}.txt`;
+    link.setAttribute('data-no-loader', 'true'); // Add attribute to ignore by NavigationLoader
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
