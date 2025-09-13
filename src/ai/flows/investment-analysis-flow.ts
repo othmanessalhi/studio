@@ -24,6 +24,8 @@ const prompt = ai.definePrompt({
         Your task is to provide a concise, expert analysis of the investment potential of the following property.
         The Moroccan government is heavily investing in Dakhla's infrastructure, including the Dakhla Atlantic Port, renewable energy projects (wind and solar), and tourism. The region is a world-renowned kitesurfing destination.
 
+        Your entire response MUST be in the language specified by the language code: {{{language}}}.
+
         Use the following property details to form your analysis. Format your response in Markdown.
 
         Property Details:
@@ -37,7 +39,7 @@ const prompt = ai.definePrompt({
         - {{{this}}}
         {{/each}}
 
-        Your analysis should be structured with the following sections:
+        Your analysis should be structured with the following sections (translate these section titles if the language is not 'en'):
 
         ### 💡 Potential
         (Highlight 2-3 key strengths and opportunities. Be specific about how the property's features align with Dakhla's growth sectors like tourism, logistics, or energy.)
@@ -46,7 +48,7 @@ const prompt = ai.definePrompt({
         (Identify 1-2 potential risks or considerations for the investor. This could relate to market fluctuations, project timelines, or property-specific challenges.)
 
         ### 📈 Final Recommendation
-        (Provide a concluding recommendation. State whether it is a "Strong Buy," "Promising Investment," or "Requires Due Diligence," and give a one-sentence justification.)
+        (Provide a concluding recommendation. State whether it is a "Strong Buy," "Promising Investment," or "Requires Due Diligence," and give a one-sentence justification. Translate these recommendations as needed.)
     `,
 });
 

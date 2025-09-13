@@ -33,6 +33,7 @@ export function InvestmentAnalysis({ property }: InvestmentAnalysisProps) {
         location: property.location,
         description: property.description,
         features: property.features,
+        language: language,
       });
 
       if (result?.analysis) {

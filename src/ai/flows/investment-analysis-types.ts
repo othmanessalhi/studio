@@ -16,6 +16,7 @@ export const InvestmentAnalysisInputSchema = z.object({
   location: z.string().describe('The location type of the property (e.g., Coastal, Inland, Urban).'),
   description: z.string().describe('A brief description of the property.'),
   features: z.array(z.string()).describe('A list of key features of the property.'),
+  language: z.string().describe("The language code for the response (e.g., 'en', 'ar')."),
 });
 export type InvestmentAnalysisInput = z.infer<typeof InvestmentAnalysisInputSchema>;
 
