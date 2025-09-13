@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Logo } from '../shared/Logo';
 import { MobileNav } from './MobileNav';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useTranslation } from '@/hooks/use-translation';
 import {
   DropdownMenu,
@@ -21,29 +21,28 @@ export function Header() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const { t, navLinks, language, setLanguage } = useTranslation();
+  const languageButtonRef = useRef<HTMLButtonElement>(null);
 
-  const isPropertiesPage = pathname.startsWith('/properties');
-  const heroPages = ['/', '/dakhla', '/about', '/contact'];
-  const isHeroPage = heroPages.includes(pathname);
+  const isHeroPage = ['/', '/dakhla', '/about', '/contact', '/properties/[id]'].includes(pathname) || /^\/properties\/\w+$/.test(pathname);
   
   const useTransparentHeader = isHeroPage && !isScrolled;
+
+  const handleLanguageChange = (lang: 'en' | 'ar') => {
+    setLanguage(lang);
+    // Remove focus from the button to prevent the outline
+    if (languageButtonRef.current) {
+      languageButtonRef.current.blur();
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
     window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check scroll position on initial render/route change
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  useEffect(() => {
-    // A slight delay to allow the new page to render before scrolling to top
-    // This can help with certain async rendering scenarios
-    const timer = setTimeout(() => {
-        window.scrollTo(0, 0);
-    }, 100);
-    return () => clearTimeout(timer);
-  }, [pathname]);
+  }, [pathname]); // Re-evaluate on route change
 
   return (
     <header
@@ -73,16 +72,16 @@ export function Header() {
         <div className="hidden items-center gap-2 md:flex">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon">
+                <Button ref={languageButtonRef} variant="ghost" size="icon">
                   <Globe className={cn('h-5 w-5', useTransparentHeader ? 'text-white' : 'text-foreground')} />
                   <span className="sr-only">Change language</span>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" onFocusOutside={(e) => e.preventDefault()}>
-                <DropdownMenuItem onClick={() => setLanguage('en')} disabled={language === 'en'}>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => handleLanguageChange('en')} disabled={language === 'en'}>
                   English
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setLanguage('ar')} disabled={language === 'ar'}>
+                <DropdownMenuItem onClick={() => handleLanguageChange('ar')} disabled={language === 'ar'}>
                   العربية
                 </DropdownMenuItem>
               </DropdownMenuContent>
