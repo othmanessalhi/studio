@@ -36,6 +36,8 @@ IMPORTANT RULES:
  * @returns The AI's response.
  */
 export async function chatbot(input: ChatbotInput): Promise<string> {
+  // If there's no history, it's the first interaction.
+  // Return the welcome message without calling the AI.
   if (!input.history || input.history.length === 0) {
     return input.language === 'ar'
       ? 'مرحباً! كيف يمكنني مساعدتك في العثور على أرض أحلامك في الداخلة اليوم؟'

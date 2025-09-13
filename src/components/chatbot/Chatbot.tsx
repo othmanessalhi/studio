@@ -19,18 +19,16 @@ export function Chatbot() {
   const [isPending, startTransition] = useTransition();
   const chatContainerRef = useRef<HTMLDivElement>(null);
 
-  // Add initial welcome message when chat opens for the first time
+  // Add initial welcome message when chat opens and history is empty
   useEffect(() => {
-    if (isOpen && history.length === 0) {
-      const welcomeMessage = {
-          role: 'model' as const,
-          content: language === 'ar'
-            ? 'مرحباً! أنا مساعدك العقاري. كيف يمكنني مساعدتك اليوم في بحثك عن أرض في الداخلة؟'
-            : 'Hello! I am your real estate assistant. How can I help you with your Dakhla land search today?',
-        };
-      setHistory([welcomeMessage]);
+    if (isOpen && history.length === 0 && !isPending) {
+        startTransition(async () => {
+            const response = await chatbot({ history: [], language });
+            const welcomeMessage: ChatMessage = { role: 'model', content: response };
+            setHistory([welcomeMessage]);
+        });
     }
-  }, [isOpen, history.length, language]);
+  }, [isOpen]);
 
   // Scroll to bottom of chat on new message
   useEffect(() => {
@@ -119,7 +117,17 @@ export function Chatbot() {
                 </div>
               </div>
             ))}
-            {isPending && (
+             {(isPending && history.length === 0) && (
+                <div className="flex items-start gap-3 justify-start">
+                    <div className="flex-shrink-0 h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
+                        <Bot className="h-5 w-5 text-primary" />
+                    </div>
+                    <div className="bg-muted rounded-xl px-4 py-3 flex items-center">
+                        <Loader2 className="h-5 w-5 text-primary animate-spin" />
+                    </div>
+                </div>
+            )}
+            {isPending && history.length > 0 && history[history.length -1].role === 'user' && (
                 <div className="flex items-start gap-3 justify-start">
                      <div className="flex-shrink-0 h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
                         <Bot className="h-5 w-5 text-primary" />
