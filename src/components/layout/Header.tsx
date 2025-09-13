@@ -47,9 +47,9 @@ export function Header() {
               href={link.href}
               className={cn(
                 'font-headline text-sm font-medium transition-colors hover:text-primary',
-                (isScrolled || !isHeroPage) 
-                  ? (pathname === link.href ? 'text-primary' : 'text-foreground') 
-                  : (pathname === link.href ? 'text-primary' : 'text-primary-foreground [text-shadow:0_0_8px_rgba(255,255,255,0.7)]')
+                isScrolled || !isHeroPage
+                  ? pathname === link.href ? 'text-primary' : 'text-foreground'
+                  : pathname === link.href ? 'text-primary' : 'text-white [text-shadow:0_0_8px_rgba(255,255,255,0.7)]'
               )}
             >
               {link.label}
