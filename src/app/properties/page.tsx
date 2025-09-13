@@ -30,7 +30,7 @@ export default function PropertiesPage() {
                 src={propertiesHeroImage.imageUrl}
                 alt={propertiesHeroImage.description}
                 fill
-                className="object-cover"
+                className="object-cover object-center"
                 data-ai-hint={propertiesHeroImage.imageHint}
                 priority
             />

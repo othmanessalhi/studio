@@ -104,7 +104,7 @@ export default function WhyDakhlaPage() {
                 src={dakhlaHeroImage.imageUrl}
                 alt={dakhlaHeroImage.description}
                 fill
-                className="object-cover"
+                className="object-cover object-center"
                 data-ai-hint={dakhlaHeroImage.imageHint}
                 priority
             />

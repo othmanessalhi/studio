@@ -32,7 +32,7 @@ export default function AboutPage() {
                 src={aboutHeroImage.imageUrl}
                 alt={aboutHeroImage.description}
                 fill
-                className="object-cover"
+                className="object-cover object-center"
                 data-ai-hint={aboutHeroImage.imageHint}
                 priority
             />

@@ -38,7 +38,7 @@ export default function ContactPage() {
                 src={contactHeroImage.imageUrl}
                 alt={contactHeroImage.description}
                 fill
-                className="object-cover"
+                className="object-cover object-center"
                 data-ai-hint={contactHeroImage.imageHint}
                 priority
             />
