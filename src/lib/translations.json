@@ -123,7 +123,10 @@
     "Filters": "Filters",
     "reset": "Reset",
     "apply_filters": "Apply Filters",
-    "Optional": "Optional"
+    "Optional": "Optional",
+    "pagination_previous": "Previous",
+    "pagination_next": "Next",
+    "pagination_page": "Page {{currentPage}} of {{totalPages}}"
   },
   "ar": {
     "logo": "وكالة عقارات جواد أفلا",
@@ -248,6 +251,9 @@
     "Filters": "الفلاتر",
     "reset": "إعادة تعيين",
     "apply_filters": "تطبيق الفلاتر",
-    "Optional": "اختياري"
+    "Optional": "اختياري",
+    "pagination_previous": "السابق",
+    "pagination_next": "التالي",
+    "pagination_page": "صفحة {{currentPage}} من {{totalPages}}"
   }
 }

@@ -66,6 +66,11 @@ export function PropertyList() {
     currentPage * PROPERTIES_PER_PAGE
   );
 
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+    document.getElementById('property-list')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   const arrowLeft = language === 'ar' ? <ArrowRight /> : <ArrowLeft />;
   const arrowRight = language === 'ar' ? <ArrowLeft /> : <ArrowRight />;
 
@@ -96,21 +101,21 @@ export function PropertyList() {
       {totalPages > 1 && (
         <div className="mt-12 flex items-center justify-center gap-4">
           <Button
-            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
             disabled={currentPage === 1}
             variant="outline"
           >
-            {arrowLeft} Previous
+            {arrowLeft} {t('pagination_previous')}
           </Button>
           <span className="text-sm font-medium">
-            Page {currentPage} of {totalPages}
+            {t('pagination_page', { currentPage, totalPages })}
           </span>
           <Button
-            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+            onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages))}
             disabled={currentPage === totalPages}
             variant="outline"
           >
-            Next {arrowRight}
+            {t('pagination_next')} {arrowRight}
           </Button>
         </div>
       )}
