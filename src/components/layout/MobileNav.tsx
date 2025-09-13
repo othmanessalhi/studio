@@ -25,8 +25,15 @@ export function MobileNav() {
   };
 
   const handleLanguageChange = (lang: 'en' | 'ar') => {
+    if (lang === language) {
+        setIsOpen(false);
+        return;
+    };
     setLanguage(lang);
-    setIsOpen(false);
+    // The loading state is handled in the context, we just need to close the sheet.
+    setTimeout(() => {
+        setIsOpen(false);
+    }, 600);
   }
 
   return (
@@ -57,8 +64,8 @@ export function MobileNav() {
             <Link href="/contact" onClick={handleLinkClick}>{t('contactUs')}</Link>
           </Button>
           <div className="mt-4 flex justify-center gap-4">
-            <Button variant={language === 'en' ? 'default' : 'outline'} onClick={() => handleLanguageChange('en')}>English</Button>
-            <Button variant={language === 'ar' ? 'default' : 'outline'} onClick={() => handleLanguageChange('ar')}>العربية</Button>
+            <Button variant={language === 'en' ? 'default' : 'outline'} onClick={() => handleLanguageChange('en')} disabled={language === 'en'}>English</Button>
+            <Button variant={language === 'ar' ? 'default' : 'outline'} onClick={() => handleLanguageChange('ar')} disabled={language === 'ar'}>العربية</Button>
           </div>
         </div>
       </SheetContent>

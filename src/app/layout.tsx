@@ -52,11 +52,11 @@ export default function RootLayout({
           'min-h-screen bg-background font-body text-foreground antialiased font-medium'
         )}
       >
-        <LanguageProvider>
-          <LoadingProvider>
+        <LoadingProvider>
+          <LanguageProvider>
             <AppLayout>{children}</AppLayout>
-          </LoadingProvider>
-        </LanguageProvider>
+          </LanguageProvider>
+        </LoadingProvider>
       </body>
     </html>
   );
