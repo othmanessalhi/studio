@@ -1,7 +1,7 @@
 
 'use client';
 
-import { useState } from 'react';
+import { useState, MouseEvent } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Loader, Sparkles, BrainCircuit, Download, TrendingUp } from 'lucide-react';
@@ -51,8 +51,11 @@ export function InvestmentAnalysis({ property }: InvestmentAnalysisProps) {
     }
   };
   
-  const handleDownload = () => {
+  const handleDownload = (e: MouseEvent<HTMLButtonElement>) => {
     if (!analysisResult) return;
+    
+    // Stop the click from propagating to the navigation loader
+    e.stopPropagation();
 
     // Add Byte Order Mark (BOM) for UTF-8 to ensure Arabic characters display correctly
     const bom = '\uFEFF';
@@ -67,9 +70,9 @@ ${analysisResult.appreciationProjection}
 
 Detailed Analysis:
 --------------------
-${analysisResult.analysis.replace(/###\s/g, '').replace(/\*\*/g, '')}
+${analysisResult.analysis.replace(/\*\*(.*?)\*\*/g, '$1')} 
     `;
-
+    
     const blob = new Blob([bom + content.trim()], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -156,7 +159,8 @@ ${analysisResult.analysis.replace(/###\s/g, '').replace(/\*\*/g, '')}
         </p>
         <Button size="lg" className="mt-8 gap-2" onClick={handleAnalysis} disabled={isLoading}>
             <Sparkles className="h-5 w-5" />
-            {analyzeButtonText}
+            <span className="md:hidden">{t('analyze_investment_short')}</span>
+            <span className="hidden md:inline">{analyzeButtonText}</span>
         </Button>
         {error && <p className="mt-4 text-sm text-destructive">{error}</p>}
       </div>
