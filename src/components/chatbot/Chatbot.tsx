@@ -2,16 +2,40 @@
 'use client';
 
 import { useTranslation } from '@/hooks/use-translation';
-import { Bot, X, MessageSquare, ChevronRight, ArrowLeft } from 'lucide-react';
+import { Bot, X, ArrowLeft, Send } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { CHATBOT_QA_EN, CHATBOT_QA_AR } from '@/lib/constants';
 
 interface ChatHistoryItem {
-  type: 'question' | 'answer';
-  content: string;
+  type: 'user' | 'model';
+  content: string | React.ReactNode;
 }
+
+const WelcomeMessage = ({ onQuestionSelect }: { onQuestionSelect: (question: string, answer: string) => void }) => {
+  const { t, language } = useTranslation();
+  const QA_DATA = language === 'ar' ? CHATBOT_QA_AR : CHATBOT_QA_EN;
+
+  return (
+    <div className="space-y-2">
+      <p className="text-sm">{language === 'ar' ? 'مرحباً! كيف يمكنني مساعدتك اليوم؟ اختر أحد الأسئلة أدناه.' : 'Hello! How can I help you today? Please select a question below.'}</p>
+      <div className="space-y-2">
+        {QA_DATA.map(({ question, answer }) => (
+          <Button
+            key={question}
+            variant="outline"
+            className="w-full justify-start text-left h-auto py-2"
+            onClick={() => onQuestionSelect(question, answer)}
+          >
+            {question}
+          </Button>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 
 export function Chatbot() {
   const { t, language } = useTranslation();
@@ -19,19 +43,28 @@ export function Chatbot() {
   const [history, setHistory] = useState<ChatHistoryItem[]>([]);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   
-  const QA_DATA = language === 'ar' ? CHATBOT_QA_AR : CHATBOT_QA_EN;
+  const handleQuestionSelect = (question: string, answer: string) => {
+    setHistory([
+      { type: 'user', content: question },
+      { type: 'model', content: answer },
+    ]);
+  };
+
+  const resetChat = () => {
+    setHistory([
+      {
+        type: 'model',
+        content: <WelcomeMessage onQuestionSelect={handleQuestionSelect} />,
+      },
+    ]);
+  };
 
   // Add initial welcome message when chat opens
   useEffect(() => {
-    if (isOpen && history.length === 0) {
-      setHistory([
-        {
-          type: 'answer',
-          content: language === 'ar' ? 'مرحباً! كيف يمكنني مساعدتك اليوم؟ اختر أحد الأسئلة أدناه.' : 'Hello! How can I help you today? Please select a question below.',
-        },
-      ]);
+    if (isOpen) {
+      resetChat();
     }
-  }, [isOpen, history.length, language]);
+  }, [isOpen, language]);
 
   // Scroll to bottom of chat on new message
   useEffect(() => {
@@ -40,23 +73,8 @@ export function Chatbot() {
     }
   }, [history]);
   
-  const handleQuestionClick = (question: string, answer: string) => {
-    const newHistory: ChatHistoryItem[] = [
-      ...history,
-      { type: 'question', content: question },
-      { type: 'answer', content: answer },
-    ];
-    setHistory(newHistory);
-  };
-  
-  const resetChat = () => {
-     setHistory([
-        {
-          type: 'answer',
-          content: language === 'ar' ? 'مرحباً! كيف يمكنني مساعدتك اليوم؟ اختر أحد الأسئلة أدناه.' : 'Hello! How can I help you today? Please select a question below.',
-        },
-      ]);
-  }
+
+  const isConversationStarted = history.length > 1;
 
   return (
     <>
@@ -89,41 +107,27 @@ export function Chatbot() {
           {/* Chat Messages */}
           <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4">
             {history.map((item, index) => (
-              <div key={index} className={cn('flex items-start gap-3', item.type === 'question' ? 'justify-end' : 'justify-start')}>
-                {item.type === 'answer' && (
+              <div key={index} className={cn('flex items-start gap-3 w-full', item.type === 'user' ? 'justify-end' : 'justify-start')}>
+                {item.type === 'model' && (
                   <div className="flex-shrink-0 h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
                     <Bot className="h-5 w-5 text-primary" />
                   </div>
                 )}
-                <div className={cn('max-w-[80%] rounded-xl px-4 py-2', item.type === 'question' ? 'bg-primary text-primary-foreground' : 'bg-muted')}>
-                   <p className="text-sm">{item.content}</p>
+                <div className={cn('max-w-[85%] rounded-xl px-4 py-3', item.type === 'user' ? 'bg-primary text-primary-foreground' : 'bg-muted')}>
+                   {typeof item.content === 'string' ? <p className="text-sm">{item.content}</p> : item.content}
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Questions Footer */}
-          <footer className="p-4 border-t space-y-2 bg-card">
-              <p className="text-sm font-medium text-center text-muted-foreground mb-2">
-                {language === 'ar' ? 'اختر سؤالاً:' : 'Select a question:'}
-              </p>
-              <div className="space-y-2">
-                 {QA_DATA.map(({question, answer}) => (
-                    <Button 
-                        key={question} 
-                        variant="outline" 
-                        className="w-full justify-between"
-                        onClick={() => handleQuestionClick(question, answer)}
-                    >
-                        {question}
-                        {language === 'ar' ? <ArrowLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
-                    </Button>
-                 ))}
-              </div>
-              <Button variant="link" onClick={resetChat} className="w-full text-muted-foreground">
-                {language === 'ar' ? 'البدء من جديد' : 'Start Over'}
-              </Button>
-          </footer>
+          {/* Footer */}
+          {isConversationStarted && (
+             <footer className="p-4 border-t space-y-2 bg-card">
+                <Button variant="outline" onClick={resetChat} className="w-full">
+                    {language === 'ar' ? 'البدء من جديد' : 'Start Over'}
+                </Button>
+            </footer>
+          )}
         </div>
       )}
     </>
