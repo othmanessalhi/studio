@@ -43,7 +43,22 @@ export function ContactForm() {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    const whatsAppNumber = '212602654219'; // Your WhatsApp number without '+'
+
+    const messageLines = [
+      `New Inquiry from ${values.name}`,
+      `Email: ${values.email}`,
+      values.phone ? `Phone: ${values.phone}` : '',
+      '------------------',
+      values.message,
+    ].filter(Boolean); // Filter out empty lines (like the optional phone)
+
+    const whatsappMessage = encodeURIComponent(messageLines.join('\n'));
+
+    const whatsappUrl = `https://wa.me/${whatsAppNumber}?text=${whatsappMessage}`;
+
+    window.open(whatsappUrl, '_blank');
+
     toast({
       title: t('toast_success_title'),
       description: t('toast_success_p'),
