@@ -40,9 +40,10 @@ export function PropertyDetails({ propertyEN, propertyAR }: PropertyDetailsProps
   }
 
   const whatsAppNumber = '212602654219';
+  const propertyUrl = typeof window !== 'undefined' ? window.location.href : '';
   const inquiryMessage = language === 'ar' 
-    ? `مرحباً، أنا مهتم بالعقار: ${property.title}`
-    : `Hello, I'm interested in the property: ${property.title}`;
+    ? `مرحباً، أنا مهتم بالعقار: ${property.title}\n\nيمكنك مشاهدته هنا: ${propertyUrl}`
+    : `Hello, I'm interested in the property: ${property.title}\n\nYou can view it here: ${propertyUrl}`;
   const whatsappUrl = `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(inquiryMessage)}`;
 
 
@@ -141,3 +142,5 @@ export function PropertyDetails({ propertyEN, propertyAR }: PropertyDetailsProps
     </>
   );
 }
+
+    
