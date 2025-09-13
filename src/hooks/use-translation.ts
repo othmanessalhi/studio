@@ -1,14 +1,15 @@
 
 'use client';
 
-import { useContext } from 'react';
-import { LanguageContext, Translations } from '@/context/LanguageContext';
+import { useLanguage } from '@/context/LanguageContext';
 import { NAV_LINKS_EN, NAV_LINKS_AR } from '@/lib/constants';
+import type { Translations } from '@/context/LanguageContext';
+
 
 type TranslationKeys = keyof Translations['en'];
 
 export const useTranslation = () => {
-  const context = useContext(LanguageContext);
+  const context = useLanguage();
 
   if (context === undefined) {
     throw new Error('useTranslation must be used within a LanguageProvider');

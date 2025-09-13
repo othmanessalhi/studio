@@ -7,10 +7,33 @@ import { cn } from '@/lib/utils';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
 import { Toaster } from '@/components/ui/toaster';
-import { LanguageProvider } from '@/context/LanguageContext';
+import { LanguageProvider, useLanguage } from '@/context/LanguageContext';
 import { Chatbot } from '@/components/chatbot/Chatbot';
 import { LoadingProvider } from '@/context/LoadingContext';
 import { NavigationLoader } from '@/components/shared/NavigationLoader';
+import { useEffect } from 'react';
+
+function AppLayout({ children }: { children: React.ReactNode }) {
+  const { language } = useLanguage();
+
+  useEffect(() => {
+    document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.lang = language;
+  }, [language]);
+
+  return (
+    <>
+      <NavigationLoader />
+      <div className="relative flex min-h-dvh flex-col">
+        <Header />
+        <main className="flex-1">{children}</main>
+        <Footer />
+        <Chatbot />
+      </div>
+      <Toaster />
+    </>
+  );
+}
 
 export default function RootLayout({
   children,
@@ -30,16 +53,9 @@ export default function RootLayout({
         )}
       >
         <LanguageProvider>
-            <LoadingProvider>
-              <NavigationLoader />
-              <div className="relative flex min-h-dvh flex-col">
-                <Header />
-                <main className="flex-1">{children}</main>
-                <Footer />
-                <Chatbot />
-              </div>
-              <Toaster />
-            </LoadingProvider>
+          <LoadingProvider>
+            <AppLayout>{children}</AppLayout>
+          </LoadingProvider>
         </LanguageProvider>
       </body>
     </html>

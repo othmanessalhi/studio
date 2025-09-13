@@ -1,7 +1,7 @@
 
 'use client';
 
-import React, { createContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useState, useEffect, ReactNode, useContext } from 'react';
 import translations from '@/lib/translations.json';
 import { LanguageSelector } from '@/components/shared/LanguageSelector';
 
@@ -27,8 +27,6 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     if (savedLanguage) {
       setLanguage(savedLanguage);
       setIsLanguageSelected(true);
-      document.documentElement.dir = savedLanguage === 'ar' ? 'rtl' : 'ltr';
-      document.documentElement.lang = savedLanguage;
     }
   }, []);
 
@@ -36,10 +34,8 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     setLanguage(lang);
     localStorage.setItem('language', lang);
     setIsLanguageSelected(true);
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = lang;
   };
-
+  
   const value = {
     language,
     setLanguage: handleSetLanguage,
@@ -62,3 +58,12 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     </LanguageContext.Provider>
   );
 };
+
+
+export const useLanguage = () => {
+    const context = useContext(LanguageContext);
+    if (context === undefined) {
+        throw new Error('useLanguage must be used within a LanguageProvider');
+    }
+    return context;
+}
