@@ -68,45 +68,46 @@ export default function WhyDakhlaPage() {
       
       <section className="bg-card">
         <div className="container mx-auto space-y-20">
-          <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2">
-            <div>
+          
+          <div className="grid grid-cols-1 items-center gap-8 md:gap-12 lg:grid-cols-2">
+            <div className="space-y-4">
               <Anchor className="h-12 w-12 text-primary" />
-              <h3 className="mt-4 font-headline text-3xl font-bold">{t('dakhla_port_title')}</h3>
-              <p className="mt-4 text-lg text-muted-foreground">
+              <h3 className="font-headline text-3xl font-bold">{t('dakhla_port_title')}</h3>
+              <p className="text-lg text-muted-foreground">
                 {t('dakhla_port_p')}
               </p>
             </div>
-            <div className="overflow-hidden rounded-lg shadow-xl">
-              {portImage && <Image src={portImage.imageUrl} alt={portImage.description} width={600} height={400} className="w-full object-cover" data-ai-hint={portImage.imageHint}/>}
+            <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-xl">
+              {portImage && <Image src={portImage.imageUrl} alt={portImage.description} fill className="object-cover" data-ai-hint={portImage.imageHint}/>}
             </div>
           </div>
 
-          <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2">
-             <div className="overflow-hidden rounded-lg shadow-xl md:order-2">
-              {tourismImage && <Image src={tourismImage.imageUrl} alt={tourismImage.description} width={600} height={400} className="w-full object-cover" data-ai-hint={tourismImage.imageHint} />}
+          <div className="grid grid-cols-1 items-center gap-8 md:gap-12 lg:grid-cols-2">
+            <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-xl lg:order-last">
+              {tourismImage && <Image src={tourismImage.imageUrl} alt={tourismImage.description} fill className="object-cover" data-ai-hint={tourismImage.imageHint} />}
             </div>
-            <div className='md:order-1'>
+            <div className='space-y-4 lg:order-first'>
               <Waves className="h-12 w-12 text-primary" />
-              <h3 className="mt-4 font-headline text-3xl font-bold">{t('dakhla_tourism_title')}</h3>
-              <p className="mt-4 text-lg text-muted-foreground">
+              <h3 className="font-headline text-3xl font-bold">{t('dakhla_tourism_title')}</h3>
+              <p className="text-lg text-muted-foreground">
                 {t('dakhla_tourism_p')}
               </p>
             </div>
           </div>
           
-           <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-2">
-            <div>
+           <div className="grid grid-cols-1 items-center gap-8 md:gap-12 lg:grid-cols-2">
+            <div className="space-y-4">
               <div className="flex gap-4">
                 <Wind className="h-12 w-12 text-primary" />
                 <Sun className="h-12 w-12 text-primary" />
               </div>
-              <h3 className="mt-4 font-headline text-3xl font-bold">{t('dakhla_energy_title')}</h3>
-              <p className="mt-4 text-lg text-muted-foreground">
+              <h3 className="font-headline text-3xl font-bold">{t('dakhla_energy_title')}</h3>
+              <p className="text-lg text-muted-foreground">
                 {t('dakhla_energy_p')}
               </p>
             </div>
-            <div className="overflow-hidden rounded-lg shadow-xl">
-              {energyImage && <Image src={energyImage.imageUrl} alt={energyImage.description} width={600} height={400} className="w-full object-cover" data-ai-hint={energyImage.imageHint}/>}
+            <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-xl">
+              {energyImage && <Image src={energyImage.imageUrl} alt={energyImage.description} fill className="object-cover" data-ai-hint={energyImage.imageHint}/>}
             </div>
           </div>
 
@@ -129,4 +130,3 @@ export default function WhyDakhlaPage() {
     </>
   );
 }
-
