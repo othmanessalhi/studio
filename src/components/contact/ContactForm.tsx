@@ -43,18 +43,27 @@ export function ContactForm() {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    const whatsAppNumber = '212602654219'; // Your WhatsApp number without '+'
+    const whatsAppNumber = '212602654219'; // Your WhatsApp number
+
+    let formattedPhone = '';
+    if (values.phone) {
+        let phone = values.phone.trim();
+        // Normalize Moroccan numbers
+        if (phone.startsWith('06') || phone.startsWith('07')) {
+            phone = `+212${phone.substring(1)}`;
+        }
+        formattedPhone = `Phone: ${phone}`;
+    }
 
     const messageLines = [
       `New Inquiry from ${values.name}`,
       `Email: ${values.email}`,
-      values.phone ? `Phone: ${values.phone}` : '',
+      formattedPhone,
       '------------------',
       values.message,
-    ].filter(Boolean); // Filter out empty lines (like the optional phone)
+    ].filter(Boolean);
 
     const whatsappMessage = encodeURIComponent(messageLines.join('\n'));
-
     const whatsappUrl = `https://wa.me/${whatsAppNumber}?text=${whatsappMessage}`;
 
     window.open(whatsappUrl, '_blank');
