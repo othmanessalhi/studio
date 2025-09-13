@@ -7,9 +7,9 @@ export function Logo() {
   const { t } = useTranslation();
   return (
     <Link href="/" className="flex items-center gap-2" aria-label="Immobilier Afella Jaouad Home">
-      <div className="relative h-10 w-10">
+      <div className="relative h-12 w-12">
         <Image
-          src="https://drive.google.com/uc?export=view&id=1MvfV9CyfzHHJ8TxWXc89MIGVROBNw_UI"
+          src="https://drive.google.com/uc?export=view&id=12v6jDXMMFVcz94SvxFgj_5-E8EuzqfgP"
           alt="Immobilier Afella Jaouad Logo"
           fill
           className="object-contain"
