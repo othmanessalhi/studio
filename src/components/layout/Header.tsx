@@ -15,6 +15,9 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const { t, navLinks, language, setLanguage } = useTranslation();
 
+  const heroPages = ['/', '/properties', '/dakhla', '/about', '/contact'];
+  const isHeroPage = heroPages.includes(pathname);
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
@@ -24,16 +27,15 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
+    // Reset scroll position on navigation
+    window.scrollTo(0, 0);
   }, [pathname]);
-  
-  const isHomePage = pathname === '/';
 
   return (
     <header
       className={cn(
-        'sticky top-0 z-50 w-full transition-all duration-300',
-        isScrolled || isHomePage ? 'bg-background/80 shadow-md backdrop-blur-sm' : 'bg-background'
+        'fixed top-0 z-50 w-full transition-all duration-300',
+        isScrolled ? 'bg-background/80 shadow-md backdrop-blur-sm' : (isHeroPage ? 'bg-transparent' : 'bg-background')
       )}
     >
       <div className="container mx-auto flex h-20 items-center justify-between">
@@ -45,7 +47,7 @@ export function Header() {
               href={link.href}
               className={cn(
                 'font-headline text-sm font-medium transition-colors hover:text-primary',
-                pathname === link.href ? 'text-primary' : 'text-foreground'
+                (isScrolled || !isHeroPage) ? (pathname === link.href ? 'text-primary' : 'text-foreground') : (pathname === link.href ? 'text-primary' : 'text-primary-foreground')
               )}
             >
               {link.label}
