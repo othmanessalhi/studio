@@ -1,5 +1,4 @@
 
-
 'use client';
 
 import { useEffect, useState } from 'react';
@@ -92,7 +91,7 @@ export function Hero() {
         </p>
         <div className={cn("transition-all duration-1000 delay-500", isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
           <Button asChild size="lg" variant="default">
-            <Link href="/properties">
+            <Link href="/properties#property-list">
               {t('discover_lands')} {arrowIcon}
             </Link>
           </Button>
