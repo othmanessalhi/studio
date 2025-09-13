@@ -10,6 +10,7 @@ import { useTranslation } from '@/hooks/use-translation';
 import { useEffect, useState } from 'react';
 import { cn } from '@/lib/utils';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { InvestmentAnalysis } from './InvestmentAnalysis';
 
 interface PropertyDetailsProps {
     propertyEN?: Property;
@@ -139,8 +140,12 @@ export function PropertyDetails({ propertyEN, propertyAR }: PropertyDetailsProps
           </Card>
         </div>
       </section>
+      
+      <section>
+        <div className="container mx-auto">
+            <InvestmentAnalysis property={property} />
+        </div>
+      </section>
     </>
   );
 }
-
-    
