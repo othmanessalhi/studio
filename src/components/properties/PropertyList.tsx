@@ -72,10 +72,13 @@ export function PropertyList() {
     if (newPage < 1 || newPage > totalPages) return;
     setCurrentPage(newPage);
     
-    const listContainer = document.getElementById('property-list');
-    if (listContainer) {
-      listContainer.scrollIntoView({ behavior: 'smooth' });
-    }
+    // Use setTimeout to ensure the scroll happens after the re-render
+    setTimeout(() => {
+      const listContainer = document.getElementById('property-list');
+      if (listContainer) {
+        listContainer.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 0);
   };
 
   const arrowLeft = language === 'ar' ? <ArrowRight /> : <ArrowLeft />;
