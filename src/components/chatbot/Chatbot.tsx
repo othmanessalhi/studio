@@ -103,7 +103,7 @@ export function Chatbot() {
           </div>
 
           {/* Questions Footer */}
-          <footer className="p-4 border-t space-y-2">
+          <footer className="p-4 border-t space-y-2 bg-card">
               <p className="text-sm font-medium text-center text-muted-foreground mb-2">
                 {language === 'ar' ? 'اختر سؤالاً:' : 'Select a question:'}
               </p>
