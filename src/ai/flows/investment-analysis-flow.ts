@@ -42,10 +42,10 @@ const prompt = ai.definePrompt({
         Your analysis should be structured with the following sections (translate these section titles if the language is not 'en'):
 
         ### 💡 Potential
-        (Highlight 2-3 key strengths and opportunities. Be specific about how the property's features align with Dakhla's growth sectors like tourism, logistics, or energy.)
+        (Highlight 2-3 key strengths and opportunities. Be specific and straightforward. Use bullet points.)
 
         ### ⚠️ Risks
-        (Identify 1-2 potential risks or considerations for the investor. This could relate to market fluctuations, project timelines, or property-specific challenges.)
+        (Identify 1-2 potential risks or considerations for the investor. Be specific and straightforward. Use bullet points.)
 
         ### 📈 Final Recommendation
         (Provide a concluding recommendation. State whether it is a "Strong Buy," "Promising Investment," or "Requires Due Diligence," and give a one-sentence justification. Translate these recommendations as needed.)
