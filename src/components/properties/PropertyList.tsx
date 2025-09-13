@@ -68,14 +68,25 @@ export function PropertyList() {
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
-    document.getElementById('property-list')?.scrollIntoView({ behavior: 'smooth' });
+    const listElement = document.getElementById('property-list');
+    if (listElement) {
+        // The fixed header height is 80px (h-20)
+        const headerOffset = 80; 
+        const elementPosition = listElement.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+        window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+        });
+    }
   };
 
   const arrowLeft = language === 'ar' ? <ArrowRight /> : <ArrowLeft />;
   const arrowRight = language === 'ar' ? <ArrowLeft /> : <ArrowRight />;
 
   return (
-    <div id="property-list" className="scroll-mt-24">
+    <div id="property-list">
       <div className="mb-8 flex justify-center">
         <FilterButton
           filters={filters}
