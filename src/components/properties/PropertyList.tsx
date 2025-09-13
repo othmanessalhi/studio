@@ -9,8 +9,6 @@ import { FilterButton, type Filters } from './FilterButton';
 import { useTranslation } from '@/hooks/use-translation';
 import { Button } from '../ui/button';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
-
 
 const initialFilters: Filters = {
   location: 'all',
@@ -67,6 +65,15 @@ export function PropertyList() {
     currentPage * PROPERTIES_PER_PAGE
   );
 
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+    const listTop = document.getElementById('property-list-top');
+    if (listTop) {
+      listTop.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+
   const arrowLeft = language === 'ar' ? <ArrowRight /> : <ArrowLeft />;
   const arrowRight = language === 'ar' ? <ArrowLeft /> : <ArrowRight />;
 
@@ -96,20 +103,16 @@ export function PropertyList() {
 
       {totalPages > 1 && (
         <div className="mt-12 flex items-center justify-center gap-4">
-           <Button asChild variant="outline" disabled={currentPage === 1}>
-            <Link href="#property-list-top" onClick={() => setCurrentPage(currentPage - 1)} scroll={true}>
-                {arrowLeft} {t('pagination_previous')}
-            </Link>
+           <Button variant="outline" onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
+            {arrowLeft} {t('pagination_previous')}
           </Button>
 
           <span className="text-sm font-medium">
             {t('pagination_page', { currentPage: Math.max(1, currentPage), totalPages })}
           </span>
 
-          <Button asChild variant="outline" disabled={currentPage === totalPages}>
-            <Link href="#property-list-top" onClick={() => setCurrentPage(currentPage + 1)} scroll={true}>
-                {t('pagination_next')} {arrowRight}
-            </Link>
+          <Button variant="outline" onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+            {t('pagination_next')} {arrowRight}
           </Button>
         </div>
       )}
