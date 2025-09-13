@@ -103,7 +103,7 @@ export function InvestmentAnalysis({ property }: InvestmentAnalysisProps) {
 
                 <Separator />
 
-                <div dir="auto" className="prose prose-stone dark:prose-invert max-w-none prose-h3:font-headline prose-h3:text-foreground prose-strong:text-primary prose-headings:mb-2 prose-p:my-1 prose-ul:my-2">
+                <div dir="auto" className="prose prose-stone dark:prose-invert max-w-none prose-headings:text-foreground prose-h3:font-headline prose-h3:text-foreground prose-strong:text-primary prose-headings:mb-2 prose-p:my-1 prose-ul:my-2">
                     <ReactMarkdown>{analysisResult.analysis}</ReactMarkdown>
                 </div>
 

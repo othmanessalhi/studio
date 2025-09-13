@@ -41,10 +41,10 @@ const prompt = ai.definePrompt({
 
         Provide the following in your structured response:
 
-        1.  **analysis**: A very brief analysis with the following sections in Markdown (translate titles if language is not 'en'):
-            - ### 💡 Potential: Highlight 2 key strengths in bullet points.
-            - ### ⚠️ Risks: Identify 1 key risk in a bullet point.
-            - ### 📈 Final Recommendation: State whether it is a "Strong Buy," "Promising Investment," or "Requires Due Diligence," with a one-sentence justification.
+        1.  **analysis**: A brief, easy-to-read analysis using Markdown. Use bold titles for each section (translate titles if language is not 'en').
+            - **💡 Potential**: Highlight 2 key strengths in bullet points.
+            - **⚠️ Risks**: Identify 1 key risk in a bullet point.
+            - **📈 Final Recommendation**: State whether it is a "Strong Buy," "Promising Investment," or "Requires Due Diligence," with a one-sentence justification.
 
         2.  **appreciationProjection**: A short, estimated projection of the property's appreciation value over the next 3-5 years (e.g., "5-8% annually").
     `,
