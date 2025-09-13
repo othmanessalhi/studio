@@ -67,9 +67,9 @@ export function PropertyList() {
     if (isInitialMount.current) {
       isInitialMount.current = false;
     } else {
-      const listTop = document.getElementById('property-list-top');
-      if (listTop) {
-        listTop.scrollIntoView({ behavior: 'smooth' });
+      const listContainer = document.getElementById('property-list');
+      if (listContainer) {
+        listContainer.scrollIntoView({ behavior: 'smooth' });
       }
     }
   }, [currentPage]);
