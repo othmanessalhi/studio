@@ -17,6 +17,8 @@ export function Chatbot() {
   const [message, setMessage] = useState('');
   const [isPending, startTransition] = useTransition();
   const scrollAreaRef = useRef<HTMLDivElement>(null);
+  const initialWelcomeMessage = "Hello! I'm the Dakhla Land Assistant. How can I help you find the perfect property today?";
+
 
   useEffect(() => {
     // On initial load, set a welcome message from the model instead of calling the AI.
@@ -24,7 +26,7 @@ export function Chatbot() {
       setHistory([
         {
           role: 'model',
-          content: "Hello! I'm the Dakhla Land Assistant. How can I help you find the perfect property today?",
+          content: initialWelcomeMessage,
         },
       ]);
     }
@@ -40,7 +42,10 @@ export function Chatbot() {
     setMessage('');
 
     startTransition(async () => {
-      const response = await chatbot({ history: newHistory.slice(0, -1), message });
+      // Filter out the initial welcome message from the history sent to the backend
+      const historyToBeSent = newHistory.slice(1).filter(m => m.content !== initialWelcomeMessage);
+
+      const response = await chatbot({ history: historyToBeSent.slice(0, -1), message });
       const modelMessage: ChatMessage = { role: 'model', content: response };
       setHistory(prev => [...prev, modelMessage]);
     });

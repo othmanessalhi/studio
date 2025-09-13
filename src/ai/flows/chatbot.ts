@@ -7,7 +7,6 @@
 import { ai } from '@/ai/genkit';
 import { MOCK_PROPERTIES_EN } from '@/lib/constants';
 import type { ChatbotInput, ChatbotOutput, ChatMessage } from './chatbot-types';
-import { ChatbotInputSchema } from './chatbot-types';
 
 
 // Serialize property data to include in the prompt
@@ -22,7 +21,7 @@ export async function chatbot(input: ChatbotInput): Promise<ChatbotOutput> {
     }
 
   // Prepend the custom instructions to the user's message history
-  const historyWithSystemPrompt = [
+  const historyWithSystemPrompt: ChatMessage[] = [
     {
       role: 'user', // System-level instructions are often passed in the 'user' role
       content: `You are a helpful and friendly AI assistant for "Immobilier Afella Jaouad," a premier real estate agency specializing in land sales in Dakhla, Morocco. Your goal is to answer user questions about the business, available properties, and the Dakhla region.
@@ -44,7 +43,7 @@ Now, please respond to the user's message.`,
     },
     ...input.history,
     { role: 'user', content: input.message },
-  ] as ChatMessage[];
+  ];
   
   const { text } = await ai.generate({
     history: historyWithSystemPrompt,
