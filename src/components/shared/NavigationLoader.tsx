@@ -24,8 +24,8 @@ export function NavigationLoader() {
       const target = e.target as HTMLElement;
       const anchor = target.closest('a');
       
-      // Ignore clicks on links with data-no-loader, or links that open in a new tab
-      if (anchor && (anchor.hasAttribute('data-no-loader') || anchor.target === '_blank')) {
+      // Ignore clicks on blob links (file downloads), links that open in a new tab, or links with data-no-loader
+      if (anchor && (anchor.href.startsWith('blob:') || anchor.target === '_blank' || anchor.hasAttribute('data-no-loader'))) {
         return;
       }
 
