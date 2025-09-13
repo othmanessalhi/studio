@@ -26,7 +26,7 @@ export function InvestmentAnalysis({ property }: InvestmentAnalysisProps) {
     setAnalysis('');
 
     try {
-      const stream = await investmentAnalysis({
+      const result = await investmentAnalysis({
         title: property.title,
         price: property.price,
         size: property.size,
@@ -35,15 +35,12 @@ export function InvestmentAnalysis({ property }: InvestmentAnalysisProps) {
         features: property.features,
       });
 
-      const reader = stream.getReader();
-      const decoder = new TextDecoder();
-
-      while (true) {
-        const { value, done } = await reader.read();
-        if (done) break;
-        const chunk = decoder.decode(value, { stream: true });
-        setAnalysis((prev) => prev + chunk);
+      if (result?.analysis) {
+        setAnalysis(result.analysis);
+      } else {
+        throw new Error('Analysis not found in the result.');
       }
+      
     } catch (err) {
       console.error(err);
       setError(t('toast_error_p') || 'An error occurred while generating the analysis.');
@@ -93,7 +90,7 @@ export function InvestmentAnalysis({ property }: InvestmentAnalysisProps) {
             {analysisTitle}
         </h2>
         <p className="mx-auto mt-4 text-lg text-muted-foreground">
-            {t('ai_investment_p')}
+            {t('ai_investment_p') || "Leverage our AI-powered analyst to get an instant, data-driven assessment of this property's investment potential, considering market trends, location advantages, and growth forecasts in Dakhla."}
         </p>
         <Button size="lg" className="mt-8" onClick={handleAnalysis} disabled={isLoading}>
             {isLoading ? (

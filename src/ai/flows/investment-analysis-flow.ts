@@ -55,25 +55,14 @@ const investmentAnalysisFlow = ai.defineFlow(
     name: 'investmentAnalysisFlow',
     inputSchema: InvestmentAnalysisInputSchema,
     outputSchema: InvestmentAnalysisOutputSchema,
-    stream: true,
   },
   async (input) => {
-    const { stream } = await prompt(input, { stream: true });
-    return stream;
+    const { output } = await prompt(input);
+    return output!;
   }
 );
 
 
-export async function investmentAnalysis(input: InvestmentAnalysisInput): Promise<ReadableStream<string>> {
-    const flowStream = await investmentAnalysisFlow(input);
-
-    return flowStream.pipeThrough(
-        new TransformStream<InvestmentAnalysisOutput, string>({
-            transform(chunk, controller) {
-                if (chunk.analysis) {
-                  controller.enqueue(chunk.analysis);
-                }
-            },
-        })
-    );
+export async function investmentAnalysis(input: InvestmentAnalysisInput): Promise<InvestmentAnalysisOutput> {
+    return await investmentAnalysisFlow(input);
 }
