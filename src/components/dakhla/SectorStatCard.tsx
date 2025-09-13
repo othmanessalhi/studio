@@ -21,7 +21,7 @@ interface SectorStatCardProps {
 const AnimatedCounter = ({ to }: { to: number }) => {
   const [count, setCount] = useState(0);
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.5 });
-  const animationDuration = 2000; // 2 seconds
+  const animationDuration = 1200; // 1.2 seconds
 
   useEffect(() => {
     if (inView) {
