@@ -43,7 +43,7 @@ export function Chatbot() {
 
     startTransition(async () => {
       // Filter out the initial welcome message from the history sent to the backend
-      const historyToBeSent = newHistory.slice(1).filter(m => m.content !== initialWelcomeMessage);
+      const historyToBeSent = newHistory.filter(m => m.content !== initialWelcomeMessage);
 
       const response = await chatbot({ history: historyToBeSent.slice(0, -1), message });
       const modelMessage: ChatMessage = { role: 'model', content: response };
