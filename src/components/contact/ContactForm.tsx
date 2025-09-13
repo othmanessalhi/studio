@@ -27,7 +27,7 @@ export function ContactForm() {
 
   const formSchema = z.object({
     name: z.string().min(2, t('form_error_name')),
-    email: z.string().email(t('form_error_email')),
+    email: z.string().email(t('form_error_email')).optional().or(z.literal('')),
     phone: z.string().optional(),
     message: z.string().min(10, t('form_error_message')),
   });
@@ -57,7 +57,7 @@ export function ContactForm() {
 
     const messageLines = [
       `New Inquiry from ${values.name}`,
-      `Email: ${values.email}`,
+      values.email ? `Email: ${values.email}` : '',
       formattedPhone,
       '------------------',
       values.message,
@@ -96,7 +96,7 @@ export function ContactForm() {
           name="email"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t('form_label_email')}</FormLabel>
+              <FormLabel>{t('form_label_email')} ({t('Optional')})</FormLabel>
               <FormControl>
                 <Input placeholder={t('form_placeholder_email')} {...field} />
               </FormControl>
