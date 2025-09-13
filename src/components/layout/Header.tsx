@@ -78,7 +78,7 @@ export function Header() {
                   <span className="sr-only">Change language</span>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
+              <DropdownMenuContent align="end" onFocusOutside={(e) => e.preventDefault()}>
                 <DropdownMenuItem onClick={() => setLanguage('en')} disabled={language === 'en'}>
                   English
                 </DropdownMenuItem>
