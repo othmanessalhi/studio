@@ -11,7 +11,6 @@ export type ChatMessage = z.infer<typeof ChatMessageSchema>;
 // Define the input schema for the chatbot flow
 export const ChatbotInputSchema = z.object({
   history: z.array(ChatMessageSchema),
-  message: z.string(),
   language: z.enum(['en', 'ar']).default('en'),
 });
 export type ChatbotInput = z.infer<typeof ChatbotInputSchema>;

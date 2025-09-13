@@ -32,12 +32,11 @@ IMPORTANT RULES:
 
 /**
  * The main chatbot flow.
- * @param input The user's message and conversation history.
+ * @param input The user's message history.
  * @returns The AI's response.
  */
 export async function chatbot(input: ChatbotInput): Promise<string> {
-  const trimmedMessage = input.message.trim();
-  if (!trimmedMessage) {
+  if (!input.history || input.history.length === 0) {
     return input.language === 'ar'
       ? 'مرحباً! كيف يمكنني مساعدتك في العثور على أرض أحلامك في الداخلة اليوم؟'
       : 'Hello! How can I help you find your perfect plot of land in Dakhla today?';
@@ -57,6 +56,7 @@ export async function chatbot(input: ChatbotInput): Promise<string> {
           ? 'بالتأكيد، أنا هنا للمساعدة في أي أسئلة حول العقارات في الداخلة.'
           : 'Of course, I am here to help with any questions about real estate in Dakhla.',
     },
+    // Spread the actual conversation history from the client
     ...input.history,
   ];
 
