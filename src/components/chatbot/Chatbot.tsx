@@ -30,7 +30,7 @@ const WelcomeMessage = ({ onQuestionSelect }: { onQuestionSelect: (qna: QnA) => 
 
   return (
     <div className="space-y-3 p-4">
-      <p className="text-sm text-center">{t('chatbot_welcome')}</p>
+      <p className="text-sm">{t('chatbot_welcome')}</p>
       <div className="space-y-2">
         {QA_DATA.map((qna) => (
           <Button
@@ -60,13 +60,13 @@ export function Chatbot() {
       { type: 'model', content: qna.answer },
     ];
 
-    setHistory(newHistory);
-
     if (qna.link) {
-      setTimeout(() => {
-        setHistory(prevHistory => [...prevHistory, { type: 'model', content: qna.link!.text }]);
-      }, 1000);
+        setTimeout(() => {
+            setHistory(prevHistory => [...prevHistory, { type: 'model', content: qna.link!.text }]);
+        }, 1000);
     }
+    
+    setHistory(newHistory);
   };
 
   const resetChat = () => {
@@ -113,7 +113,7 @@ export function Chatbot() {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-24 right-6 z-50 w-[calc(100vw-3rem)] max-w-md h-[70vh] max-h-[600px] flex flex-col rounded-xl bg-card shadow-2xl border animate-in fade-in-0 zoom-in-95 duration-300">
+        <div className="fixed bottom-24 right-6 z-50 w-[calc(100vw-3rem)] max-w-md h-[70vh] max-h-[600px] flex flex-col rounded-xl bg-card shadow-2xl border animate-in fade-in-0 duration-300">
           <header className="flex items-center justify-between p-4 border-b">
             <div className="flex items-center gap-2">
               <Bot className="h-6 w-6 text-primary" />
