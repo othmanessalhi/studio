@@ -7,6 +7,8 @@ import { MOCK_PROPERTIES_EN, MOCK_PROPERTIES_AR, Property } from '@/lib/constant
 import { PropertyCard } from './PropertyCard';
 import { PropertyFilters } from './PropertyFilters';
 import { useTranslation } from '@/hooks/use-translation';
+import { Button } from '../ui/button';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 
 export type Filters = {
@@ -21,13 +23,17 @@ const initialFilters: Filters = {
     size: 'all',
 };
 
+const PROPERTIES_PER_PAGE = 6;
+
 export function PropertyList() {
   const { t, language } = useTranslation();
   const MOCK_PROPERTIES = language === 'ar' ? MOCK_PROPERTIES_AR : MOCK_PROPERTIES_EN;
 
   const [filters, setFilters] = useState<Filters>(initialFilters);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const filteredProperties = useMemo(() => {
+    setCurrentPage(1); // Reset to first page on filter change
     return MOCK_PROPERTIES.filter((property: Property) => {
       const { location, price, size } = filters;
 
@@ -60,15 +66,24 @@ export function PropertyList() {
     setFilters(initialFilters);
   };
 
+  const totalPages = Math.ceil(filteredProperties.length / PROPERTIES_PER_PAGE);
+  const paginatedProperties = filteredProperties.slice(
+    (currentPage - 1) * PROPERTIES_PER_PAGE,
+    currentPage * PROPERTIES_PER_PAGE
+  );
+
+  const arrowLeft = language === 'ar' ? <ArrowRight /> : <ArrowLeft />;
+  const arrowRight = language === 'ar' ? <ArrowLeft /> : <ArrowRight />;
+
   return (
     <div>
       <div className="mb-8 flex justify-center">
         <PropertyFilters filters={filters} setFilters={setFilters} resetFilters={resetFilters} />
       </div>
       
-      {filteredProperties.length > 0 ? (
+      {paginatedProperties.length > 0 ? (
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {filteredProperties.map((property, index) => (
+          {paginatedProperties.map((property, index) => (
             <PropertyCard key={property.id} property={property} index={index} />
           ))}
         </div>
@@ -78,9 +93,34 @@ export function PropertyList() {
           <p>{t('try_adjusting_search')}</p>
         </div>
       )}
+
+      {totalPages > 1 && (
+        <div className="mt-12 flex items-center justify-center gap-4">
+          <Button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+            variant="outline"
+          >
+            {arrowLeft} Previous
+          </Button>
+          <span className="text-sm font-medium">
+            Page {currentPage} of {totalPages}
+          </span>
+          <Button
+            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+            disabled={currentPage === totalPages}
+            variant="outline"
+          >
+            Next {arrowRight}
+          </Button>
+        </div>
+      )}
     </div>
   );
 }
 
 
 
+
+
+    

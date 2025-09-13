@@ -62,6 +62,36 @@
       "imageHint": "modern apartment"
     },
     {
+      "id": "property-7",
+      "description": "Agricultural plot with fertile soil, ready for cultivation.",
+      "imageUrl": "https://images.unsplash.com/photo-1560493676-04071c5f467b?q=80&w=600&h=400&fit=crop",
+      "imageHint": "farmland green"
+    },
+    {
+      "id": "property-8",
+      "description": "Spacious urban plot perfect for a residential complex.",
+      "imageUrl": "https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=600&h=400&fit=crop",
+      "imageHint": "suburban house"
+    },
+    {
+      "id": "property-9",
+      "description": "Remote desert land ideal for an eco-lodge or retreat center.",
+      "imageUrl": "https://images.unsplash.com/photo-1542438408-abb2601015c1?q=80&w=600&h=400&fit=crop",
+      "imageHint": "desert landscape"
+    },
+    {
+      "id": "property-10",
+      "description": "Plot near the city with utilities ready for a new housing project.",
+      "imageUrl": "https://images.unsplash.com/photo-1518780664697-55e3ad937233?q=80&w=600&h=400&fit=crop",
+      "imageHint": "house exterior"
+    },
+    {
+      "id": "property-11",
+      "description": "Prime coastal land with potential for a resort development.",
+      "imageUrl": "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?q=80&w=600&h=400&fit=crop",
+      "imageHint": "beach resort"
+    },
+    {
       "id": "properties-hero",
       "description": "Aerial view of Dakhla's coastline showing plots of land near the ocean.",
       "imageUrl": "https://images.unsplash.com/photo-1604014237800-1c9102c219da?q=80&w=1200&h=800&fit=crop",
@@ -123,3 +153,5 @@
     }
   ]
 }
+
+    
