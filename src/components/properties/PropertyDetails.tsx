@@ -132,7 +132,7 @@ export function PropertyDetails({ propertyEN, propertyAR }: PropertyDetailsProps
                     loading="lazy"
                     allowFullScreen
                     referrerPolicy="no-referrer-when-downgrade"
-                    src={`https://maps.google.com/maps?q=${property.latitude},${property.longitude}&z=14&output=embed`}
+                    src={`https://maps.google.com/maps?q=${property.latitude},${property.longitude}&z=14&output=embed&t=k`}
                 ></iframe>
                 </div>
             </CardContent>

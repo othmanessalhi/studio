@@ -91,7 +91,7 @@ export default function ContactPage() {
                       loading="lazy"
                       allowFullScreen
                       referrerPolicy="no-referrer-when-downgrade"
-                      src={`https://maps.google.com/maps?q=23.7199,-15.9455&z=14&output=embed&t=m`}
+                      src={`https://maps.google.com/maps?q=23.7199,-15.9455&z=14&output=embed&t=k`}
                     ></iframe>
               </div>
             </div>
