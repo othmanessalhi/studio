@@ -52,10 +52,10 @@ export function SectorStatCard({ label, start, end, Icon, color, bgColor, barCol
     <div 
         ref={ref} 
         className={cn(
-            "rounded-xl border bg-card p-6 shadow-lg transition-all duration-300 hover:-translate-y-2 hover:scale-[1.03] hover:shadow-2xl",
+            "rounded-xl border bg-card p-6 shadow-lg transition-transform transition-shadow duration-300 hover:-translate-y-2 hover:scale-[1.03] hover:shadow-2xl",
             inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         )}
-        style={{transitionDelay: `${index * 150}ms`}}
+        style={{transitionDelay: `${index * 150}ms`, transitionProperty: 'opacity, transform'}}
     >
       <div className="flex flex-col items-center text-center">
         <div className={cn("mb-4 rounded-full p-4", bgColor)}>
