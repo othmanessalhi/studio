@@ -46,7 +46,7 @@ export function InvestmentAnalysis({ property }: InvestmentAnalysisProps) {
       }
     } catch (err) {
       console.error(err);
-      setError(t('toast_error_p'));
+      setError(t('toast_error_p') || 'An error occurred while generating the analysis.');
     } finally {
       setIsLoading(false);
     }

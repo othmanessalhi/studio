@@ -27,13 +27,15 @@ export const InvestmentAnalysisOutputSchema = z.object({
 export type InvestmentAnalysisOutput = z.infer<typeof InvestmentAnalysisOutputSchema>;
 
 
-export async function investmentAnalysis(input: InvestmentAnalysisInput) {
-    const stream = await investmentAnalysisFlow(input);
+export async function investmentAnalysis(input: InvestmentAnalysisInput): Promise<ReadableStream<string>> {
+    const flowStream = await investmentAnalysisFlow(input);
     
-    return stream.pipeThrough(
-        new TransformStream<any, string>({
+    return flowStream.pipeThrough(
+        new TransformStream<InvestmentAnalysisOutput, string>({
             transform(chunk, controller) {
-                controller.enqueue(chunk.analysis);
+                if (chunk.analysis) {
+                  controller.enqueue(chunk.analysis);
+                }
             },
         })
     );
@@ -79,13 +81,11 @@ const investmentAnalysisFlow = ai.defineFlow(
   {
     name: 'investmentAnalysisFlow',
     inputSchema: InvestmentAnalysisInputSchema,
-    outputSchema: z.any(),
+    outputSchema: InvestmentAnalysisOutputSchema,
+    stream: true,
   },
   async (input) => {
-    const { stream } = await prompt({
-      ...input
-    }, { stream: true });
-
+    const { stream } = await prompt(input, { stream: true });
     return stream;
   }
 );
