@@ -9,6 +9,7 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { InvestmentCharts } from '@/components/dakhla/InvestmentCharts';
 import { ArrowRight, Anchor, Wind, Sun, Waves, ArrowLeft, LucideIcon } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { cn } from '@/lib/utils';
 import { useTranslation } from '@/hooks/use-translation';
 
@@ -25,9 +26,15 @@ interface FeatureSectionProps {
   description: string;
   image: (typeof PlaceHolderImages)[0];
   imagePosition?: 'left' | 'right';
+  index: number;
 }
 
-const FeatureSection: FC<FeatureSectionProps> = ({ Icon, title, description, image, imagePosition = 'right' }) => {
+const FeatureSection: FC<FeatureSectionProps> = ({ Icon, title, description, image, imagePosition = 'right', index }) => {
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
+
   const imageDiv = (
     <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-xl">
         <Image src={image.imageUrl} alt={image.description} fill className="object-cover" data-ai-hint={image.imageHint}/>
@@ -43,7 +50,14 @@ const FeatureSection: FC<FeatureSectionProps> = ({ Icon, title, description, ima
   );
 
   return (
-    <div className="grid grid-cols-1 items-center gap-8 md:gap-12 lg:grid-cols-2">
+    <div
+      ref={ref}
+      className={cn(
+        "grid grid-cols-1 items-center gap-8 md:gap-12 lg:grid-cols-2 transition-all duration-1000",
+        inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+      )}
+      style={{ transitionDelay: `${index * 200}ms` }}
+    >
         {/* Mobile order: Image first, then text */}
         <div className="lg:hidden">
             {imageDiv}
@@ -121,6 +135,7 @@ export default function WhyDakhlaPage() {
             description={t('dakhla_port_p')}
             image={portImage}
             imagePosition='right'
+            index={0}
           />}
           
           {tourismImage && <FeatureSection 
@@ -129,6 +144,7 @@ export default function WhyDakhlaPage() {
             description={t('dakhla_tourism_p')}
             image={tourismImage}
             imagePosition='left'
+            index={1}
           />}
           
           {energyImage && <FeatureSection 
@@ -140,6 +156,7 @@ export default function WhyDakhlaPage() {
             description={t('dakhla_energy_p')}
             image={energyImage}
             imagePosition='right'
+            index={2}
           />}
 
         </div>
