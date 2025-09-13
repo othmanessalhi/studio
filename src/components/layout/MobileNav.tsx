@@ -37,7 +37,7 @@ export function MobileNav() {
           <span className="sr-only">Toggle navigation menu</span>
         </Button>
       </SheetTrigger>
-      <SheetContent side="right">
+      <SheetContent side={language === 'ar' ? 'left' : 'right'}>
         <SheetHeader>
           <Logo />
         </SheetHeader>
