@@ -36,7 +36,7 @@ export function PropertyDetails({ propertyEN, propertyAR }: PropertyDetailsProps
 
   return (
     <>
-      <section className="bg-card pt-12 md:pt-16 lg:pt-20 overflow-hidden">
+      <section className="bg-gradient-to-br from-card to-background/30 pt-12 md:pt-16 lg:pt-20 overflow-hidden animate-gradient bg-[length:200%_200%]">
         <div className="container mx-auto">
           <Button asChild variant="outline" className="mb-8">
             <Link href="/properties">
