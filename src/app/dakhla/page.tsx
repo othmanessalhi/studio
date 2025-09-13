@@ -1,13 +1,13 @@
 
-
 'use client';
 
+import type { FC, ReactNode } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { InvestmentCharts } from '@/components/dakhla/InvestmentCharts';
-import { ArrowRight, Anchor, Wind, Sun, Waves, ArrowLeft } from 'lucide-react';
+import { ArrowRight, Anchor, Wind, Sun, Waves, ArrowLeft, LucideIcon } from 'lucide-react';
 import { useState, useEffect, useRef } from 'react';
 import { cn } from '@/lib/utils';
 import { useTranslation } from '@/hooks/use-translation';
@@ -16,13 +16,59 @@ import { useTranslation } from '@/hooks/use-translation';
 const portImage = PlaceHolderImages.find(p => p.id === 'dakhla-port');
 const tourismImage = PlaceHolderImages.find(p => p.id === 'dakhla-tourism');
 const energyImage = PlaceHolderImages.find(p => p.id === 'dakhla-energy');
-const dakhlaHeroImage = {
-    imageUrl: "https://drive.google.com/uc?export=view&id=10kirCYHh4cHd0FiyKwm3x-zEQsRpka6b",
-    description: "A dramatic and wide landscape of Dakhla's desert meeting the ocean.",
-    imageHint: "dakhla landscape",
-    id: "dakhla-hero"
-};
+const dakhlaHeroImage = PlaceHolderImages.find(p => p.id === 'dakhla-hero');
 
+
+interface FeatureSectionProps {
+  Icon: ReactNode;
+  title: string;
+  description: string;
+  image: (typeof PlaceHolderImages)[0];
+  imagePosition?: 'left' | 'right';
+}
+
+const FeatureSection: FC<FeatureSectionProps> = ({ Icon, title, description, image, imagePosition = 'right' }) => {
+  const imageDiv = (
+    <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-xl">
+        <Image src={image.imageUrl} alt={image.description} fill className="object-cover" data-ai-hint={image.imageHint}/>
+    </div>
+  );
+
+  const textDiv = (
+     <div className="space-y-4">
+        {Icon}
+        <h3 className="font-headline text-3xl font-bold">{title}</h3>
+        <p className="text-lg text-muted-foreground">{description}</p>
+    </div>
+  );
+
+  return (
+    <div className="grid grid-cols-1 items-center gap-8 md:gap-12 lg:grid-cols-2">
+        {/* Mobile order: Image first, then text */}
+        <div className="lg:hidden">
+            {imageDiv}
+        </div>
+        <div className="lg:hidden">
+            {textDiv}
+        </div>
+        
+        {/* Desktop order */}
+        {imagePosition === 'left' && (
+            <div className="hidden lg:block">
+                {imageDiv}
+            </div>
+        )}
+        <div className="hidden lg:block">
+            {textDiv}
+        </div>
+        {imagePosition === 'right' && (
+            <div className="hidden lg:block">
+                {imageDiv}
+            </div>
+        )}
+    </div>
+  )
+}
 
 export default function WhyDakhlaPage() {
     const [isHeroVisible, setHeroVisible] = useState(false);
@@ -69,47 +115,32 @@ export default function WhyDakhlaPage() {
       <section className="bg-card">
         <div className="container mx-auto space-y-20">
           
-          <div className="grid grid-cols-1 items-center gap-8 md:gap-12 lg:grid-cols-2">
-            <div className="space-y-4">
-              <Anchor className="h-12 w-12 text-primary" />
-              <h3 className="font-headline text-3xl font-bold">{t('dakhla_port_title')}</h3>
-              <p className="text-lg text-muted-foreground">
-                {t('dakhla_port_p')}
-              </p>
-            </div>
-            <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-xl">
-              {portImage && <Image src={portImage.imageUrl} alt={portImage.description} fill className="object-cover" data-ai-hint={portImage.imageHint}/>}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 items-center gap-8 md:gap-12 lg:grid-cols-2">
-            <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-xl lg:order-last">
-              {tourismImage && <Image src={tourismImage.imageUrl} alt={tourismImage.description} fill className="object-cover" data-ai-hint={tourismImage.imageHint} />}
-            </div>
-            <div className='space-y-4 lg:order-first'>
-              <Waves className="h-12 w-12 text-primary" />
-              <h3 className="font-headline text-3xl font-bold">{t('dakhla_tourism_title')}</h3>
-              <p className="text-lg text-muted-foreground">
-                {t('dakhla_tourism_p')}
-              </p>
-            </div>
-          </div>
+          {portImage && <FeatureSection 
+            Icon={<Anchor className="h-12 w-12 text-primary" />}
+            title={t('dakhla_port_title')}
+            description={t('dakhla_port_p')}
+            image={portImage}
+            imagePosition='right'
+          />}
           
-           <div className="grid grid-cols-1 items-center gap-8 md:gap-12 lg:grid-cols-2">
-            <div className="space-y-4">
-              <div className="flex gap-4">
-                <Wind className="h-12 w-12 text-primary" />
-                <Sun className="h-12 w-12 text-primary" />
-              </div>
-              <h3 className="font-headline text-3xl font-bold">{t('dakhla_energy_title')}</h3>
-              <p className="text-lg text-muted-foreground">
-                {t('dakhla_energy_p')}
-              </p>
-            </div>
-            <div className="relative aspect-video w-full overflow-hidden rounded-lg shadow-xl">
-              {energyImage && <Image src={energyImage.imageUrl} alt={energyImage.description} fill className="object-cover" data-ai-hint={energyImage.imageHint}/>}
-            </div>
-          </div>
+          {tourismImage && <FeatureSection 
+            Icon={<Waves className="h-12 w-12 text-primary" />}
+            title={t('dakhla_tourism_title')}
+            description={t('dakhla_tourism_p')}
+            image={tourismImage}
+            imagePosition='left'
+          />}
+          
+          {energyImage && <FeatureSection 
+            Icon={<div className="flex gap-4">
+                    <Wind className="h-12 w-12 text-primary" />
+                    <Sun className="h-12 w-12 text-primary" />
+                  </div>}
+            title={t('dakhla_energy_title')}
+            description={t('dakhla_energy_p')}
+            image={energyImage}
+            imagePosition='right'
+          />}
 
         </div>
       </section>
