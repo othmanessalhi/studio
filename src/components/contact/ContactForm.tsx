@@ -42,11 +42,6 @@ export function ContactForm() {
     },
   });
 
-    // Update resolver when language changes
-  React.useEffect(() => {
-    form.trigger();
-  }, [t, form]);
-
   const onSubmit = (values: z.infer<typeof formSchema>) => {
     console.log(values);
     toast({
