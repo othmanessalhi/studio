@@ -29,13 +29,13 @@ export function PropertyFilters({ filters, setFilters, resetFilters }: PropertyF
   const hasActiveFilters = filters.location !== 'all' || filters.price !== 'all' || filters.size !== 'all';
 
   return (
-    <div className="flex flex-wrap items-center justify-between gap-4 rounded-lg border bg-card p-4 shadow-sm">
-        <div className="flex flex-grow flex-col gap-4 sm:flex-row">
+    <div className="flex flex-wrap items-center justify-center gap-4 rounded-lg border bg-card p-4 shadow-sm sm:justify-between">
+        <div className="flex flex-wrap justify-center gap-4">
             <Select
                 value={filters.location}
                 onValueChange={(value) => handleFilterChange('location', value)}
             >
-                <SelectTrigger className="w-full sm:w-[200px]">
+                <SelectTrigger className="w-[200px] sm:w-[200px]">
                 <div className="flex items-center gap-2">
                     <MapPin className="h-4 w-4 text-muted-foreground" />
                     <SelectValue placeholder={t('location')} />
@@ -53,7 +53,7 @@ export function PropertyFilters({ filters, setFilters, resetFilters }: PropertyF
                 value={filters.price}
                 onValueChange={(value) => handleFilterChange('price', value)}
             >
-                <SelectTrigger className="w-full sm:w-[200px]">
+                <SelectTrigger className="w-[200px] sm:w-[200px]">
                 <div className="flex items-center gap-2">
                     <DollarSign className="h-4 w-4 text-muted-foreground" />
                     <SelectValue placeholder={t('price')} />
@@ -70,7 +70,7 @@ export function PropertyFilters({ filters, setFilters, resetFilters }: PropertyF
                 value={filters.size}
                 onValueChange={(value) => handleFilterChange('size', value)}
             >
-                <SelectTrigger className="w-full sm:w-[200px]">
+                <SelectTrigger className="w-[200px] sm:w-[200px]">
                 <div className="flex items-center gap-2">
                     <Maximize className="h-4 w-4 text-muted-foreground" />
                     <SelectValue placeholder={`${t('size')} (${t('sqm')})`} />
