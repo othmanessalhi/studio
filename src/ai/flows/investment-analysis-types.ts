@@ -22,5 +22,6 @@ export type InvestmentAnalysisInput = z.infer<typeof InvestmentAnalysisInputSche
 
 export const InvestmentAnalysisOutputSchema = z.object({
   analysis: z.string().describe('A concise investment analysis of the property, formatted as Markdown. Include sections for Potential, Risks, and a Final Recommendation.'),
+  appreciationProjection: z.string().describe("A short projection of the property's appreciation value over the next 3-5 years."),
 });
 export type InvestmentAnalysisOutput = z.infer<typeof InvestmentAnalysisOutputSchema>;

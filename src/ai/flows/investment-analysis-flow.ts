@@ -22,11 +22,11 @@ const prompt = ai.definePrompt({
     prompt: `
         You are a seasoned real estate investment analyst specializing in the Dakhla region of Morocco.
         Your task is to provide a concise, expert analysis of the investment potential of the following property.
-        The Moroccan government is heavily investing in Dakhla's infrastructure, including the Dakhla Atlantic Port, renewable energy projects (wind and solar), and tourism. The region is a world-renowned kitesurfing destination.
+        The Moroccan government is heavily investing in Dakhla's infrastructure, including the Dakhla Atlantic Port, renewable energy projects, and tourism.
 
         Your entire response MUST be in the language specified by the language code: {{{language}}}.
 
-        Use the following property details to form your analysis. Format your response in Markdown.
+        Use the following property details to form your analysis.
 
         Property Details:
         - Title: {{{title}}}
@@ -39,16 +39,14 @@ const prompt = ai.definePrompt({
         - {{{this}}}
         {{/each}}
 
-        Your analysis should be structured with the following sections (translate these section titles if the language is not 'en'):
+        Provide the following in your structured response:
 
-        ### 💡 Potential
-        (Highlight 2-3 key strengths. Be specific and use bullet points.)
+        1.  **analysis**: A concise analysis with the following sections in Markdown (translate titles if language is not 'en'):
+            - ### 💡 Potential: Highlight 2-3 key strengths in bullet points.
+            - ### ⚠️ Risks: Identify 1-2 key risks in bullet points.
+            - ### 📈 Final Recommendation: State whether it is a "Strong Buy," "Promising Investment," or "Requires Due Diligence," with a one-sentence justification.
 
-        ### ⚠️ Risks
-        (Identify 1-2 key risks for the investor. Be specific and use bullet points.)
-
-        ### 📈 Final Recommendation
-        (Provide a concluding recommendation. State whether it is a "Strong Buy," "Promising Investment," or "Requires Due Diligence," and give a one to two-sentence justification. Translate these recommendations as needed.)
+        2.  **appreciationProjection**: A short, estimated projection of the property's appreciation value over the next 3-5 years (e.g., "5-8% annually").
     `,
 });
 

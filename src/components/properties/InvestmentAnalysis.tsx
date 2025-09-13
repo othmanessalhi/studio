@@ -4,11 +4,12 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Loader, Sparkles, BrainCircuit, RotateCcw } from 'lucide-react';
+import { Loader, Sparkles, BrainCircuit, RotateCcw, TrendingUp, AlertTriangle } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { type Property } from '@/lib/constants';
-import { investmentAnalysis } from '@/ai/flows/investment-analysis-flow';
+import { investmentAnalysis, InvestmentAnalysisOutput } from '@/ai/flows/investment-analysis-flow';
 import { useTranslation } from '@/hooks/use-translation';
+import { Separator } from '../ui/separator';
 
 interface InvestmentAnalysisProps {
   property: Property;
@@ -16,14 +17,14 @@ interface InvestmentAnalysisProps {
 
 export function InvestmentAnalysis({ property }: InvestmentAnalysisProps) {
   const { t, language } = useTranslation();
-  const [analysis, setAnalysis] = useState('');
+  const [analysisResult, setAnalysisResult] = useState<InvestmentAnalysisOutput | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
 
   const handleAnalysis = async () => {
     setIsLoading(true);
     setError('');
-    setAnalysis('');
+    setAnalysisResult(null);
 
     try {
       const result = await investmentAnalysis({
@@ -37,7 +38,7 @@ export function InvestmentAnalysis({ property }: InvestmentAnalysisProps) {
       });
 
       if (result?.analysis) {
-        setAnalysis(result.analysis);
+        setAnalysisResult(result);
       } else {
         throw new Error('Analysis not found in the result.');
       }
@@ -51,7 +52,7 @@ export function InvestmentAnalysis({ property }: InvestmentAnalysisProps) {
   };
   
   const handleReset = () => {
-    setAnalysis('');
+    setAnalysisResult(null);
     setError('');
   };
 
@@ -80,19 +81,32 @@ export function InvestmentAnalysis({ property }: InvestmentAnalysisProps) {
     );
   }
 
-  if (analysis) {
+  if (analysisResult) {
     return (
         <Card className="bg-gradient-to-br from-card to-background/30 border-primary/20 animate-in fade-in-0 duration-500">
             <CardHeader>
-                <CardTitle className="flex items-center gap-2 font-headline text-2xl text-primary">
-                    <BrainCircuit className="h-6 w-6" />
+                <CardTitle className="flex items-center gap-3 font-headline text-2xl text-primary">
+                    <BrainCircuit className="h-8 w-8" />
                     {analysisTitle}
                 </CardTitle>
             </CardHeader>
-            <CardContent>
-                <div dir="auto" className="prose prose-stone dark:prose-invert max-w-none prose-h3:font-headline prose-h3:text-foreground prose-strong:text-primary prose-headings:mb-2 prose-p:my-1 prose-ul:my-2">
-                    <ReactMarkdown>{analysis}</ReactMarkdown>
+            <CardContent className="space-y-6">
+                 <div className="space-y-4">
+                    <div className="flex items-center gap-3">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-500/10">
+                            <TrendingUp className="h-6 w-6 text-green-500" />
+                        </div>
+                        <h3 className="font-headline text-xl font-semibold">Appreciation Projection</h3>
+                    </div>
+                    <p className="text-lg font-semibold text-foreground/90 ml-12">{analysisResult.appreciationProjection}</p>
                 </div>
+
+                <Separator />
+
+                <div dir="auto" className="prose prose-stone dark:prose-invert max-w-none prose-h3:font-headline prose-h3:text-foreground prose-strong:text-primary prose-headings:mb-2 prose-p:my-1 prose-ul:my-2">
+                    <ReactMarkdown>{analysisResult.analysis}</ReactMarkdown>
+                </div>
+
                 <Button onClick={handleReset} variant="outline" className="mt-6 gap-2">
                     <RotateCcw className="h-4 w-4" />
                     {t('ask_another_question')}
