@@ -1,8 +1,7 @@
 
-
 'use client';
 
-import { useState, useMemo, useEffect, useRef } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import { MOCK_PROPERTIES_EN, MOCK_PROPERTIES_AR, Property } from '@/lib/constants';
 import { PropertyCard } from './PropertyCard';
 import { FilterButton, type Filters } from './FilterButton';
@@ -87,7 +86,7 @@ export function PropertyList() {
 
   return (
     <div id="property-list" className='scroll-mt-24'>
-      <div className="mb-8 flex justify-center" id="property-list-top">
+      <div className="mb-8 flex justify-center">
         <FilterButton
           filters={filters}
           setFilters={setFilters}
