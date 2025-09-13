@@ -2,7 +2,7 @@
 
 'use client';
 
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { MOCK_PROPERTIES_EN, MOCK_PROPERTIES_AR, Property } from '@/lib/constants';
 import { PropertyCard } from './PropertyCard';
 import { FilterButton, type Filters } from './FilterButton';
@@ -24,9 +24,9 @@ export function PropertyList() {
 
   const [filters, setFilters] = useState<Filters>(initialFilters);
   const [currentPage, setCurrentPage] = useState(1);
+  const isInitialMount = useRef(true);
 
   const filteredProperties = useMemo(() => {
-    setCurrentPage(1); // Reset to first page on filter change
     return MOCK_PROPERTIES.filter((property: Property) => {
       const { location, price, size } = filters;
 
@@ -54,6 +54,25 @@ export function PropertyList() {
       return true;
     });
   }, [filters, MOCK_PROPERTIES]);
+
+  // Reset to first page on filter change
+  useEffect(() => {
+    if (!isInitialMount.current) {
+      setCurrentPage(1);
+    }
+  }, [filters]);
+  
+  // Scroll to top when page changes
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+    } else {
+      const listTop = document.getElementById('property-list-top');
+      if (listTop) {
+        listTop.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, [currentPage]);
   
   const resetFilters = () => {
     setFilters(initialFilters);
@@ -68,10 +87,6 @@ export function PropertyList() {
   const handlePageChange = (newPage: number) => {
     if (newPage < 1 || newPage > totalPages) return;
     setCurrentPage(newPage);
-    const listTop = document.getElementById('property-list-top');
-    if (listTop) {
-      listTop.scrollIntoView({ behavior: 'smooth' });
-    }
   };
 
   const arrowLeft = language === 'ar' ? <ArrowRight /> : <ArrowLeft />;
