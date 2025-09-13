@@ -17,7 +17,7 @@ export function LanguageSelector({ onSelectLanguage }: LanguageSelectorProps) {
           <DialogTitle className="flex items-center gap-2">
              <LandPlot className="h-8 w-8 text-primary" />
              <span className="font-headline text-xl font-bold tracking-tight text-primary">
-                Dakhla Land Elite
+                Immobilier Afella Jaouad
              </span>
           </DialogTitle>
           <DialogDescription>
@@ -36,3 +36,5 @@ export function LanguageSelector({ onSelectLanguage }: LanguageSelectorProps) {
     </Dialog>
   );
 }
+
+    

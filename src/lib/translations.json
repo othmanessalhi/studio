@@ -1,13 +1,13 @@
 
 {
   "en": {
-    "logo": "Dakhla Land Elite",
+    "logo": "Immobilier Afella Jaouad",
     "contactUs": "Contact Us",
-    "footerRights": "Dakhla Land Elite. All rights reserved.",
+    "footerRights": "Immobilier Afella Jaouad. All rights reserved.",
     "headline1": "Discover Your Golden Opportunity.",
     "headline2": "Invest in the Future of Dakhla.",
     "headline3": "Own a Piece of Paradise.",
-    "hero_p": "Jaouad Afella Properties is your exclusive gateway to acquiring premium land in Dakhla, Morocco — a region poised for exponential growth.",
+    "hero_p": "Immobilier Afella Jaouad is your exclusive gateway to acquiring premium land in Dakhla, Morocco — a region poised for exponential growth.",
     "discover_lands": "Discover Lands",
     "home_about_title": "Jaouad Afella: Your Guide to Dakhla's Golden Sands",
     "home_about_p1": "With over 6 years of experience in the Moroccan real estate market, Jaouad Afella isn't just an agent; he's a visionary who foresaw the immense potential of Dakhla. His deep-rooted connections and unparalleled market knowledge make him the most trusted name for land acquisition in the region.",
@@ -103,13 +103,13 @@
     "any_size": "Any Size"
   },
   "ar": {
-    "logo": "نخبة أراضي الداخلة",
+    "logo": "وكالة عقارات جواد أفلا",
     "contactUs": "اتصل بنا",
-    "footerRights": "نخبة أراضي الداخلة. جميع الحقوق محفوظة.",
+    "footerRights": "وكالة عقارات جواد أفلا. جميع الحقوق محفوظة.",
     "headline1": "اكتشف فرصتك الذهبية.",
     "headline2": "استثمر في مستقبل الداخلة.",
     "headline3": "امتلك قطعة من الجنة.",
-    "hero_p": "عقارات جواد أفلا هي بوابتك الحصرية للحصول على أراضٍ فاخرة في الداخلة، المغرب — منطقة مهيأة لنمو هائل.",
+    "hero_p": "وكالة عقارات جواد أفلا هي بوابتك الحصرية للحصول على أراضٍ فاخرة في الداخلة، المغرب — منطقة مهيأة لنمو هائل.",
     "discover_lands": "اكتشف الأراضي",
     "home_about_title": "جواد أفلا: دليلك إلى رمال الداخلة الذهبية",
     "home_about_p1": "بخبرة تزيد عن 6 سنوات في سوق العقارات المغربي، جواد أفلا ليس مجرد وكيل؛ إنه صاحب رؤية استشرف الإمكانات الهائلة للداخلة. علاقاته العميقة ومعرفته التي لا تضاهى بالسوق تجعله الاسم الأكثر ثقة للحصول على الأراضي في المنطقة.",
@@ -205,3 +205,5 @@
     "any_size": "أي مساحة"
   }
 }
+
+    
