@@ -52,7 +52,7 @@ export function SectorStatCard({ label, start, end, Icon, color, bgColor, barCol
     <div 
         ref={ref} 
         className={cn(
-            "rounded-xl border bg-card p-6 shadow-lg transition-all duration-700 hover:-translate-y-2",
+            "rounded-xl border bg-card p-6 shadow-lg transition-all duration-300 hover:-translate-y-2",
             inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         )}
         style={{transitionDelay: `${index * 150}ms`}}
