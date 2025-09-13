@@ -66,7 +66,7 @@ export default function ContactPage() {
                 <p className="text-muted-foreground">{t('contact_info_p')}</p>
                 <div className="flex items-center gap-4">
                     <Phone className="h-6 w-6 text-primary" />
-                    <span>+212 5 28 89 77 00</span>
+                    <span>+212 602654219</span>
                 </div>
                 <div className="flex items-center gap-4">
                     <Mail className="h-6 w-6 text-primary" />
@@ -77,7 +77,7 @@ export default function ContactPage() {
                 </p>
              </div>
              <Button asChild size="lg" className="bg-[#25D366] hover:bg-[#128C7E] text-white gap-2">
-                <Link href="https://wa.me/212528897700" target="_blank" rel="noopener noreferrer">
+                <Link href="https://wa.me/212602654219" target="_blank" rel="noopener noreferrer">
                     <WhatsAppIcon />
                     {t('message_on_whatsapp')}
                 </Link>
