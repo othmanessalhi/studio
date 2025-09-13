@@ -87,7 +87,7 @@ export default function Home() {
               </Link>
             </Button>
           </div>
-          <div className={cn("overflow-hidden rounded-lg shadow-xl transition-all duration-1000", isAboutVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8')}>
+          <div className={cn("overflow-hidden rounded-lg shadow-xl transition-all duration-1000", isAboutVisible ? 'opacity-100 translate-x-0' : (language === 'ar' ? 'opacity-0 -translate-x-8' : 'opacity-0 translate-x-8'))}>
              {aboutImage && <Image
               src={aboutImage.imageUrl}
               alt={aboutImage.description}
