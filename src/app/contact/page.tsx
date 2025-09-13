@@ -44,10 +44,10 @@ export default function ContactPage() {
          )}
         <div className="absolute inset-0 bg-black/50" />
         <div className="relative z-10 container mx-auto text-primary-foreground">
-          <h1 className={cn("font-headline text-4xl font-bold tracking-tight text-primary md:text-5xl transition-all duration-1000", isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
+          <h1 className={cn("font-headline text-4xl font-bold tracking-tight text-primary md:text-5xl transition-all duration-1000 [text-shadow:2px_2px_4px_rgba(0,0,0,0.5)]", isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
             {t('contact_hero_title')}
           </h1>
-          <p className={cn("mx-auto mt-4 max-w-2xl text-lg text-background/90 md:text-xl transition-all duration-1000 delay-300", isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
+          <p className={cn("mx-auto mt-4 max-w-2xl text-lg text-background/90 md:text-xl transition-all duration-1000 delay-300 [text-shadow:1px_1px_2px_rgba(0,0,0,0.7)]", isHeroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
             {t('contact_hero_p')}
           </p>
         </div>
