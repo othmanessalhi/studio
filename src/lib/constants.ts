@@ -373,3 +373,5 @@ export const MOCK_PROPERTIES_AR = [
 export type Property = (typeof MOCK_PROPERTIES_EN)[0];
 
     
+
+    
