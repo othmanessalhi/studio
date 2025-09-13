@@ -75,9 +75,9 @@
     },
     {
         "id": "about-hero",
-        "description": "A modern, professional office setting with a view of the city.",
-        "imageUrl": "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?q=80&w=1200&h=800&fit=crop",
-        "imageHint": "professional office"
+        "description": "A close-up of a firm business handshake between two professionals.",
+        "imageUrl": "https://images.unsplash.com/photo-1568992688065-536e13fd1279?q=80&w=1200&h=800&fit=crop",
+        "imageHint": "business handshake"
     },
     {
         "id": "contact-hero",
@@ -87,9 +87,9 @@
     },
     {
       "id": "dakhla-investment",
-      "description": "A modern city skyline at dusk, representing growth and investment.",
-      "imageUrl": "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=1200&h=600&fit=crop",
-      "imageHint": "modern city"
+      "description": "Two people shaking hands in a business agreement.",
+      "imageUrl": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=1200&h=600&fit=crop",
+      "imageHint": "business handshake"
     },
     {
       "id": "dakhla-port",
