@@ -51,7 +51,7 @@ export function InvestmentAnalysis({ property }: InvestmentAnalysisProps) {
     }
   };
   
-  const handleDownload = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleDownload = () => {
     if (!analysisResult) return;
 
     const content = `
@@ -64,7 +64,7 @@ ${analysisResult.appreciationProjection}
 
 Detailed Analysis:
 --------------------
-${analysisResult.analysis.replace(/###\s?/g, '').replace(/\*\*/g, '')}
+${analysisResult.analysis.replace(/\*\*/g, '')}
     `;
 
     const blob = new Blob([content.trim()], { type: 'text/plain;charset=utf-8' });
@@ -119,7 +119,7 @@ ${analysisResult.analysis.replace(/###\s?/g, '').replace(/\*\*/g, '')}
                         <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green-500/10">
                             <TrendingUp className="h-6 w-6 text-green-500" />
                         </div>
-                        <h3 className="font-headline text-xl font-semibold">Appreciation Projection</h3>
+                        <h3 className="font-headline text-xl font-semibold">{t('appreciation_projection')}</h3>
                     </div>
                     <p className="text-lg font-semibold text-foreground/90 ml-12">{analysisResult.appreciationProjection}</p>
                 </div>
