@@ -54,7 +54,7 @@ export function ContactForm() {
   });
 
   const onSubmit = (values: z.infer<typeof formSchema>) => {
-    const whatsAppNumber = '212602654219'; // Your WhatsApp number
+    const whatsAppNumber = '212602654219';
 
     let formattedPhone = '';
     if (values.phone) {
@@ -62,17 +62,17 @@ export function ContactForm() {
         if (phone.startsWith('06') || phone.startsWith('07')) {
             phone = `+212${phone.substring(1)}`;
         }
-        formattedPhone = `Phone: ${phone}`;
+        formattedPhone = `الهاتف: ${phone}`;
     }
 
     const messageLines = [
-      `New Inquiry from ${values.name}`,
+      `استفسار جديد من ${values.name}`,
       '------------------',
-      values.email ? `Email: ${values.email}` : '',
+      values.email ? `البريد الإلكتروني: ${values.email}` : '',
       formattedPhone,
-      `Budget: ${values.budget}`,
-      `Preferred Type: ${values.propertyType}`,
-      values.details ? `\nDetails:\n${values.details}` : '',
+      `الميزانية: ${values.budget}`,
+      `النوع المفضل: ${values.propertyType}`,
+      values.details ? `\nتفاصيل:\n${values.details}` : '',
     ].filter(Boolean);
 
     const whatsappMessage = encodeURIComponent(messageLines.join('\n'));
