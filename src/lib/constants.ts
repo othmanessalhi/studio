@@ -19,30 +19,60 @@ export const NAV_LINKS_AR = [
 export const CHATBOT_QA_EN = [
     { 
         question: "What properties are available?",
-        answer: "You can see all our available land plots on the 'Properties' page. We have coastal, inland, urban, and industrial plots to suit various investment goals."
+        answer: "You can see all our available land plots on the 'Properties' page. We have coastal, inland, urban, and industrial plots to suit various investment goals.",
+        link: {
+            text: "Would you like me to take you to the Properties page?",
+            href: "/properties",
+            buttonText: "Yes, go to Properties"
+        }
     },
     { 
         question: "Why invest in Dakhla?",
-        answer: "Dakhla is a region with massive growth potential due to huge government investments in projects like the Dakhla Atlantic Port, renewable energy, and tourism. It's a strategic location with a booming economy."
+        answer: "Dakhla is a region with massive growth potential due to huge government investments in projects like the Dakhla Atlantic Port, renewable energy, and tourism. It's a strategic location with a booming economy.",
+        link: {
+            text: "Would you like to learn more about why Dakhla is a great investment?",
+            href: "/dakhla",
+            buttonText: "Yes, tell me more"
+        }
     },
     { 
         question: "How can I contact an agent?",
-        answer: "The best way is to visit our 'Contact' page. You can send us a message through the form, call us directly, or message us on WhatsApp. We're ready to help!"
+        answer: "The best way is to visit our 'Contact' page. You can send us a message through the form, call us directly, or message us on WhatsApp. We're ready to help!",
+        link: {
+            text: "Shall I direct you to the Contact page?",
+            href: "/contact",
+            buttonText: "Yes, take me there"
+        }
     }
 ];
 
 export const CHATBOT_QA_AR = [
     { 
         question: "ما هي العقارات المتاحة؟",
-        answer: "يمكنك رؤية جميع قطع الأراضي المتاحة لدينا في صفحة 'العقارات'. لدينا قطع أراضٍ ساحلية وداخلية وحضرية وصناعية لتناسب مختلف الأهداف الاستثمارية."
+        answer: "يمكنك رؤية جميع قطع الأراضي المتاحة لدينا في صفحة 'العقارات'. لدينا قطع أراضٍ ساحلية وداخلية وحضرية وصناعية لتناسب مختلف الأهداف الاستثمارية.",
+        link: {
+            text: "هل تود أن أنقلك إلى صفحة العقارات؟",
+            href: "/properties",
+            buttonText: "نعم، اذهب إلى العقارات"
+        }
     },
     { 
         question: "لماذا الاستثمار في الداخلة؟",
-        answer: "الداخلة منطقة ذات إمكانات نمو هائلة بفضل الاستثمارات الحكومية الضخمة في مشاريع مثل ميناء الداخلة الأطلسي والطاقة المتجددة والسياحة. إنها موقع استراتيجي يتمتع باقتصاد مزدهر."
+        answer: "الداخلة منطقة ذات إمكانات نمو هائلة بفضل الاستثمارات الحكومية الضخمة في مشاريع مثل ميناء الداخلة الأطلسي والطاقة المتجددة والسياحة. إنها موقع استراتيجي يتمتع باقتصاد مزدهر.",
+        link: {
+            text: "هل ترغب في معرفة المزيد حول لماذا تعتبر الداخلة استثمارًا رائعًا؟",
+            href: "/dakhla",
+            buttonText: "نعم، أخبرني المزيد"
+        }
     },
     { 
         question: "كيف يمكنني الاتصال بوكيل؟",
-        answer: "أفضل طريقة هي زيارة صفحة 'اتصل بنا'. يمكنك إرسال رسالة إلينا عبر النموذج أو الاتصال بنا مباشرة أو مراسلتنا على WhatsApp. نحن على استعداد للمساعدة!"
+        answer: "أفضل طريقة هي زيارة صفحة 'اتصل بنا'. يمكنك إرسال رسالة إلينا عبر النموذج أو الاتصال بنا مباشرة أو مراسلتنا على WhatsApp. نحن على استعداد للمساعدة!",
+        link: {
+            text: "هل أوجهك إلى صفحة اتصل بنا؟",
+            href: "/contact",
+            buttonText: "نعم، خذني إلى هناك"
+        }
     }
 ];
 

@@ -2,33 +2,44 @@
 'use client';
 
 import { useTranslation } from '@/hooks/use-translation';
-import { Bot, X, ArrowLeft, Send } from 'lucide-react';
+import { Bot, X } from 'lucide-react';
 import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { CHATBOT_QA_EN, CHATBOT_QA_AR } from '@/lib/constants';
+import Link from 'next/link';
+
+interface QnA {
+  question: string;
+  answer: string;
+  link?: {
+    text: string;
+    href: string;
+    buttonText: string;
+  }
+}
 
 interface ChatHistoryItem {
   type: 'user' | 'model';
   content: string | React.ReactNode;
 }
 
-const WelcomeMessage = ({ onQuestionSelect }: { onQuestionSelect: (question: string, answer: string) => void }) => {
+const WelcomeMessage = ({ onQuestionSelect }: { onQuestionSelect: (qna: QnA) => void }) => {
   const { t, language } = useTranslation();
   const QA_DATA = language === 'ar' ? CHATBOT_QA_AR : CHATBOT_QA_EN;
 
   return (
-    <div className="space-y-2">
-      <p className="text-sm">{language === 'ar' ? 'مرحباً! كيف يمكنني مساعدتك اليوم؟ اختر أحد الأسئلة أدناه.' : 'Hello! How can I help you today? Please select a question below.'}</p>
+    <div className="space-y-3 p-4">
+      <p className="text-sm text-center">{language === 'ar' ? 'مرحباً! كيف يمكنني مساعدتك اليوم؟' : 'Hello! How can I help you today?'}</p>
       <div className="space-y-2">
-        {QA_DATA.map(({ question, answer }) => (
+        {QA_DATA.map((qna) => (
           <Button
-            key={question}
+            key={qna.question}
             variant="outline"
             className="w-full justify-start text-left h-auto py-2"
-            onClick={() => onQuestionSelect(question, answer)}
+            onClick={() => onQuestionSelect(qna)}
           >
-            {question}
+            {qna.question}
           </Button>
         ))}
       </div>
@@ -43,11 +54,15 @@ export function Chatbot() {
   const [history, setHistory] = useState<ChatHistoryItem[]>([]);
   const chatContainerRef = useRef<HTMLDivElement>(null);
   
-  const handleQuestionSelect = (question: string, answer: string) => {
-    setHistory([
-      { type: 'user', content: question },
-      { type: 'model', content: answer },
-    ]);
+  const handleQuestionSelect = (qna: QnA) => {
+    const newHistory: ChatHistoryItem[] = [
+      { type: 'user', content: qna.question },
+      { type: 'model', content: qna.answer },
+    ];
+    if (qna.link) {
+        newHistory.push({ type: 'model', content: qna.link.text});
+    }
+    setHistory(newHistory);
   };
 
   const resetChat = () => {
@@ -73,8 +88,10 @@ export function Chatbot() {
     }
   }, [history]);
   
-
   const isConversationStarted = history.length > 1;
+  const lastUserQuestion = history.find(h => h.type === 'user')?.content as string;
+  const QA_DATA = language === 'ar' ? CHATBOT_QA_AR : CHATBOT_QA_EN;
+  const currentQna = QA_DATA.find(q => q.question === lastUserQuestion);
 
   return (
     <>
@@ -105,24 +122,31 @@ export function Chatbot() {
           </header>
 
           {/* Chat Messages */}
-          <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4">
-            {history.map((item, index) => (
-              <div key={index} className={cn('flex items-start gap-3 w-full', item.type === 'user' ? 'justify-end' : 'justify-start')}>
-                {item.type === 'model' && (
-                  <div className="flex-shrink-0 h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
-                    <Bot className="h-5 w-5 text-primary" />
-                  </div>
-                )}
-                <div className={cn('max-w-[85%] rounded-xl px-4 py-3', item.type === 'user' ? 'bg-primary text-primary-foreground' : 'bg-muted')}>
-                   {typeof item.content === 'string' ? <p className="text-sm">{item.content}</p> : item.content}
+          <div ref={chatContainerRef} className="flex-1 overflow-y-auto">
+            <div className="p-4 space-y-4">
+                {history.map((item, index) => (
+                <div key={index} className={cn('flex items-start gap-3 w-full', item.type === 'user' ? 'justify-end' : 'justify-start')}>
+                    {item.type === 'model' && (
+                    <div className="flex-shrink-0 h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
+                        <Bot className="h-5 w-5 text-primary" />
+                    </div>
+                    )}
+                    <div className={cn('max-w-[85%] rounded-xl px-4 py-3', item.type === 'user' ? 'bg-primary text-primary-foreground' : 'bg-muted')}>
+                    {typeof item.content === 'string' ? <p className="text-sm">{item.content}</p> : item.content}
+                    </div>
                 </div>
-              </div>
-            ))}
+                ))}
+            </div>
           </div>
 
           {/* Footer */}
           {isConversationStarted && (
              <footer className="p-4 border-t space-y-2 bg-card">
+                {currentQna?.link && (
+                    <Button asChild className="w-full">
+                        <Link href={currentQna.link.href} onClick={() => setIsOpen(false)}>{currentQna.link.buttonText}</Link>
+                    </Button>
+                )}
                 <Button variant="outline" onClick={resetChat} className="w-full">
                     {language === 'ar' ? 'البدء من جديد' : 'Start Over'}
                 </Button>
