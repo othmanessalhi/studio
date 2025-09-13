@@ -6,9 +6,6 @@ import { useState, useMemo } from 'react';
 import { MOCK_PROPERTIES_EN, MOCK_PROPERTIES_AR, Property } from '@/lib/constants';
 import { PropertyCard } from './PropertyCard';
 import { PropertyFilters } from './PropertyFilters';
-import { Button } from '../ui/button';
-import { BrainCircuit } from 'lucide-react';
-import { InvestmentAnalysisTool } from './InvestmentAnalysisTool';
 import { useTranslation } from '@/hooks/use-translation';
 
 
@@ -27,7 +24,6 @@ export function PropertyList() {
     price: 'all',
     size: 'all',
   });
-  const [isAnalysisOpen, setAnalysisOpen] = useState(false);
 
   const filteredProperties = useMemo(() => {
     return MOCK_PROPERTIES.filter((property: Property) => {
@@ -62,10 +58,6 @@ export function PropertyList() {
     <div>
       <div className="mb-8 flex flex-col items-center justify-between gap-4 md:flex-row">
         <PropertyFilters filters={filters} setFilters={setFilters} />
-        <Button onClick={() => setAnalysisOpen(true)} className="w-full md:w-auto">
-          <BrainCircuit className="mr-2" />
-          {t('ai_investment_analysis')}
-        </Button>
       </div>
       
       {filteredProperties.length > 0 ? (
@@ -80,8 +72,6 @@ export function PropertyList() {
           <p>{t('try_adjusting_search')}</p>
         </div>
       )}
-
-      <InvestmentAnalysisTool open={isAnalysisOpen} onOpenChange={setAnalysisOpen} />
     </div>
   );
 }
