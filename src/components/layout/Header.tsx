@@ -65,7 +65,7 @@ export function Header() {
           ))}
         </nav>
         <div className="hidden items-center gap-2 md:flex">
-            <DropdownMenu>
+            <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="focus-visible:ring-0 focus-visible:ring-offset-0">
                   <Globe className={cn('h-5 w-5', useTransparentHeader ? 'text-white' : 'text-foreground')} />
