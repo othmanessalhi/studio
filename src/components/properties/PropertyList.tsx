@@ -103,7 +103,7 @@ export function PropertyList() {
           </Button>
 
           <span className="text-sm font-medium">
-            {t('pagination_page', { currentPage, totalPages })}
+            {t('pagination_page', { currentPage: Math.max(1, currentPage), totalPages })}
           </span>
 
           <Button asChild variant="outline" disabled={currentPage === totalPages}>
