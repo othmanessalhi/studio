@@ -47,7 +47,7 @@ const prompt = ai.definePrompt({
             - **⚠️ Risks**: Identify 1 key risk in a bullet point.
             - **📈 Final Recommendation**: State whether it is a "Strong Buy," "Promising Investment," or "Requires Due Diligence," with a one-sentence justification.
 
-        2.  **appreciationProjection**: A short, estimated projection of the property's appreciation value over the next 3-5 years (e.g., "15-25% annually"). Base your projection on the strong historical growth and ongoing projects.
+        2.  **appreciationProjection**: A short, estimated projection of the property's appreciation value over the next 3-5 years. Be optimistic and reflect the high historical growth to motivate potential buyers.
     `,
 });
 
