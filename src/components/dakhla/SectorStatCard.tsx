@@ -21,23 +21,21 @@ interface SectorStatCardProps {
 const AnimatedCounter = ({ to }: { to: number }) => {
   const [count, setCount] = useState(0);
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.5 });
+  const animationDuration = 2000; // 2 seconds
 
   useEffect(() => {
     if (inView) {
-      let start = 0;
-      const end = to;
-      if (start === end) return;
-
-      const duration = 120;
-      const incrementTime = (duration / end) * Math.max(1, end / 100);
-
-      const timer = setInterval(() => {
-        start += 1;
-        setCount(start);
-        if (start === end) clearInterval(timer);
-      }, incrementTime);
-
-      return () => clearInterval(timer);
+      let startTimestamp: number | null = null;
+      const step = (timestamp: number) => {
+        if (!startTimestamp) startTimestamp = timestamp;
+        const progress = Math.min((timestamp - startTimestamp) / animationDuration, 1);
+        const currentCount = Math.floor(progress * to);
+        setCount(currentCount);
+        if (progress < 1) {
+          window.requestAnimationFrame(step);
+        }
+      };
+      window.requestAnimationFrame(step);
     }
   }, [inView, to]);
 
