@@ -5,23 +5,8 @@
  */
 
 import { ai } from '@/ai/genkit';
-import { z } from 'zod';
 import { MOCK_PROPERTIES_EN, MOCK_PROPERTIES_AR } from '@/lib/constants';
-
-// Define the schema for a single chat message
-export const ChatMessageSchema = z.object({
-  role: z.enum(['user', 'model']),
-  content: z.string(),
-});
-export type ChatMessage = z.infer<typeof ChatMessageSchema>;
-
-// Define the input schema for the chatbot flow
-export const ChatbotInputSchema = z.object({
-  history: z.array(ChatMessageSchema),
-  message: z.string(),
-  language: z.enum(['en', 'ar']).default('en'),
-});
-export type ChatbotInput = z.infer<typeof ChatbotInputSchema>;
+import { ChatbotInput, ChatMessage } from '@/ai/schemas/chatbot';
 
 const propertiesJSON = (lang: 'en' | 'ar') =>
   JSON.stringify(
@@ -51,7 +36,6 @@ IMPORTANT RULES:
  * @returns The AI's response.
  */
 export async function chatbot(input: ChatbotInput): Promise<string> {
-  // Trim the user's message to prevent empty submissions
   const trimmedMessage = input.message.trim();
   if (!trimmedMessage) {
     return input.language === 'ar'
@@ -59,14 +43,11 @@ export async function chatbot(input: ChatbotInput): Promise<string> {
       : 'Hello! How can I help you find your perfect plot of land in Dakhla today?';
   }
 
-  // Construct the conversation history for the AI model
   const history: ChatMessage[] = [
-    // Start with the system instructions as the first "user" message
     {
       role: 'user',
       content: systemPrompt(input.language),
     },
-    // The model's first response to set the context
     {
       role: 'model',
       content:
@@ -74,16 +55,13 @@ export async function chatbot(input: ChatbotInput): Promise<string> {
           ? 'بالتأكيد، أنا هنا للمساعدة في أي أسئلة حول العقارات في الداخلة.'
           : 'Of course, I am here to help with any questions about real estate in Dakhla.',
     },
-    // Then, add the existing conversation history
     ...input.history,
-    // Finally, add the user's new message
     {
       role: 'user',
       content: trimmedMessage,
     },
   ];
 
-  // Call the AI model
   try {
     const { text } = await ai.generate({
       history,
@@ -91,7 +69,6 @@ export async function chatbot(input: ChatbotInput): Promise<string> {
     return text;
   } catch (error) {
     console.error('Genkit error:', error);
-    // Return a user-friendly error message
     return input.language === 'ar'
       ? 'عذراً، أواجه بعض الصعوبات الفنية في الوقت الحالي. يرجى المحاولة مرة أخرى لاحقاً.'
       : 'My apologies, I am experiencing some technical difficulties at the moment. Please try again later.';

@@ -1,7 +1,8 @@
 
 'use client';
 
-import { chatbot, type ChatMessage } from '@/ai/flows/chatbot';
+import { chatbot } from '@/ai/flows/chatbot';
+import type { ChatMessage } from '@/ai/schemas/chatbot';
 import { useTranslation } from '@/hooks/use-translation';
 import { Bot, Send, X, Loader2 } from 'lucide-react';
 import { useEffect, useRef, useState, useTransition } from 'react';
@@ -51,7 +52,7 @@ export function Chatbot() {
 
     startTransition(async () => {
       // Send all history except the initial client-side welcome message
-      const historyToSend = history.filter(m => m.role !== 'model' || m.content.includes('Sorry') || m.content.includes('عذراً') || m.content.includes('بالتأكيد'));
+      const historyToSend = history.slice(1);
       
       const response = await chatbot({
         history: historyToSend,
