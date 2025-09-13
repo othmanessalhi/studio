@@ -44,19 +44,22 @@ export function Chatbot() {
     const trimmedMessage = message.trim();
     if (!trimmedMessage || isPending) return;
 
-    // Optimistically update the UI
     const userMessage: ChatMessage = { role: 'user', content: trimmedMessage };
-    const newHistory = [...history, userMessage];
-    setHistory(newHistory);
+    // Create the full history to send to the server
+    const fullHistory = [...history, userMessage];
+    setHistory(fullHistory);
     setMessage('');
 
     startTransition(async () => {
-      // Send all history except the initial client-side welcome message
-      const historyToSend = newHistory.slice(1);
-      
+      // The server expects all messages to form the context, including the new one.
+      const conversationForAI = fullHistory.filter(h => h.role !== 'system');
+      const latestMessage = conversationForAI.pop();
+
+      if (!latestMessage) return;
+
       const response = await chatbot({
-        history: historyToSend,
-        message: trimmedMessage,
+        history: conversationForAI, // Send the history *without* the latest message
+        message: latestMessage.content, // Send the latest message separately
         language,
       });
 
