@@ -16,6 +16,11 @@ const propertyDetails = MOCK_PROPERTIES_EN.map(p =>
 ).join('\n');
 
 export async function chatbot(input: ChatbotInput): Promise<ChatbotOutput> {
+    // Prevent calling the AI with an empty message, which happens on initial load.
+    if (!input.message.trim()) {
+        return "Hello! I'm the Dakhla Land Assistant. How can I help you find the perfect property today?";
+    }
+
   // Prepend the custom instructions to the user's message history
   const historyWithSystemPrompt = [
     {
