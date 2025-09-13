@@ -29,7 +29,7 @@ const WelcomeMessage = ({ onQuestionSelect }: { onQuestionSelect: (qna: QnA) => 
   const QA_DATA = language === 'ar' ? CHATBOT_QA_AR : CHATBOT_QA_EN;
 
   return (
-    <div className="space-y-3 p-4">
+    <div className="space-y-3 p-4 animate-in fade-in-0 slide-in-from-bottom-4 duration-500">
       <p className="text-sm">{t('chatbot_welcome')}</p>
       <div className="space-y-2">
         {QA_DATA.map((qna) => (
@@ -129,7 +129,7 @@ export function Chatbot() {
           <div ref={chatContainerRef} className="flex-1 overflow-y-auto">
             <div className="p-4 space-y-4">
                 {history.map((item, index) => (
-                <div key={index} className={cn('flex items-start gap-3 w-full', item.type === 'user' ? 'justify-end' : 'justify-start')}>
+                <div key={index} className={cn('flex items-start gap-3 w-full animate-in fade-in-0 slide-in-from-bottom-4 duration-500', item.type === 'user' ? 'justify-end' : 'justify-start')}>
                     {item.type === 'model' && (
                     <div className="flex-shrink-0 h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
                         <Bot className="h-5 w-5 text-primary" />
