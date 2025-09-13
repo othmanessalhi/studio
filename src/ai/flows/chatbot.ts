@@ -43,6 +43,8 @@ export async function chatbot(input: ChatbotInput): Promise<string> {
       : 'Hello! How can I help you find your perfect plot of land in Dakhla today?';
   }
 
+  // Construct the history for the AI model, ensuring it always starts with the system prompt
+  // and follows the user/model alternating pattern.
   const history: ChatMessage[] = [
     {
       role: 'user',
@@ -56,10 +58,6 @@ export async function chatbot(input: ChatbotInput): Promise<string> {
           : 'Of course, I am here to help with any questions about real estate in Dakhla.',
     },
     ...input.history,
-    {
-      role: 'user',
-      content: trimmedMessage,
-    },
   ];
 
   try {

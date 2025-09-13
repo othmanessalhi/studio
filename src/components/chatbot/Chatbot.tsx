@@ -22,14 +22,13 @@ export function Chatbot() {
   // Add initial welcome message when chat opens for the first time
   useEffect(() => {
     if (isOpen && history.length === 0) {
-      setHistory([
-        {
-          role: 'model',
+      const welcomeMessage = {
+          role: 'model' as const,
           content: language === 'ar'
             ? 'مرحباً! أنا مساعدك العقاري. كيف يمكنني مساعدتك اليوم في بحثك عن أرض في الداخلة؟'
             : 'Hello! I am your real estate assistant. How can I help you with your Dakhla land search today?',
-        },
-      ]);
+        };
+      setHistory([welcomeMessage]);
     }
   }, [isOpen, history.length, language]);
 
@@ -47,12 +46,13 @@ export function Chatbot() {
 
     // Optimistically update the UI
     const userMessage: ChatMessage = { role: 'user', content: trimmedMessage };
-    setHistory((prev) => [...prev, userMessage]);
+    const newHistory = [...history, userMessage];
+    setHistory(newHistory);
     setMessage('');
 
     startTransition(async () => {
       // Send all history except the initial client-side welcome message
-      const historyToSend = history.slice(1);
+      const historyToSend = newHistory.slice(1);
       
       const response = await chatbot({
         history: historyToSend,
