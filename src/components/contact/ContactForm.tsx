@@ -14,6 +14,13 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
@@ -29,7 +36,9 @@ export function ContactForm() {
     name: z.string().min(2, t('form_error_name')),
     email: z.string().email(t('form_error_email')).optional().or(z.literal('')),
     phone: z.string().optional(),
-    message: z.string().min(10, t('form_error_message')),
+    budget: z.string().min(1, { message: t('form_error_budget') }),
+    propertyType: z.string().min(1, { message: t('form_error_property_type') }),
+    details: z.string().optional(),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -38,7 +47,9 @@ export function ContactForm() {
       name: '',
       email: '',
       phone: '',
-      message: '',
+      budget: '',
+      propertyType: '',
+      details: '',
     },
   });
 
@@ -48,7 +59,6 @@ export function ContactForm() {
     let formattedPhone = '';
     if (values.phone) {
         let phone = values.phone.trim();
-        // Normalize Moroccan numbers
         if (phone.startsWith('06') || phone.startsWith('07')) {
             phone = `+212${phone.substring(1)}`;
         }
@@ -57,10 +67,12 @@ export function ContactForm() {
 
     const messageLines = [
       `New Inquiry from ${values.name}`,
+      '------------------',
       values.email ? `Email: ${values.email}` : '',
       formattedPhone,
-      '------------------',
-      values.message,
+      `Budget: ${values.budget}`,
+      `Preferred Type: ${values.propertyType}`,
+      values.details ? `\nDetails:\n${values.details}` : '',
     ].filter(Boolean);
 
     const whatsappMessage = encodeURIComponent(messageLines.join('\n'));
@@ -119,14 +131,61 @@ export function ContactForm() {
         />
         <FormField
           control={form.control}
-          name="message"
+          name="budget"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>{t('form_label_message')}</FormLabel>
+              <FormLabel>{t('form_label_budget')}</FormLabel>
+               <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder={t('form_placeholder_budget')} />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="< $100,000">&lt; $100,000</SelectItem>
+                  <SelectItem value="$100,000 - $250,000">$100,000 - $250,000</SelectItem>
+                  <SelectItem value="$250,000 - $500,000">$250,000 - $500,000</SelectItem>
+                  <SelectItem value="$500,000+">$500,000+</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+         <FormField
+          control={form.control}
+          name="propertyType"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t('form_label_property_type')}</FormLabel>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder={t('form_placeholder_property_type')} />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="Coastal">{t('location_coastal')}</SelectItem>
+                  <SelectItem value="Inland">{t('location_inland')}</SelectItem>
+                  <SelectItem value="Urban">{t('location_urban')}</SelectItem>
+                  <SelectItem value="Industrial">{t('location_industrial')}</SelectItem>
+                  <SelectItem value="Any">{t('any_type')}</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="details"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>{t('form_label_details')} ({t('Optional')})</FormLabel>
               <FormControl>
                 <Textarea
-                  placeholder={t('form_placeholder_message')}
-                  className="min-h-[120px]"
+                  placeholder={t('form_placeholder_details')}
+                  className="min-h-[100px]"
                   {...field}
                 />
               </FormControl>
