@@ -28,7 +28,7 @@ const AnimatedCounter = ({ to }: { to: number }) => {
       const end = to;
       if (start === end) return;
 
-      const duration = 1500;
+      const duration = 1000;
       const incrementTime = (duration / end) * Math.max(1, end / 100);
 
       const timer = setInterval(() => {
