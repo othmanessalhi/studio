@@ -39,6 +39,13 @@ export function PropertyDetails({ propertyEN, propertyAR }: PropertyDetailsProps
     return <p>Property not found for the selected language.</p>;
   }
 
+  const whatsAppNumber = '212602654219';
+  const inquiryMessage = language === 'ar' 
+    ? `مرحباً، أنا مهتم بالعقار: ${property.title}`
+    : `Hello, I'm interested in the property: ${property.title}`;
+  const whatsappUrl = `https://wa.me/${whatsAppNumber}?text=${encodeURIComponent(inquiryMessage)}`;
+
+
   return (
     <>
       <section className="relative bg-gradient-to-br from-card to-background/30 pt-24 md:pt-24 overflow-hidden animate-gradient bg-[length:200%_200%]">
@@ -83,7 +90,7 @@ export function PropertyDetails({ propertyEN, propertyAR }: PropertyDetailsProps
               <p className={cn('text-lg text-muted-foreground transition-all duration-700 delay-300', isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>{property.description}</p>
               <div className={cn('transition-all duration-700 delay-400', isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4')}>
                 <Button asChild size="lg">
-                    <Link href="https://wa.me/212602654219" target="_blank" rel="noopener noreferrer">
+                    <Link href={whatsappUrl} target="_blank" rel="noopener noreferrer">
                         <WhatsAppIcon />
                         {t('inquire_now')}
                     </Link>
