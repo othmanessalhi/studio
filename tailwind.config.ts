@@ -107,6 +107,9 @@ export default {
         'fade-in-up': 'fade-in-up 0.8s ease-out forwards',
         'gradient': 'gradient-animation 10s ease infinite',
       },
+       dropShadow: {
+        'glow': '0 0 8px rgba(255, 255, 255, 0.7)',
+      }
     },
   },
   plugins: [require('tailwindcss-animate')],

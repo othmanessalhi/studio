@@ -68,7 +68,7 @@ export function Header() {
             <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="icon" className="focus-visible:ring-0 focus-visible:ring-offset-0">
-                  <Globe className={cn('h-5 w-5', useTransparentHeader ? 'text-white [text-shadow:0_0_8px_rgba(255,255,255,0.7)]' : 'text-foreground')} />
+                  <Globe className={cn('h-5 w-5', useTransparentHeader ? 'text-white filter drop-shadow-glow' : 'text-foreground')} />
                   <span className="sr-only">Change language</span>
                 </Button>
               </DropdownMenuTrigger>
