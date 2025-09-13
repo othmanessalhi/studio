@@ -1,34 +1,37 @@
 
 'use client';
 
-import { chatbot } from '@/ai/flows/chatbot';
-import type { ChatMessage } from '@/ai/schemas/chatbot';
 import { useTranslation } from '@/hooks/use-translation';
-import { Bot, Send, X, Loader2 } from 'lucide-react';
-import { useEffect, useRef, useState, useTransition } from 'react';
+import { Bot, X, MessageSquare, ChevronRight, ArrowLeft } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { Textarea } from '@/components/ui/textarea';
 import { cn } from '@/lib/utils';
-import ReactMarkdown from 'react-markdown';
+import { CHATBOT_QA_EN, CHATBOT_QA_AR } from '@/lib/constants';
+
+interface ChatHistoryItem {
+  type: 'question' | 'answer';
+  content: string;
+}
 
 export function Chatbot() {
   const { t, language } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
-  const [history, setHistory] = useState<ChatMessage[]>([]);
-  const [message, setMessage] = useState('');
-  const [isPending, startTransition] = useTransition();
+  const [history, setHistory] = useState<ChatHistoryItem[]>([]);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  
+  const QA_DATA = language === 'ar' ? CHATBOT_QA_AR : CHATBOT_QA_EN;
 
-  // Add initial welcome message when chat opens and history is empty
+  // Add initial welcome message when chat opens
   useEffect(() => {
-    if (isOpen && history.length === 0 && !isPending) {
-        startTransition(async () => {
-            const response = await chatbot({ history: [], language });
-            const welcomeMessage: ChatMessage = { role: 'model', content: response };
-            setHistory([welcomeMessage]);
-        });
+    if (isOpen && history.length === 0) {
+      setHistory([
+        {
+          type: 'answer',
+          content: language === 'ar' ? 'مرحباً! كيف يمكنني مساعدتك اليوم؟ اختر أحد الأسئلة أدناه.' : 'Hello! How can I help you today? Please select a question below.',
+        },
+      ]);
     }
-  }, [isOpen]);
+  }, [isOpen, history.length, language]);
 
   // Scroll to bottom of chat on new message
   useEffect(() => {
@@ -36,36 +39,24 @@ export function Chatbot() {
       chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
     }
   }, [history]);
-
-  const handleSubmit = (e?: React.FormEvent<HTMLFormElement>) => {
-    e?.preventDefault();
-    const trimmedMessage = message.trim();
-    if (!trimmedMessage || isPending) return;
-
-    const userMessage: ChatMessage = { role: 'user', content: trimmedMessage };
-    const newHistory = [...history, userMessage];
-    
+  
+  const handleQuestionClick = (question: string, answer: string) => {
+    const newHistory: ChatHistoryItem[] = [
+      ...history,
+      { type: 'question', content: question },
+      { type: 'answer', content: answer },
+    ];
     setHistory(newHistory);
-    setMessage('');
-
-    startTransition(async () => {
-      // The server expects the full history, including the new message.
-      const response = await chatbot({
-        history: newHistory,
-        language,
-      });
-
-      const modelMessage: ChatMessage = { role: 'model', content: response };
-      setHistory((prev) => [...prev, modelMessage]);
-    });
   };
-
-  const handleTextareaKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      handleSubmit();
-    }
-  };
+  
+  const resetChat = () => {
+     setHistory([
+        {
+          type: 'answer',
+          content: language === 'ar' ? 'مرحباً! كيف يمكنني مساعدتك اليوم؟ اختر أحد الأسئلة أدناه.' : 'Hello! How can I help you today? Please select a question below.',
+        },
+      ]);
+  }
 
   return (
     <>
@@ -97,65 +88,41 @@ export function Chatbot() {
 
           {/* Chat Messages */}
           <div ref={chatContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4">
-            {history.map((chat, index) => (
-              <div key={index} className={cn('flex items-start gap-3', chat.role === 'user' ? 'justify-end' : 'justify-start')}>
-                {chat.role === 'model' && (
+            {history.map((item, index) => (
+              <div key={index} className={cn('flex items-start gap-3', item.type === 'question' ? 'justify-end' : 'justify-start')}>
+                {item.type === 'answer' && (
                   <div className="flex-shrink-0 h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
                     <Bot className="h-5 w-5 text-primary" />
                   </div>
                 )}
-                <div className={cn('max-w-[80%] rounded-xl px-4 py-2', chat.role === 'user' ? 'bg-primary text-primary-foreground' : 'bg-muted')}>
-                    <ReactMarkdown className="prose prose-sm dark:prose-invert break-words"
-                        components={{
-                            p: ({node, ...props}) => <p className="mb-2 last:mb-0" {...props} />,
-                            ul: ({node, ...props}) => <ul className="list-disc pl-4" {...props} />,
-                            li: ({node, ...props}) => <li className="mb-1" {...props} />,
-                        }}
-                    >
-                        {chat.content}
-                    </ReactMarkdown>
+                <div className={cn('max-w-[80%] rounded-xl px-4 py-2', item.type === 'question' ? 'bg-primary text-primary-foreground' : 'bg-muted')}>
+                   <p className="text-sm">{item.content}</p>
                 </div>
               </div>
             ))}
-             {(isPending && history.length === 0) && (
-                <div className="flex items-start gap-3 justify-start">
-                    <div className="flex-shrink-0 h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
-                        <Bot className="h-5 w-5 text-primary" />
-                    </div>
-                    <div className="bg-muted rounded-xl px-4 py-3 flex items-center">
-                        <Loader2 className="h-5 w-5 text-primary animate-spin" />
-                    </div>
-                </div>
-            )}
-            {isPending && history.length > 0 && history[history.length -1].role === 'user' && (
-                <div className="flex items-start gap-3 justify-start">
-                     <div className="flex-shrink-0 h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
-                        <Bot className="h-5 w-5 text-primary" />
-                    </div>
-                    <div className="bg-muted rounded-xl px-4 py-3 flex items-center">
-                        <Loader2 className="h-5 w-5 text-primary animate-spin" />
-                    </div>
-                </div>
-            )}
           </div>
 
-          {/* Message Input Form */}
-          <footer className="p-4 border-t">
-            <form onSubmit={handleSubmit} className="flex items-center gap-2">
-              <Textarea
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                onKeyDown={handleTextareaKeyDown}
-                placeholder={language === 'ar' ? "اكتب رسالتك هنا..." : "Type your message here..."}
-                className="min-h-0 resize-none"
-                rows={1}
-                disabled={isPending}
-                aria-label="Chat message input"
-              />
-              <Button type="submit" size="icon" disabled={isPending || !message.trim()} aria-label="Send message">
-                <Send className="h-5 w-5" />
+          {/* Questions Footer */}
+          <footer className="p-4 border-t space-y-2">
+              <p className="text-sm font-medium text-center text-muted-foreground mb-2">
+                {language === 'ar' ? 'اختر سؤالاً:' : 'Select a question:'}
+              </p>
+              <div className="space-y-2">
+                 {QA_DATA.map(({question, answer}) => (
+                    <Button 
+                        key={question} 
+                        variant="outline" 
+                        className="w-full justify-between"
+                        onClick={() => handleQuestionClick(question, answer)}
+                    >
+                        {question}
+                        {language === 'ar' ? <ArrowLeft className="h-4 w-4" /> : <ChevronRight className="h-4 w-4" />}
+                    </Button>
+                 ))}
+              </div>
+              <Button variant="link" onClick={resetChat} className="w-full text-muted-foreground">
+                {language === 'ar' ? 'البدء من جديد' : 'Start Over'}
               </Button>
-            </form>
           </footer>
         </div>
       )}

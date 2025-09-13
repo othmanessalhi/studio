@@ -16,6 +16,37 @@ export const NAV_LINKS_AR = [
   { href: '/contact', label: 'اتصل بنا' },
 ];
 
+export const CHATBOT_QA_EN = [
+    { 
+        question: "What properties are available?",
+        answer: "You can see all our available land plots on the 'Properties' page. We have coastal, inland, urban, and industrial plots to suit various investment goals."
+    },
+    { 
+        question: "Why invest in Dakhla?",
+        answer: "Dakhla is a region with massive growth potential due to huge government investments in projects like the Dakhla Atlantic Port, renewable energy, and tourism. It's a strategic location with a booming economy."
+    },
+    { 
+        question: "How can I contact an agent?",
+        answer: "The best way is to visit our 'Contact' page. You can send us a message through the form, call us directly, or message us on WhatsApp. We're ready to help!"
+    }
+];
+
+export const CHATBOT_QA_AR = [
+    { 
+        question: "ما هي العقارات المتاحة؟",
+        answer: "يمكنك رؤية جميع قطع الأراضي المتاحة لدينا في صفحة 'العقارات'. لدينا قطع أراضٍ ساحلية وداخلية وحضرية وصناعية لتناسب مختلف الأهداف الاستثمارية."
+    },
+    { 
+        question: "لماذا الاستثمار في الداخلة؟",
+        answer: "الداخلة منطقة ذات إمكانات نمو هائلة بفضل الاستثمارات الحكومية الضخمة في مشاريع مثل ميناء الداخلة الأطلسي والطاقة المتجددة والسياحة. إنها موقع استراتيجي يتمتع باقتصاد مزدهر."
+    },
+    { 
+        question: "كيف يمكنني الاتصال بوكيل؟",
+        answer: "أفضل طريقة هي زيارة صفحة 'اتصل بنا'. يمكنك إرسال رسالة إلينا عبر النموذج أو الاتصال بنا مباشرة أو مراسلتنا على WhatsApp. نحن على استعداد للمساعدة!"
+    }
+];
+
+
 export const MOCK_PROPERTIES_EN = [
   {
     id: 'p1',
