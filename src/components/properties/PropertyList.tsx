@@ -62,7 +62,7 @@ export function PropertyList() {
 
   return (
     <div>
-      <div className="mb-8 flex flex-col items-center justify-center gap-4">
+      <div className="mb-8 flex justify-center">
         <PropertyFilters filters={filters} setFilters={setFilters} resetFilters={resetFilters} />
       </div>
       
@@ -81,5 +81,6 @@ export function PropertyList() {
     </div>
   );
 }
+
 
 

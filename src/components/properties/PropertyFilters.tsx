@@ -29,7 +29,7 @@ export function PropertyFilters({ filters, setFilters, resetFilters }: PropertyF
   const hasActiveFilters = filters.location !== 'all' || filters.price !== 'all' || filters.size !== 'all';
 
   return (
-    <div className="flex w-full flex-wrap items-center justify-between gap-4 rounded-lg border bg-card p-4 shadow-sm">
+    <div className="flex flex-wrap items-center justify-between gap-4 rounded-lg border bg-card p-4 shadow-sm">
         <div className="flex flex-grow flex-col gap-4 sm:flex-row">
             <Select
                 value={filters.location}
