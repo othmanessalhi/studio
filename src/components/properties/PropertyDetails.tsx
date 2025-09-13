@@ -41,14 +41,12 @@ export function PropertyDetails({ propertyEN, propertyAR }: PropertyDetailsProps
 
   return (
     <>
-      <section className="bg-gradient-to-br from-card to-background/30 pt-12 md:pt-16 lg:pt-20 overflow-hidden animate-gradient bg-[length:200%_200%]">
+      <section className="relative bg-gradient-to-br from-card to-background/30 pt-28 md:pt-32 lg:pt-36 overflow-hidden animate-gradient bg-[length:200%_200%]">
         <div className="container mx-auto">
-          <Button asChild variant="outline" className="mb-8">
-            <Link href="/properties">
+           <Link href="/properties" className="absolute top-24 left-4 md:left-8 flex items-center justify-center w-10 h-10 bg-background/50 backdrop-blur-sm rounded-full text-foreground hover:bg-background/75 transition-colors">
               {arrowIcon}
-              {t('back_to_properties')}
+              <span className="sr-only">{t('back_to_properties')}</span>
             </Link>
-          </Button>
           <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
             <div className={cn('overflow-hidden rounded-lg shadow-2xl transition-all duration-1000', isMounted ? 'opacity-100 scale-100' : 'opacity-0 scale-95')}>
               {property.image && (
