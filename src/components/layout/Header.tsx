@@ -7,7 +7,7 @@ import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { Logo } from '../shared/Logo';
 import { MobileNav } from './MobileNav';
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from '@/hooks/use-translation';
 import {
   DropdownMenu,
