@@ -64,35 +64,15 @@ export function InvestmentAnalysisTool({ open, onOpenChange }: InvestmentAnalysi
     }
   }, [state, toast]);
 
-  const handleOpenChange = (isOpen: boolean) => {
-    onOpenChange(isOpen);
-    if (!isOpen) {
-      formRef.current?.reset();
-      // This is a way to reset the action state.
-      // In a future version of React, a more direct API might be available.
-      (initialState as any)._reset = Math.random();
-      // We manually clear the previous results when the dialog is closed.
-      if (state.data || state.error) {
-         // A bit of a hack to reset the action state.
-         // This can be improved if React exposes a dedicated API for it.
-         window.location.reload(); // Simple way to reset state for now
-      }
-    }
-  };
-
   useEffect(() => {
+    // Reset form when dialog closes
     if (!open) {
       formRef.current?.reset();
-      if (state.data || state.error) {
-        // Resetting state when dialog closes
-        const newState = { data: undefined, error: undefined, _reset: Math.random() };
-        // This is a bit of a hack to communicate state reset.
-        // In a real app, you might use a more robust state management solution.
-        (state as any).data = undefined;
-        (state as any).error = undefined;
-      }
+      // A more direct state reset might be available in future React/Next.js versions.
+      // For now, we rely on component unmount/remount or key-based re-rendering.
+      // The action state will reset on the next form submission cycle.
     }
-  }, [open, state]);
+  }, [open]);
 
 
   return (
