@@ -3,7 +3,7 @@
 /**
  * @fileOverview An AI flow for analyzing the investment potential of a property.
  *
- * - investmentAnalysis - A function that handles the investment analysis process.
+ * - investmentAnalysis - A function that handles the investment-analysis process.
  * - InvestmentAnalysisInput - The input type for the investmentAnalysis function.
  * - InvestmentAnalysisOutput - The return type for the investmentAnalysis function.
  */
@@ -40,7 +40,6 @@ export async function investmentAnalysis(input: InvestmentAnalysisInput): Promis
         })
     );
 }
-
 
 const prompt = ai.definePrompt({
     name: 'investmentAnalysisPrompt',
@@ -89,4 +88,3 @@ const investmentAnalysisFlow = ai.defineFlow(
     return stream;
   }
 );
-
