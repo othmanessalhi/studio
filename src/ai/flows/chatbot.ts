@@ -11,7 +11,6 @@ import {
   type ChatbotOutput,
   ChatbotInputSchema,
   ChatbotOutputSchema,
-  ChatMessageSchema,
 } from './chatbot-types';
 import type { ChatMessage } from './chatbot-types';
 
@@ -53,16 +52,20 @@ const chatbotFlow = ai.defineFlow(
   },
   async (input) => {
     const history: ChatMessage[] = [
+      // The first message is from the user and contains the system prompt.
       {
         role: 'user',
         content: systemPrompt,
       },
+      // The second message is the model's opening statement.
       {
         role: 'model',
         content:
           "Hello! I'm the Dakhla Land Assistant. How can I help you find the perfect property today?",
       },
+      // Then, we add the actual conversation history.
       ...input.history,
+      // Finally, we add the user's latest message.
       { role: 'user', content: input.message },
     ];
 
