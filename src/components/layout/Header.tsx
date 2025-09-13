@@ -22,7 +22,7 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const { t, navLinks, language, setLanguage } = useTranslation();
 
-  const isHeroPage = ['/', '/properties', '/dakhla', '/about', '/contact'].includes(pathname) || /^\/properties\/\w+$/.test(pathname);
+  const isHeroPage = ['/', '/properties', '/dakhla', '/about', '/contact'].includes(pathname);
   
   const useTransparentHeader = isHeroPage && !isScrolled;
 
