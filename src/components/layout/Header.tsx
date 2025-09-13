@@ -13,7 +13,7 @@ import { useTranslation } from '@/hooks/use-translation';
 export function Header() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
-  const { t, navLinks } = useTranslation();
+  const { t, navLinks, language, setLanguage } = useTranslation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -48,7 +48,10 @@ export function Header() {
             </Link>
           ))}
         </nav>
-        <div className="hidden items-center gap-4 md:flex">
+        <div className="hidden items-center gap-2 md:flex">
+            <Button variant={language === 'en' ? 'secondary' : 'ghost'} size="sm" onClick={() => setLanguage('en')}>EN</Button>
+            <Button variant={language === 'ar' ? 'secondary' : 'ghost'} size="sm" onClick={() => setLanguage('ar')}>AR</Button>
+            <div className="mx-2 h-6 w-px bg-border" />
           <Button asChild>
             <Link href="/contact">{t('contactUs')}</Link>
           </Button>
