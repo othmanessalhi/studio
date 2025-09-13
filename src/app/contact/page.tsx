@@ -69,7 +69,7 @@ export default function ContactPage() {
                 </div>
                 <div className="flex items-center gap-4">
                     <Mail className="h-6 w-6 text-primary" />
-                    <span>contact@dakhla-land-elite.com</span>
+                    <span>socialvibes.wavy@gmail.com</span>
                 </div>
                 <p className="text-muted-foreground">
                     {t('contact_office_address')}
