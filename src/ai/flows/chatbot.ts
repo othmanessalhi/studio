@@ -6,25 +6,22 @@
 
 import { ai } from '@/ai/genkit';
 import { MOCK_PROPERTIES_EN } from '@/lib/constants';
-import type { ChatbotInput, ChatbotOutput, ChatMessage } from './chatbot-types';
-
+import {
+  type ChatbotInput,
+  type ChatbotOutput,
+  ChatbotInputSchema,
+  ChatbotOutputSchema,
+  ChatMessageSchema,
+} from './chatbot-types';
+import type { ChatMessage } from './chatbot-types';
 
 // Serialize property data to include in the prompt
-const propertyDetails = MOCK_PROPERTIES_EN.map(p => 
-  `- ${p.title}: Located in ${p.location}, size of ${p.size} sqm, priced at $${p.price}. Description: ${p.description}`
+const propertyDetails = MOCK_PROPERTIES_EN.map(
+  (p) =>
+    `- ${p.title}: Located in ${p.location}, size of ${p.size} sqm, priced at $${p.price}. Description: ${p.description}`
 ).join('\n');
 
-export async function chatbot(input: ChatbotInput): Promise<ChatbotOutput> {
-    // Prevent calling the AI with an empty message, which can happen on initial load or if the user sends whitespace.
-    if (!input.message.trim()) {
-        return "Hello! I'm the Dakhla Land Assistant. How can I help you find the perfect property today?";
-    }
-
-  // Prepend the custom instructions to the user's message history
-  const historyWithSystemPrompt: ChatMessage[] = [
-    {
-      role: 'user', // System-level instructions are often passed in the 'user' role
-      content: `You are a helpful and friendly AI assistant for "Immobilier Afella Jaouad," a premier real estate agency specializing in land sales in Dakhla, Morocco. Your goal is to answer user questions about the business, available properties, and the Dakhla region.
+const systemPrompt = `You are a helpful and friendly AI assistant for "Immobilier Afella Jaouad," a premier real estate agency specializing in land sales in Dakhla, Morocco. Your goal is to answer user questions about the business, available properties, and the Dakhla region.
 
 - Your Name: You can refer to yourself as the Dakhla Land Assistant.
 - Be Conversational: Maintain a friendly, professional, and helpful tone.
@@ -37,17 +34,41 @@ Business Name: Immobilier Afella Jaouad
 Owner: Jaouad Afella, a trusted expert with over 6 years of experience in Moroccan real estate.
 Specialty: Premium land plots in Dakhla, Morocco, a region with high growth potential in tourism, logistics, and renewable energy.
 Available Properties:
-${propertyDetails}
+${propertyDetails}`;
 
-Now, please respond to the user's message.`,
-    },
-    ...input.history,
-    { role: 'user', content: input.message },
-  ];
-  
-  const { text } = await ai.generate({
-    history: historyWithSystemPrompt,
-  });
-
-  return text;
+// This is the main function that the client will call.
+export async function chatbot(input: ChatbotInput): Promise<ChatbotOutput> {
+  // Prevent calling the AI with an empty message
+  if (!input.message.trim()) {
+    return "Hello! I'm the Dakhla Land Assistant. How can I help you find the perfect property today?";
+  }
+  return await chatbotFlow(input);
 }
+
+const chatbotFlow = ai.defineFlow(
+  {
+    name: 'chatbotFlow',
+    inputSchema: ChatbotInputSchema,
+    outputSchema: ChatbotOutputSchema,
+  },
+  async (input) => {
+    const history: ChatMessage[] = [
+      {
+        role: 'user',
+        content: systemPrompt,
+      },
+      {
+        role: 'model',
+        content:
+          "Hello! I'm the Dakhla Land Assistant. How can I help you find the perfect property today?",
+      },
+      ...input.history,
+      { role: 'user', content: input.message },
+    ];
+
+    const { text } = await ai.generate({
+      history,
+    });
+    return text;
+  }
+);
