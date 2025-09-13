@@ -24,7 +24,6 @@ export function PropertyList() {
 
   const [filters, setFilters] = useState<Filters>(initialFilters);
   const [currentPage, setCurrentPage] = useState(1);
-  const isInitialMount = useRef(true);
 
   const filteredProperties = useMemo(() => {
     return MOCK_PROPERTIES.filter((property: Property) => {
@@ -57,22 +56,8 @@ export function PropertyList() {
 
   // Reset to first page on filter change
   useEffect(() => {
-    if (!isInitialMount.current) {
-      setCurrentPage(1);
-    }
+    setCurrentPage(1);
   }, [filters]);
-  
-  // Scroll to top when page changes
-  useEffect(() => {
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-    } else {
-      const listContainer = document.getElementById('property-list');
-      if (listContainer) {
-        listContainer.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  }, [currentPage]);
   
   const resetFilters = () => {
     setFilters(initialFilters);
@@ -87,6 +72,11 @@ export function PropertyList() {
   const handlePageChange = (newPage: number) => {
     if (newPage < 1 || newPage > totalPages) return;
     setCurrentPage(newPage);
+    
+    const listContainer = document.getElementById('property-list');
+    if (listContainer) {
+      listContainer.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const arrowLeft = language === 'ar' ? <ArrowRight /> : <ArrowLeft />;
