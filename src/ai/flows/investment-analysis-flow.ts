@@ -29,7 +29,7 @@ export type InvestmentAnalysisOutput = z.infer<typeof InvestmentAnalysisOutputSc
 
 export async function investmentAnalysis(input: InvestmentAnalysisInput): Promise<ReadableStream<string>> {
     const flowStream = await investmentAnalysisFlow(input);
-    
+
     return flowStream.pipeThrough(
         new TransformStream<InvestmentAnalysisOutput, string>({
             transform(chunk, controller) {
