@@ -13,7 +13,6 @@ import { cn } from '@/lib/utils';
 import { useTranslation } from '@/hooks/use-translation';
 
 
-const mapImage = PlaceHolderImages.find(p => p.id === 'contact-map');
 const contactHeroImage = PlaceHolderImages.find(p => p.id === 'contact-hero');
 
 const WhatsAppIcon = () => (
@@ -82,16 +81,19 @@ export default function ContactPage() {
                     {t('message_on_whatsapp')}
                 </Link>
              </Button>
-
-            <div className="mt-8 h-80 w-full overflow-hidden rounded-lg shadow-xl">
-                {mapImage && <Image
-                    src={mapImage.imageUrl}
-                    alt={mapImage.description}
-                    width={800}
-                    height={600}
-                    className="h-full w-full object-cover"
-                    data-ai-hint={mapImage.imageHint}
-                />}
+            <div className='space-y-4'>
+              <h3 className="font-headline text-2xl font-bold">Our Office in Dakhla</h3>
+              <div className="mt-8 h-80 w-full overflow-hidden rounded-lg shadow-xl">
+                  <iframe
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      loading="lazy"
+                      allowFullScreen
+                      referrerPolicy="no-referrer-when-downgrade"
+                      src={`https://maps.google.com/maps?q=23.7199,-15.9455&z=14&output=embed&t=m`}
+                    ></iframe>
+              </div>
             </div>
           </div>
         </div>
