@@ -51,7 +51,8 @@ export function InvestmentAnalysis({ property }: InvestmentAnalysisProps) {
     }
   };
   
-  const handleDownload = () => {
+  const handleDownload = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
     if (!analysisResult) return;
 
     const content = `
