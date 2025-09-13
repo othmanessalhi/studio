@@ -53,6 +53,21 @@ export function Chatbot() {
   const [isOpen, setIsOpen] = useState(false);
   const [history, setHistory] = useState<ChatHistoryItem[]>([]);
   const chatContainerRef = useRef<HTMLDivElement>(null);
+  const [showHint, setShowHint] = useState(false);
+
+  useEffect(() => {
+    // Show hint only on first visit (session-based)
+    const hasVisited = sessionStorage.getItem('hasVisitedChatbot');
+    if (!hasVisited) {
+      const timer = setTimeout(() => {
+        if (!isOpen) { // Only show if chat is not already open
+            setShowHint(true);
+            sessionStorage.setItem('hasVisitedChatbot', 'true');
+        }
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [isOpen]);
   
   const handleQuestionSelect = (qna: QnA) => {
     const newHistory: ChatHistoryItem[] = [
@@ -78,6 +93,11 @@ export function Chatbot() {
     ]);
   };
 
+  const handleToggleOpen = () => {
+    setShowHint(false); // Hide hint on any interaction
+    setIsOpen(prev => !prev);
+  }
+
   // Add initial welcome message when chat opens
   useEffect(() => {
     if (isOpen) {
@@ -101,10 +121,16 @@ export function Chatbot() {
     <>
       {/* Chat Bubble Toggle Button */}
       <div className="fixed bottom-6 right-6 z-50">
+        {showHint && (
+            <div className="absolute bottom-1/2 right-full mr-4 w-max -translate-y-1/2 rounded-md bg-accent px-3 py-2 text-sm text-accent-foreground shadow-lg animate-in fade-in-0 zoom-in-95">
+                {language === 'ar' ? 'اسألني أي شيء!' : 'Ask me anything!'}
+                <div className="absolute right-[-4px] top-1/2 h-3 w-3 -translate-y-1/2 rotate-45 bg-accent" />
+            </div>
+        )}
         <Button
           size="icon"
           className="h-16 w-16 rounded-full shadow-lg"
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={handleToggleOpen}
           aria-label={isOpen ? 'Close chat' : 'Open chat'}
         >
           {isOpen ? <X className="h-8 w-8" /> : <Bot className="h-8 w-8" />}

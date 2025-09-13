@@ -43,15 +43,6 @@ export const CHATBOT_QA_EN = [
             href: "/contact",
             buttonText: "Yes, take me there"
         }
-    },
-    {
-        question: "What are the financing options?",
-        answer: "We understand that financing is a crucial part of any investment. We work with several financial partners and can help guide you to the best options. For a personalized discussion, please contact us directly.",
-        link: {
-            text: "Would you like to go to the contact page to discuss financing?",
-            href: "/contact",
-            buttonText: "Yes, let's talk financing"
-        }
     }
 ];
 
@@ -81,15 +72,6 @@ export const CHATBOT_QA_AR = [
             text: "هل أوجهك إلى صفحة اتصل بنا؟",
             href: "/contact",
             buttonText: "نعم، خذني إلى هناك"
-        }
-    },
-    {
-        question: "ما هي خيارات التمويل؟",
-        answer: "نتفهم أن التمويل جزء حاسم من أي استثمار. نحن نعمل مع العديد من الشركاء الماليين ويمكننا مساعدتك في إرشادك إلى أفضل الخيارات. لإجراء مناقشة شخصية، يرجى الاتصال بنا مباشرة.",
-        link: {
-            text: "هل تود الذهاب إلى صفحة الاتصال لمناقشة التمويل؟",
-            href: "/contact",
-            buttonText: "نعم، لنتحدث عن التمويل"
         }
     }
 ];
