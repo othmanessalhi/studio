@@ -4,7 +4,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Loader, Sparkles, BrainCircuit, RotateCcw, TrendingUp, AlertTriangle } from 'lucide-react';
+import { Loader, Sparkles, BrainCircuit, Download, TrendingUp } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
 import { type Property } from '@/lib/constants';
 import { investmentAnalysis, InvestmentAnalysisOutput } from '@/ai/flows/investment-analysis-flow';
@@ -51,10 +51,33 @@ export function InvestmentAnalysis({ property }: InvestmentAnalysisProps) {
     }
   };
   
-  const handleReset = () => {
-    setAnalysisResult(null);
-    setError('');
+  const handleDownload = () => {
+    if (!analysisResult) return;
+
+    const content = `
+Investment Analysis for: ${property.title}
+==================================================
+
+Appreciation Projection:
+--------------------------
+${analysisResult.appreciationProjection}
+
+Detailed Analysis:
+--------------------
+${analysisResult.analysis.replace(/###\s?/g, '').replace(/\*\*/g, '')}
+    `;
+
+    const blob = new Blob([content.trim()], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `investment-analysis-${property.id}.txt`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
   };
+
 
   const analysisTitle = t('ai_investment_analysis');
   const analyzeButtonText = t('analyze_investment_potential');
@@ -107,9 +130,9 @@ export function InvestmentAnalysis({ property }: InvestmentAnalysisProps) {
                     <ReactMarkdown>{analysisResult.analysis}</ReactMarkdown>
                 </div>
 
-                <Button onClick={handleReset} variant="outline" className="mt-6 gap-2">
-                    <RotateCcw className="h-4 w-4" />
-                    {t('ask_another_question')}
+                <Button onClick={handleDownload} variant="outline" className="mt-6 gap-2">
+                    <Download className="h-4 w-4" />
+                    {t('download_analysis')}
                 </Button>
             </CardContent>
         </Card>
