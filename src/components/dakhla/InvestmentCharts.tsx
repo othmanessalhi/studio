@@ -1,13 +1,11 @@
 
 'use client';
 
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
+import { Label, PolarGrid, PolarRadiusAxis, RadialBar, RadialBarChart } from 'recharts';
 import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-  ChartLegend,
-  ChartLegendContent,
 } from '@/components/ui/chart';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 import { ChartConfig } from '../ui/chart';
@@ -16,57 +14,104 @@ import { useTranslation } from '@/hooks/use-translation';
 export function InvestmentCharts() {
   const { t } = useTranslation();
 
-  const chartData = [
-    { sector: t('chart_sector_tourism'), current: 120, projected: 450, fill: 'var(--color-tourism)' },
-    { sector: t('chart_sector_logistics'), current: 80, projected: 600, fill: 'var(--color-logistics)' },
-    { sector: t('chart_sector_energy'), current: 150, projected: 700, fill: 'var(--color-energy)' },
-    { sector: t('chart_sector_aquaculture'), current: 200, projected: 550, fill: 'var(--color-aquaculture)' },
+  const sectors = [
+    { key: 'tourism', start: 120, end: 450, fill: 'var(--chart-1)' },
+    { key: 'logistics', start: 80, end: 600, fill: 'var(--chart-2)' },
+    { key: 'energy', start: 150, end: 700, fill: 'var(--chart-3)' },
+    { key: 'aquaculture', start: 200, end: 550, fill: 'var(--chart-4)' },
   ];
 
   const chartConfig = {
-    current: {
-      label: t('chart_legend_current'),
-      color: 'hsl(var(--secondary-foreground))',
-    },
-    projected: {
+    investment: {
       label: t('chart_legend_projected'),
-      color: 'hsl(var(--primary))',
+    },
+    tourism: {
+      label: t('chart_sector_tourism'),
+      color: 'hsl(var(--chart-1))',
+    },
+    logistics: {
+      label: t('chart_sector_logistics'),
+      color: 'hsl(var(--chart-2))',
+    },
+    energy: {
+      label: t('chart_sector_energy'),
+      color: 'hsl(var(--chart-3))',
+    },
+    aquaculture: {
+      label: t('chart_sector_aquaculture'),
+      color: 'hsl(var(--chart-4))',
     },
   } satisfies ChartConfig;
 
-
   return (
     <Card className='border-none shadow-none'>
-      <CardHeader>
-        <CardTitle className="text-center font-headline text-2xl">
-          {t('chart_title')}
-        </CardTitle>
-        <CardDescription className="text-center">
-          {t('chart_desc')}
-        </CardDescription>
+      <CardHeader className="items-center pb-0">
+        <CardTitle>{t('chart_title')}</CardTitle>
+        <CardDescription>{t('chart_desc')}</CardDescription>
       </CardHeader>
-      <CardContent>
-        <ChartContainer config={chartConfig} className="mx-auto h-[400px] w-full max-w-4xl">
-          <BarChart data={chartData} accessibilityLayer>
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="sector"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={false}
-              tickFormatter={(value) => value}
+      <CardContent className="flex-1 pb-0">
+        <ChartContainer
+          config={chartConfig}
+          className="mx-auto aspect-square max-h-[600px]"
+        >
+          <RadialBarChart
+            data={sectors}
+            startAngle={-90}
+            endAngle={270}
+            innerRadius="15%"
+            outerRadius="80%"
+            barSize={24}
+          >
+            <PolarGrid
+              gridType="circle"
+              radialLines={false}
+              stroke="none"
+              className="first:fill-muted last:fill-background"
+              polarRadius={[120, 100, 80, 60, 40]}
             />
-            <YAxis 
-                tickFormatter={(value) => `$${value}M`}
-            />
-            <ChartTooltip
+            <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
+              <Label
+                content={({ viewBox }) => {
+                  if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
+                    return (
+                      <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle">
+                        <tspan
+                          x={viewBox.cx}
+                          y={(viewBox.cy || 0) - 16}
+                          className="fill-foreground text-2xl font-bold"
+                        >
+                          $4.5B+
+                        </tspan>
+                        <tspan
+                          x={viewBox.cx}
+                          y={(viewBox.cy || 0) + 4}
+                          className="fill-muted-foreground"
+                        >
+                          Total Projected
+                        </tspan>
+                      </text>
+                    );
+                  }
+                }}
+              />
+            </PolarRadiusAxis>
+            <RadialBar
+                dataKey="end"
+                background
+                cornerRadius={10}
+                className="[&>path]:fill-[var(--fill)]"
+             />
+             <ChartTooltip
               cursor={false}
-              content={<ChartTooltipContent indicator="dot" />}
+              content={<ChartTooltipContent 
+                nameKey="end" 
+                formatter={(value, name, props) => [
+                    `$${props.payload.start}M ➔ $${props.payload.end}M`,
+                    chartConfig[props.payload.key as keyof typeof chartConfig]?.label || name
+                ]}
+                />}
             />
-            <ChartLegend content={<ChartLegendContent />} />
-            <Bar dataKey="current" fill={chartConfig.current.color} radius={4} />
-            <Bar dataKey="projected" fill={chartConfig.projected.color} radius={4} />
-          </BarChart>
+          </RadialBarChart>
         </ChartContainer>
       </CardContent>
     </Card>
