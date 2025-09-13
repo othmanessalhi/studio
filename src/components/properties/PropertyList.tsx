@@ -5,22 +5,16 @@
 import { useState, useMemo } from 'react';
 import { MOCK_PROPERTIES_EN, MOCK_PROPERTIES_AR, Property } from '@/lib/constants';
 import { PropertyCard } from './PropertyCard';
-import { PropertyFilters } from './PropertyFilters';
+import { FilterButton, type Filters } from './FilterButton';
 import { useTranslation } from '@/hooks/use-translation';
 import { Button } from '../ui/button';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 
-export type Filters = {
-  location: string;
-  price: string;
-  size: string;
-};
-
 const initialFilters: Filters = {
-    location: 'all',
-    price: 'all',
-    size: 'all',
+  location: 'all',
+  price: 'all',
+  size: 'all',
 };
 
 const PROPERTIES_PER_PAGE = 6;
@@ -78,7 +72,12 @@ export function PropertyList() {
   return (
     <div>
       <div className="mb-8 flex justify-center">
-        <PropertyFilters filters={filters} setFilters={setFilters} resetFilters={resetFilters} />
+        <FilterButton
+          filters={filters}
+          setFilters={setFilters}
+          resetFilters={resetFilters}
+          initialFilters={initialFilters}
+        />
       </div>
       
       {paginatedProperties.length > 0 ? (
@@ -118,9 +117,3 @@ export function PropertyList() {
     </div>
   );
 }
-
-
-
-
-
-    

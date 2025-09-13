@@ -103,7 +103,10 @@
     "any_size": "Any Size",
     "growth": "Growth",
     "chatbot_welcome": "Hello! How can I help you today?",
-    "ask_another_question": "Ask Another Question"
+    "ask_another_question": "Ask Another Question",
+    "Filters": "Filters",
+    "reset": "Reset",
+    "apply_filters": "Apply Filters"
   },
   "ar": {
     "logo": "وكالة عقارات جواد أفلا",
@@ -208,6 +211,9 @@
     "any_size": "أي مساحة",
     "growth": "نمو",
     "chatbot_welcome": "مرحباً! كيف يمكنني مساعدتك اليوم؟",
-    "ask_another_question": "اطرح سؤالاً آخر"
+    "ask_another_question": "اطرح سؤالاً آخر",
+    "Filters": "الفلاتر",
+    "reset": "إعادة تعيين",
+    "apply_filters": "تطبيق الفلاتر"
   }
 }
