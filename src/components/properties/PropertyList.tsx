@@ -9,8 +9,6 @@ import { FilterButton, type Filters } from './FilterButton';
 import { useTranslation } from '@/hooks/use-translation';
 import { Button } from '../ui/button';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
-import { cn } from '@/lib/utils';
 
 const initialFilters: Filters = {
   location: 'all',
@@ -76,12 +74,11 @@ export function PropertyList() {
     }
   };
 
-
   const arrowLeft = language === 'ar' ? <ArrowRight /> : <ArrowLeft />;
   const arrowRight = language === 'ar' ? <ArrowLeft /> : <ArrowRight />;
   
   const isPrevDisabled = currentPage === 1;
-  const isNextDisabled = currentPage === totalPages;
+  const isNextDisabled = currentPage === totalPages || paginatedProperties.length === 0;
 
   return (
     <div id="property-list" className='scroll-mt-24'>
@@ -112,8 +109,8 @@ export function PropertyList() {
            <Button 
                 variant="outline" 
                 onClick={() => handlePageChange(currentPage - 1)} 
-                disabled={currentPage === 1}
-                aria-disabled={currentPage === 1}
+                disabled={isPrevDisabled}
+                aria-disabled={isPrevDisabled}
             >
                 {arrowLeft} {t('pagination_previous')}
             </Button>
@@ -125,8 +122,8 @@ export function PropertyList() {
           <Button 
             variant="outline" 
             onClick={() => handlePageChange(currentPage + 1)} 
-            disabled={currentPage === totalPages}
-            aria-disabled={currentPage === totalPages}
+            disabled={isNextDisabled}
+            aria-disabled={isNextDisabled}
           >
             {t('pagination_next')} {arrowRight}
           </Button>
