@@ -21,7 +21,6 @@ export function Header() {
   const pathname = usePathname();
   const [isScrolled, setIsScrolled] = useState(false);
   const { t, navLinks, language, setLanguage } = useTranslation();
-  const languageButtonRef = useRef<HTMLButtonElement>(null);
 
   const isHeroPage = ['/', '/dakhla', '/about', '/contact', '/properties/[id]'].includes(pathname) || /^\/properties\/\w+$/.test(pathname);
   
@@ -29,10 +28,6 @@ export function Header() {
 
   const handleLanguageChange = (lang: 'en' | 'ar') => {
     setLanguage(lang);
-    // Remove focus from the button to prevent the outline
-    if (languageButtonRef.current) {
-      languageButtonRef.current.blur();
-    }
   };
 
   useEffect(() => {
@@ -72,7 +67,7 @@ export function Header() {
         <div className="hidden items-center gap-2 md:flex">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button ref={languageButtonRef} variant="ghost" size="icon">
+                <Button variant="ghost" size="icon" className="focus-visible:ring-0 focus-visible:ring-offset-0">
                   <Globe className={cn('h-5 w-5', useTransparentHeader ? 'text-white' : 'text-foreground')} />
                   <span className="sr-only">Change language</span>
                 </Button>
