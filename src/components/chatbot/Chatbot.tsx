@@ -40,6 +40,7 @@ export function Chatbot() {
     setMessage('');
 
     startTransition(async () => {
+      // Pass the conversation history, excluding the initial welcome message from the client.
       const response = await chatbot({ history: newHistory.slice(1), message });
       const modelMessage: ChatMessage = { role: 'model', content: response };
       setHistory(prev => [...prev, modelMessage]);

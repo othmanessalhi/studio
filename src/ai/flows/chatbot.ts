@@ -9,8 +9,8 @@ import { MOCK_PROPERTIES_EN } from '@/lib/constants';
 import {
   type ChatbotInput,
   type ChatbotOutput,
+  type ChatMessage,
 } from './chatbot-types';
-import type { ChatMessage } from './chatbot-types';
 
 // Serialize property data to include in the prompt
 const propertyDetails = MOCK_PROPERTIES_EN.map(
@@ -40,6 +40,7 @@ export async function chatbot(input: ChatbotInput): Promise<ChatbotOutput> {
     return "Hello! I'm the Dakhla Land Assistant. How can I help you find the perfect property today?";
   }
 
+  // Construct the full history, ensuring it's always valid.
   const history: ChatMessage[] = [
     // The first message is from the user and contains the system prompt.
     {
@@ -52,7 +53,7 @@ export async function chatbot(input: ChatbotInput): Promise<ChatbotOutput> {
       content:
         "Hello! I'm the Dakhla Land Assistant. How can I help you find the perfect property today?",
     },
-    // Then, we add the actual conversation history.
+    // Then, we add the actual conversation history from the client.
     ...input.history,
     // Finally, we add the user's latest message.
     { role: 'user', content: input.message },
