@@ -34,6 +34,7 @@ export function PropertyFilters({ filters, setFilters, resetFilters }: PropertyF
             <Select
                 value={filters.location}
                 onValueChange={(value) => handleFilterChange('location', value)}
+                modal={false}
             >
                 <SelectTrigger className="w-[200px] sm:w-[200px]">
                 <div className="flex items-center gap-2">
@@ -52,6 +53,7 @@ export function PropertyFilters({ filters, setFilters, resetFilters }: PropertyF
             <Select
                 value={filters.price}
                 onValueChange={(value) => handleFilterChange('price', value)}
+                modal={false}
             >
                 <SelectTrigger className="w-[200px] sm:w-[200px]">
                 <div className="flex items-center gap-2">
@@ -69,6 +71,7 @@ export function PropertyFilters({ filters, setFilters, resetFilters }: PropertyF
             <Select
                 value={filters.size}
                 onValueChange={(value) => handleFilterChange('size', value)}
+                modal={false}
             >
                 <SelectTrigger className="w-[200px] sm:w-[200px]">
                 <div className="flex items-center gap-2">
