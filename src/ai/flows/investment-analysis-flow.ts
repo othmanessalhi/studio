@@ -21,7 +21,7 @@ const prompt = ai.definePrompt({
     output: { schema: InvestmentAnalysisOutputSchema },
     prompt: `
         You are a seasoned real estate investment analyst specializing in the Dakhla region of Morocco.
-        Your task is to provide a concise, expert analysis of the investment potential of the following property.
+        Your task is to provide a very concise, expert analysis of the investment potential of the following property.
         The Moroccan government is heavily investing in Dakhla's infrastructure, including the Dakhla Atlantic Port, renewable energy projects (wind and solar), and tourism. The region is a world-renowned kitesurfing destination.
 
         Your entire response MUST be in the language specified by the language code: {{{language}}}.
@@ -42,10 +42,10 @@ const prompt = ai.definePrompt({
         Your analysis should be structured with the following sections (translate these section titles if the language is not 'en'):
 
         ### 💡 Potential
-        (Highlight 2-3 key strengths and opportunities. Be specific and straightforward. Use bullet points.)
+        (Highlight 2 key strengths. Be specific and very brief. Use bullet points.)
 
         ### ⚠️ Risks
-        (Identify 1-2 potential risks or considerations for the investor. Be specific and straightforward. Use bullet points.)
+        (Identify 1 key risk for the investor. Be specific and very brief. Use bullet points.)
 
         ### 📈 Final Recommendation
         (Provide a concluding recommendation. State whether it is a "Strong Buy," "Promising Investment," or "Requires Due Diligence," and give a one-sentence justification. Translate these recommendations as needed.)
