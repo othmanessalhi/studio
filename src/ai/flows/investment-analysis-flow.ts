@@ -1,3 +1,4 @@
+
 'use server';
 /**
  * @fileOverview An AI flow for analyzing the investment potential of a property.
@@ -27,18 +28,15 @@ export type InvestmentAnalysisOutput = z.infer<typeof InvestmentAnalysisOutputSc
 
 
 export async function investmentAnalysis(input: InvestmentAnalysisInput) {
-    const { stream, response } = investmentAnalysisFlow(input);
+    const stream = await investmentAnalysisFlow(input);
     
-    return {
-        stream: stream.pipeThrough(
-            new TransformStream<any, string>({
-                transform(chunk, controller) {
-                    controller.enqueue(chunk.analysis);
-                },
-            })
-        ),
-        response: response,
-    };
+    return stream.pipeThrough(
+        new TransformStream<any, string>({
+            transform(chunk, controller) {
+                controller.enqueue(chunk.analysis);
+            },
+        })
+    );
 }
 
 
@@ -81,13 +79,13 @@ const investmentAnalysisFlow = ai.defineFlow(
   {
     name: 'investmentAnalysisFlow',
     inputSchema: InvestmentAnalysisInputSchema,
-    outputSchema: InvestmentAnalysisOutputSchema,
+    outputSchema: z.any(),
   },
   async (input) => {
-    const { stream, response } = await prompt({
+    const { stream } = await prompt({
       ...input
     }, { stream: true });
 
-    return { stream, response };
+    return stream;
   }
 );
