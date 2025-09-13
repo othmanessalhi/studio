@@ -62,7 +62,6 @@ export default function WhyDakhlaPage() {
 
       <section>
         <div className="container mx-auto">
-          <h2 className="mb-12 text-center font-headline text-3xl font-bold">{t('dakhla_charts_title')}</h2>
           <InvestmentCharts />
         </div>
       </section>

@@ -80,13 +80,13 @@
     "form_placeholder_message": "I'm interested in learning more about land opportunities in Dakhla...",
     "send_inquiry": "Send Inquiry",
     "chart_sector_tourism": "Tourism",
-    "chart_sector_logistics": "Logistics",
-    "chart_sector_energy": "Energy",
-    "chart_sector_aquaculture": "Aquaculture",
+    "chart_sector_logistics": "Logistics & Port",
+    "chart_sector_energy": "Renewable Energy",
+    "chart_sector_aquaculture": "Aquaculture & Fishing",
     "chart_legend_current": "Current Investment (Millions USD)",
-    "chart_legend_projected": "Projected Investment (Millions USD)",
-    "chart_title": "Investment Growth by Sector (2024-2030)",
-    "chart_desc": "Projected public and private investment illustrating Dakhla's diverse economic expansion.",
+    "chart_legend_projected": "Projected Investment",
+    "chart_title": "Dakhla 2030: A Vision of Growth",
+    "chart_desc": "From strategic ports to green energy, discover the key sectors driving Dakhla's multi-billion dollar transformation. All figures in millions USD.",
     "ai_investment_analysis": "AI Investment Analysis",
     "no_properties_match": "No properties match the current filters.",
     "try_adjusting_search": "Try adjusting your search criteria.",
@@ -100,7 +100,8 @@
     "price": "Price",
     "any_price": "Any Price",
     "size": "Size",
-    "any_size": "Any Size"
+    "any_size": "Any Size",
+    "growth": "Growth"
   },
   "ar": {
     "logo": "وكالة عقارات جواد أفلا",
@@ -136,7 +137,7 @@
     "go_back_home": "العودة إلى الصفحة الرئيسية",
     "dakhla_hero_title": "الداخلة: نجم الأطلسي الصاعد",
     "dakhla_hero_p": "أكثر من مجرد مناظر طبيعية خلابة، الداخلة هي منطقة تشهد تحولًا عميقًا. الرؤية الاستراتيجية والاستثمارات الضخمة تطلق العنان لإمكانياتها كمركز عالمي للتجارة والسياحة والطاقة المستدامة.",
-    "dakhla_charts_title": "النمو المتوقع والقطاعات الرئيسية",
+    "dakhla_charts_title": "الداخلة 2030: رؤية للنمو",
     "dakhla_port_title": "ميناء الداخلة الأطلسي",
     "dakhla_port_p": "هذا المشروع الضخم الذي تبلغ تكلفته مليار دولار هو حجر الزاوية في استراتيجية الداخلة الاقتصادية. سيؤسس المنطقة كبوابة بحرية رئيسية تربط شمال غرب أفريقيا بالأمريكتين وأوروبا. سيخلق الميناء قوة لوجستية وصناعية، مما يزيد بشكل كبير من قيمة وفائدة الأراضي المحيطة للأغراض التجارية والصناعية.",
     "dakhla_tourism_title": "وجهة سياحية عالمية",
@@ -182,13 +183,13 @@
     "form_placeholder_message": "أنا مهتم بمعرفة المزيد عن فرص الأراضي في الداخلة...",
     "send_inquiry": "إرسال استفسار",
     "chart_sector_tourism": "السياحة",
-    "chart_sector_logistics": "الخدمات اللوجستية",
-    "chart_sector_energy": "الطاقة",
-    "chart_sector_aquaculture": "تربية الأحياء المائية",
+    "chart_sector_logistics": "الخدمات اللوجستية والميناء",
+    "chart_sector_energy": "الطاقة المتجددة",
+    "chart_sector_aquaculture": "تربية الأحياء المائية والصيد",
     "chart_legend_current": "الاستثمار الحالي (مليون دولار أمريكي)",
-    "chart_legend_projected": "الاستثمار المتوقع (مليون دولار أمريكي)",
-    "chart_title": "نمو الاستثمار حسب القطاع (2024-2030)",
-    "chart_desc": "الاستثمارات العامة والخاصة المتوقعة التي توضح التوسع الاقتصادي المتنوع للداخلة.",
+    "chart_legend_projected": "الاستثمار المتوقع",
+    "chart_title": "الداخلة 2030: رؤية للنمو",
+    "chart_desc": "من الموانئ الاستراتيجية إلى الطاقة الخضراء، اكتشف القطاعات الرئيسية التي تقود تحول الداخلة بمليارات الدولارات. جميع الأرقام بملايين الدولارات الأمريكية.",
     "ai_investment_analysis": "تحليل استثمار الذكاء الاصطناعي",
     "no_properties_match": "لا توجد عقارات تطابق المرشحات الحالية.",
     "try_adjusting_search": "حاول تعديل معايير البحث الخاصة بك.",
@@ -202,12 +203,7 @@
     "price": "السعر",
     "any_price": "أي سعر",
     "size": "المساحة",
-    "any_size": "أي مساحة"
+    "any_size": "أي مساحة",
+    "growth": "نمو"
   }
 }
-
-    
-
-    
-
-    

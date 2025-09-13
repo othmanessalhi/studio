@@ -1,119 +1,76 @@
 
 'use client';
 
-import { Label, PolarGrid, PolarRadiusAxis, RadialBar, RadialBarChart } from 'recharts';
-import {
-  ChartContainer,
-  ChartTooltip,
-  ChartTooltipContent,
-} from '@/components/ui/chart';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
-import { ChartConfig } from '../ui/chart';
 import { useTranslation } from '@/hooks/use-translation';
+import { SectorStatCard } from './SectorStatCard';
+import { Waves, Anchor, Wind, Fish } from 'lucide-react';
+
 
 export function InvestmentCharts() {
   const { t } = useTranslation();
 
   const sectors = [
-    { key: 'tourism', start: 120, end: 450, fill: 'var(--chart-1)' },
-    { key: 'logistics', start: 80, end: 600, fill: 'var(--chart-2)' },
-    { key: 'energy', start: 150, end: 700, fill: 'var(--chart-3)' },
-    { key: 'aquaculture', start: 200, end: 550, fill: 'var(--chart-4)' },
+    {
+      key: 'tourism',
+      label: t('chart_sector_tourism'),
+      start: 120,
+      end: 450,
+      Icon: Waves,
+      color: 'text-blue-500',
+      bgColor: 'bg-blue-500/10',
+      barColor: 'bg-blue-500'
+    },
+    {
+      key: 'logistics',
+      label: t('chart_sector_logistics'),
+      start: 80,
+      end: 600,
+      Icon: Anchor,
+      color: 'text-slate-500',
+      bgColor: 'bg-slate-500/10',
+      barColor: 'bg-slate-500'
+    },
+    {
+      key: 'energy',
+      label: t('chart_sector_energy'),
+      start: 150,
+      end: 700,
+      Icon: Wind,
+      color: 'text-green-500',
+      bgColor: 'bg-green-500/10',
+      barColor: 'bg-green-500'
+    },
+    {
+      key: 'aquaculture',
+      label: t('chart_sector_aquaculture'),
+      start: 200,
+      end: 550,
+      Icon: Fish,
+      color: 'text-cyan-500',
+      bgColor: 'bg-cyan-500/10',
+      barColor: 'bg-cyan-500'
+    },
   ];
 
-  const chartConfig = {
-    investment: {
-      label: t('chart_legend_projected'),
-    },
-    tourism: {
-      label: t('chart_sector_tourism'),
-      color: 'hsl(var(--chart-1))',
-    },
-    logistics: {
-      label: t('chart_sector_logistics'),
-      color: 'hsl(var(--chart-2))',
-    },
-    energy: {
-      label: t('chart_sector_energy'),
-      color: 'hsl(var(--chart-3))',
-    },
-    aquaculture: {
-      label: t('chart_sector_aquaculture'),
-      color: 'hsl(var(--chart-4))',
-    },
-  } satisfies ChartConfig;
-
   return (
-    <Card className='border-none shadow-none'>
-      <CardHeader className="items-center pb-0">
-        <CardTitle>{t('chart_title')}</CardTitle>
-        <CardDescription>{t('chart_desc')}</CardDescription>
-      </CardHeader>
-      <CardContent className="flex-1 pb-0">
-        <ChartContainer
-          config={chartConfig}
-          className="mx-auto aspect-square max-h-[600px]"
-        >
-          <RadialBarChart
-            data={sectors}
-            startAngle={-90}
-            endAngle={270}
-            innerRadius="15%"
-            outerRadius="80%"
-            barSize={24}
-          >
-            <PolarGrid
-              gridType="circle"
-              radialLines={false}
-              stroke="none"
-              className="first:fill-muted last:fill-background"
-              polarRadius={[120, 100, 80, 60, 40]}
-            />
-            <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
-              <Label
-                content={({ viewBox }) => {
-                  if (viewBox && 'cx' in viewBox && 'cy' in viewBox) {
-                    return (
-                      <text x={viewBox.cx} y={viewBox.cy} textAnchor="middle">
-                        <tspan
-                          x={viewBox.cx}
-                          y={(viewBox.cy || 0) - 16}
-                          className="fill-foreground text-2xl font-bold"
-                        >
-                          $4.5B+
-                        </tspan>
-                        <tspan
-                          x={viewBox.cx}
-                          y={(viewBox.cy || 0) + 4}
-                          className="fill-muted-foreground"
-                        >
-                          Total Projected
-                        </tspan>
-                      </text>
-                    );
-                  }
-                }}
-              />
-            </PolarRadiusAxis>
-            <RadialBar
-                dataKey="end"
-                background
-                cornerRadius={10}
-                className="[&>path]:fill-[var(--fill)]"
-             />
-             <ChartTooltip
-              cursor={false}
-              content={<ChartTooltipContent 
-                nameKey="end" 
-                formatter={(value, name, props) => [
-                    `$${props.payload.start}M ➔ $${props.payload.end}M`,
-                    chartConfig[props.payload.key as keyof typeof chartConfig]?.label || name
-                ]}
-                />}
-            />
-          </RadialBarChart>
-        </ChartContainer>
-      </CardContent>
-    </Card>
+    <div className="text-center">
+        <h2 className="mb-4 font-headline text-3xl font-bold md:text-4xl">{t('chart_title')}</h2>
+        <p className="mx-auto mb-12 max-w-3xl text-lg text-muted-foreground">{t('chart_desc')}</p>
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+            {sectors.map((sector, index) => (
+                <SectorStatCard 
+                    key={sector.key}
+                    label={sector.label}
+                    start={sector.start}
+                    end={sector.end}
+                    Icon={sector.Icon}
+                    color={sector.color}
+                    bgColor={sector.bgColor}
+                    barColor={sector.barColor}
+                    index={index}
+                />
+            ))}
+        </div>
+    </div>
   );
 }
