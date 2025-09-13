@@ -14,8 +14,13 @@ import { Button } from '../ui/button';
 import { Logo } from '../shared/Logo';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from '@/hooks/use-translation';
+import { cn } from '@/lib/utils';
 
-export function MobileNav() {
+interface MobileNavProps {
+  isTransparent: boolean;
+}
+
+export function MobileNav({ isTransparent }: MobileNavProps) {
   const pathname = usePathname();
   const { t, navLinks, setLanguage, language } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
@@ -40,7 +45,7 @@ export function MobileNav() {
     <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger asChild>
         <Button variant="ghost" size="icon">
-          <Menu className="text-foreground" />
+          <Menu className={cn('h-6 w-6', isTransparent ? 'text-white filter drop-shadow-glow' : 'text-foreground')} />
           <span className="sr-only">Toggle navigation menu</span>
         </Button>
       </SheetTrigger>

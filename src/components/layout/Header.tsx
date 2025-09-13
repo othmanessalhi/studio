@@ -87,7 +87,7 @@ export function Header() {
           </Button>
         </div>
         <div className="md:hidden">
-          <MobileNav />
+          <MobileNav isTransparent={useTransparentHeader} />
         </div>
       </div>
     </header>
