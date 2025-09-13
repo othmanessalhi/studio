@@ -9,6 +9,8 @@ import { Footer } from '@/components/layout/Footer';
 import { Toaster } from '@/components/ui/toaster';
 import { LanguageProvider } from '@/context/LanguageContext';
 import { Chatbot } from '@/components/chatbot/Chatbot';
+import { LoadingProvider } from '@/context/LoadingContext';
+import { NavigationLoader } from '@/components/shared/NavigationLoader';
 
 export default function RootLayout({
   children,
@@ -28,13 +30,16 @@ export default function RootLayout({
         )}
       >
         <LanguageProvider>
-          <div className="relative flex min-h-dvh flex-col">
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-            <Chatbot />
-          </div>
-          <Toaster />
+            <LoadingProvider>
+              <NavigationLoader />
+              <div className="relative flex min-h-dvh flex-col">
+                <Header />
+                <main className="flex-1">{children}</main>
+                <Footer />
+                <Chatbot />
+              </div>
+              <Toaster />
+            </LoadingProvider>
         </LanguageProvider>
       </body>
     </html>
