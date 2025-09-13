@@ -27,15 +27,19 @@ export function Header() {
   }, []);
 
   useEffect(() => {
-    // Reset scroll position on navigation
-    window.scrollTo(0, 0);
+    // A slight delay to allow the new page to render before scrolling to top
+    // This can help with certain async rendering scenarios
+    const timer = setTimeout(() => {
+        window.scrollTo(0, 0);
+    }, 100);
+    return () => clearTimeout(timer);
   }, [pathname]);
 
   return (
     <header
       className={cn(
         'fixed top-0 z-50 w-full transition-all duration-300',
-        isScrolled ? 'bg-background/80 shadow-md backdrop-blur-sm' : (isHeroPage ? 'bg-transparent' : 'bg-background')
+        (isScrolled || !isHeroPage) ? 'bg-background/80 shadow-md backdrop-blur-sm' : 'bg-transparent'
       )}
     >
       <div className="container mx-auto flex h-20 items-center justify-between">
@@ -47,7 +51,7 @@ export function Header() {
               href={link.href}
               className={cn(
                 'font-headline text-sm font-medium transition-colors hover:text-primary',
-                isScrolled || !isHeroPage
+                (isScrolled || !isHeroPage)
                   ? pathname === link.href ? 'text-primary' : 'text-foreground'
                   : pathname === link.href ? 'text-primary' : 'text-white [text-shadow:0_0_8px_rgba(255,255,255,0.7)]'
               )}
