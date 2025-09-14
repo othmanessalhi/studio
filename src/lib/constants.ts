@@ -190,7 +190,7 @@ export const MOCK_PROPERTIES_EN = [
     location: 'Inland',
     locationKey: 'Inland',
     description: 'A massive, remote plot for those who truly want to get away from it all. Ideal for an exclusive eco-lodge, a glamping site, or a private desert sanctuary.',
-    image: PlaceHolderImages.find(p => p.id === 'property-9'),
+    image: PlaceHolderImages.find(p => p.id === 'property-4'),
     latitude: 23.55,
     longitude: -15.78,
     features: ['Total Seclusion', 'Vast Area', 'Eco-Tourism Potential', 'Unspoiled Nature'],
@@ -336,7 +336,7 @@ export const MOCK_PROPERTIES_AR = [
     location: 'داخلي',
     locationKey: 'Inland',
     description: 'قطعة أرض ضخمة ونائية لأولئك الذين يريدون حقًا الابتعاد عن كل شيء. مثالية لنزل بيئي حصري أو موقع تخييم فاخر أو محمية صحراوية خاصة.',
-    image: PlaceHolderImages.find(p => p.id === 'property-9'),
+    image: PlaceHolderImages.find(p => p.id === 'property-4'),
     latitude: 23.55,
     longitude: -15.78,
     features: ['عزلة تامة', 'مساحة شاسعة', 'إمكانات سياحة بيئية', 'طبيعة بكر'],
@@ -371,6 +371,8 @@ export const MOCK_PROPERTIES_AR = [
 
 
 export type Property = (typeof MOCK_PROPERTIES_EN)[0];
+
+    
 
     
 
