@@ -5,3 +5,9 @@ runConfig:
   # Increase this value if you'd like to automatically spin up
   # more instances in response to increased traffic.
   maxInstances: 1
+  # Add secrets that can be accessed by your app as environment variables.
+  # Secrets are stored securely in Google Cloud Secret Manager.
+  # https://firebase.google.com/docs/app-hosting/configure-backend#access-secrets
+  secrets:
+    - secret: GEMINI_API_KEY
+      environmentVariable: GEMINI_API_KEY
