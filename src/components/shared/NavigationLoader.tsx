@@ -2,20 +2,21 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
-import { useEffect, useContext } from 'react';
+import { useEffect, useContext, useRef } from 'react';
 import { LoadingContext } from '@/context/LoadingContext';
 import { LoadingScreen } from './LoadingScreen';
 
 export function NavigationLoader() {
   const pathname = usePathname();
   const { isLoading, setIsLoading } = useContext(LoadingContext)!;
+  const previousPathname = useRef(pathname);
 
   useEffect(() => {
-    // On route change, we assume loading is finished.
-    // The start is handled in the Link component or other navigation triggers.
-    // For simplicity with Next.js 13+ App Router, we'll listen to pathname changes.
-    // A more robust solution might involve listening to router events if available client-side.
-    setIsLoading(false);
+    // If the pathname changes, the new page has finished loading.
+    if (previousPathname.current !== pathname) {
+      setIsLoading(false);
+      previousPathname.current = pathname;
+    }
   }, [pathname, setIsLoading]);
 
   // A simple way to trigger loading on link clicks (for demonstration)
@@ -32,8 +33,14 @@ export function NavigationLoader() {
       if (anchor && anchor.href) {
         const currentUrl = new URL(window.location.href);
         const targetUrl = new URL(anchor.href);
+        
+        // If it's an internal navigation to a different page, show loader.
         if (currentUrl.origin === targetUrl.origin && currentUrl.pathname !== targetUrl.pathname) {
-          setIsLoading(true);
+            // Check if the component is about to unmount, which happens just before navigation.
+            // If the current path is still the same, it means we are starting navigation.
+            if (previousPathname.current === pathname) {
+                setIsLoading(true);
+            }
         }
       }
     };
@@ -42,7 +49,7 @@ export function NavigationLoader() {
     return () => {
       document.removeEventListener('click', handleLinkClick);
     };
-  }, [setIsLoading]);
+  }, [pathname, setIsLoading]);
 
   return <LoadingScreen isLoading={isLoading} />;
 }

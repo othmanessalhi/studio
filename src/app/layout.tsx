@@ -11,7 +11,7 @@ import { LanguageProvider, useLanguage } from '@/context/LanguageContext';
 import { Chatbot } from '@/components/chatbot/Chatbot';
 import { LoadingProvider } from '@/context/LoadingContext';
 import { NavigationLoader } from '@/components/shared/NavigationLoader';
-import { useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
 
 // This component contains the main UI and can safely use the language context.
 function AppBody({ children }: { children: React.ReactNode }) {
@@ -24,7 +24,9 @@ function AppBody({ children }: { children: React.ReactNode }) {
 
   return (
     <div className={cn('min-h-screen bg-background font-body text-foreground antialiased font-medium')}>
-      <NavigationLoader />
+      <Suspense fallback={null}>
+        <NavigationLoader />
+      </Suspense>
       <div className="relative flex min-h-dvh flex-col">
         <Header />
         <main className="flex-1">{children}</main>
