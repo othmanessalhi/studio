@@ -65,13 +65,23 @@ export function ContactForm() {
         formattedPhone = `الهاتف: ${phone}`;
     }
 
+    const propertyTypeTranslations: { [key: string]: string } = {
+        'Coastal': t('location_coastal'),
+        'Inland': t('location_inland'),
+        'Urban': t('location_urban'),
+        'Industrial': t('location_industrial'),
+        'Any': t('any_type'),
+    };
+    const translatedPropertyType = propertyTypeTranslations[values.propertyType] || values.propertyType;
+
+
     const messageLines = [
       `استفسار جديد من ${values.name}`,
       '------------------',
       values.email ? `البريد الإلكتروني: ${values.email}` : '',
       formattedPhone,
       `الميزانية: ${values.budget}`,
-      `النوع المفضل: ${values.propertyType}`,
+      `النوع المفضل: ${translatedPropertyType}`,
       values.details ? `\nتفاصيل:\n${values.details}` : '',
     ].filter(Boolean);
 
