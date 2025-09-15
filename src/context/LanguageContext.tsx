@@ -28,8 +28,9 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
     const savedLanguage = localStorage.getItem('language') as Language;
     if (savedLanguage) {
       setLanguage(savedLanguage);
-      setIsLanguageSelected(true);
     }
+    // Always set language as selected to bypass the modal
+    setIsLanguageSelected(true); 
   }, []);
 
   const handleSetLanguage = (lang: Language) => {
@@ -55,7 +56,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
   }
 
   if (!isLanguageSelected) {
-    // We pass a different function here to avoid the loading screen on initial selection
+    // This block will no longer be reached, but we keep it for when you want to re-enable it.
     const initialSelect = (lang: Language) => {
         setLanguage(lang);
         localStorage.setItem('language', lang);
