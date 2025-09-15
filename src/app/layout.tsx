@@ -47,7 +47,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="!scroll-smooth [overflow-y:scroll]">
       <head>
-        <link rel="icon" href="https://storage.googleapis.com/studio-6881755187-f5710.appspot.com/properties/favicon.png" type="image/png" />
+        <link rel="icon" href="https://drive.google.com/uc?export=view&id=12v6jDXMMFVcz94SvxFgj_5-E8EuzqfgP" type="image/png" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Literata:opsz,wght@7..72,400;500;600&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet" />
