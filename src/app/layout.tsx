@@ -13,7 +13,8 @@ import { LoadingProvider } from '@/context/LoadingContext';
 import { NavigationLoader } from '@/components/shared/NavigationLoader';
 import { useEffect } from 'react';
 
-function AppLayout({ children }: { children: React.ReactNode }) {
+// This component contains the main UI and can safely use the language context.
+function AppBody({ children }: { children: React.ReactNode }) {
   const { language } = useLanguage();
 
   useEffect(() => {
@@ -22,7 +23,7 @@ function AppLayout({ children }: { children: React.ReactNode }) {
   }, [language]);
 
   return (
-    <>
+    <div className={cn('min-h-screen bg-background font-body text-foreground antialiased font-medium')}>
       <NavigationLoader />
       <div className="relative flex min-h-dvh flex-col">
         <Header />
@@ -31,10 +32,11 @@ function AppLayout({ children }: { children: React.ReactNode }) {
         <Chatbot />
       </div>
       <Toaster />
-    </>
+    </div>
   );
 }
 
+// The RootLayout now only contains the providers and the basic HTML structure.
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -47,14 +49,10 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Literata:opsz,wght@7..72,400;500;600&family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet" />
       </head>
-      <body
-        className={cn(
-          'min-h-screen bg-background font-body text-foreground antialiased font-medium'
-        )}
-      >
+      <body>
         <LoadingProvider>
           <LanguageProvider>
-            <AppLayout>{children}</AppLayout>
+            <AppBody>{children}</AppBody>
           </LanguageProvider>
         </LoadingProvider>
       </body>
