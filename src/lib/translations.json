@@ -126,7 +126,8 @@
     "Optional": "Optional",
     "pagination_previous": "Previous",
     "pagination_next": "Next",
-    "pagination_page": "Page {{currentPage}} of {{totalPages}}"
+    "pagination_page": "Page {{currentPage}} of {{totalPages}}",
+    "our_office_in_dakhla": "Our Office in Dakhla"
   },
   "ar": {
     "logo": "وكالة عقارات جواد أفلا",
@@ -254,6 +255,7 @@
     "Optional": "اختياري",
     "pagination_previous": "السابق",
     "pagination_next": "التالي",
-    "pagination_page": "صفحة {{currentPage}} من {{totalPages}}"
+    "pagination_page": "صفحة {{currentPage}} من {{totalPages}}",
+    "our_office_in_dakhla": "مكتبنا في الداخلة"
   }
 }

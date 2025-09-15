@@ -82,7 +82,7 @@ export default function ContactPage() {
                 </Link>
              </Button>
             <div className='space-y-4'>
-              <h3 className="font-headline text-2xl font-bold">Our Office in Dakhla</h3>
+              <h3 className="font-headline text-2xl font-bold">{t('our_office_in_dakhla')}</h3>
               <div className="mt-8 h-80 w-full overflow-hidden rounded-lg shadow-xl">
                   <iframe
                       width="100%"
